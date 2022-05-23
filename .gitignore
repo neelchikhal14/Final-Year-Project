@@ -1,0 +1,23 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+exercisely-frontend/node_modules
+exercisely-frontend/.pnp
+exercisely-frontend/.pnp.js
+
+# testing
+exercisely-frontend/coverage
+
+# production
+exercisely-frontend/build
+
+# misc
+exercisely-frontend/.DS_Store
+exercisely-frontend/.env.local
+exercisely-frontend/.env.development.local
+exercisely-frontend/.env.test.local
+exercisely-frontend/.env.production.local
+
+exercisely-frontend/npm-debug.log*
+exercisely-frontend/yarn-debug.log*
+exercisely-frontend/yarn-error.log*
