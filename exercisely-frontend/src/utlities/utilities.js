@@ -63,7 +63,7 @@ const posenetSkeletonLookup = [
   [14, 16],
 ];
 function drawSkeleton(poses, ctx, color) {
-  console.log('poses', poses);
+  // console.log('poses', poses);
   // if (poses.score > 0.5) {
   //   // Loop through all the skeletons detected
   //   for (let i = 0; i < poses.length; i += 1) {
@@ -95,7 +95,7 @@ function drawSkeleton(poses, ctx, color) {
 export function drawKeypoints(keypoints, ctx) {
   keypoints.forEach((keypoint) => {
     if (keypoint.score >= 0.5) {
-      drawPoint(ctx, keypoint.position.y, keypoint.position.x, 5, color);
+      drawPoint(ctx, keypoint.y, keypoint.x, 5, color);
     }
   });
 }
@@ -105,6 +105,7 @@ export const drawCanvas = (poses, video, videoWidth, videoHeight, canvas) => {
   canvas.current.width = videoWidth;
   canvas.current.height = videoHeight;
   // drawPoint(ctx, poses.nose.y, poses.nose.x, 5, color);
-  drawKeypoints(poses.keypoints, ctx);
+  // console.log('drawCanvas', poses);
+  drawKeypoints(poses[0].keypoints, ctx);
   drawSkeleton(poses, ctx, color);
 };
