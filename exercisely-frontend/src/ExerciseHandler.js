@@ -6,6 +6,7 @@ let interval;
 const ExerciseHandler = () => {
   const [ready, setReady] = useState(false);
   const [duration, setDuration] = useState(10);
+  const [exercise, setExercise] = useState('rightTreePose');
   useEffect(() => {
     if (ready) {
       interval = setInterval(() => {
@@ -25,7 +26,7 @@ const ExerciseHandler = () => {
   return (
     <div className='handler-container'>
       <div>
-        <Exercise setReady={setReady} duration={duration} />
+        <Exercise setReady={setReady} duration={duration} exercise={exercise} />
       </div>
     </div>
   );

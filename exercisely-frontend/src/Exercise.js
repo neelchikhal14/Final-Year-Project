@@ -3,7 +3,7 @@ import '@tensorflow/tfjs-core';
 import Webcam from 'react-webcam';
 import '@tensorflow/tfjs-backend-webgl';
 import * as poseDetection from '@tensorflow-models/pose-detection';
-import { drawCanvas } from './utlities/utilities';
+import { drawCanvas, calculateExerciseStats } from './utlities/utilities';
 // import '@mediapipe/pose';
 import './Exercise.css';
 
@@ -11,7 +11,7 @@ let timer;
 let det;
 let stats = [];
 
-const Exercise = ({ arr, setArr, setReady, duration }) => {
+const Exercise = ({ exercise, setReady, duration }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [predictionArray, setPredictionArray] = useState([]);
@@ -71,7 +71,8 @@ const Exercise = ({ arr, setArr, setReady, duration }) => {
 
       if (poses[0].score > 0.5) {
         drawCanvas(poses, videoWidth, videoHeight, canvasRef, theColor);
-        stats.push(poses[0].keypoints);
+        let temp = calculateExerciseStats(poses, exercise);
+        stats = [...stats, temp];
       }
     } else {
       console.log('3. render else');
@@ -87,7 +88,7 @@ const Exercise = ({ arr, setArr, setReady, duration }) => {
 
   const stopSession = () => {
     console.log('4.stop');
-    setPredictionArray([...predictionArray, ...stats]);
+    setPredictionArray([...predictionArray, stats]);
     clearInterval(timer);
   };
   return (

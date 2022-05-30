@@ -71,14 +71,6 @@ export const drawCanvas = (poses, videoWidth, videoHeight, canvas, color) => {
   // console.log('drawCanvas', poses);
   drawKeypoints(poses[0].keypoints, ctx, color);
   drawSkeleton(poses, ctx, 'white');
-  console.log(
-    'Angle',
-    measureAngle(
-      poses[0].keypoints[12],
-      poses[0].keypoints[14],
-      poses[0].keypoints[16]
-    )
-  );
 };
 
 export const measureAngle = (pointOne, pointTwo, pointThree) => {
@@ -103,4 +95,60 @@ export const measureAngle = (pointOne, pointTwo, pointThree) => {
   }
 
   return angleDeg;
+};
+
+export const rightTreePose = [
+  {
+    pointOne: 24,
+    pointTwo: 26,
+    pointThree: 28,
+    name: 'right_leg',
+  },
+  {
+    pointOne: 12,
+    pointTwo: 24,
+    pointThree: 26,
+    name: 'right_mid_body',
+  },
+  {
+    pointOne: 11,
+    pointTwo: 22,
+    pointThree: 25,
+    name: 'left_mid_body',
+  },
+  {
+    pointOne: 12,
+    pointTwo: 24,
+    pointThree: 16,
+    name: 'right_hand',
+  },
+  {
+    pointOne: 11,
+    pointTwo: 13,
+    pointThree: 15,
+    name: 'left_hand',
+  },
+];
+
+export const setExerciseInformation = (exercise) => {
+  if (exercise === 'rightTreePose') {
+    return rightTreePose;
+  }
+};
+
+export const calculateExerciseStats = (poses, exercise) => {
+  let statsArray = [];
+  let exerciseInformation = setExerciseInformation(exercise);
+  console.log(exercise);
+  console.log(poses);
+  console.log(exerciseInformation);
+  exerciseInformation.forEach((singleAngle) => {
+    let pointOne = poses[0].keypoints[singleAngle.pointOne];
+    let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
+    let pointThree = poses[0].keypoints[singleAngle.pointThree];
+    let angle = measureAngle(pointOne, pointTwo, pointThree);
+    let name = singleAngle.name;
+    statsArray.push({ bodyPart: name, angle });
+  });
+  return statsArray;
 };
