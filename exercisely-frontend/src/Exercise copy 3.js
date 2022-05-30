@@ -11,10 +11,11 @@ let timer;
 let det;
 let stats = [];
 
-const Exercise = ({ arr, setArr, setReady, duration }) => {
+const Exercise = ({ setReady }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [predictionArray, setPredictionArray] = useState([]);
+  const [startSession, setStartSession] = useState(true);
+
   const model = poseDetection.SupportedModels.BlazePose;
   const detectorConfig = {
     runtime: 'tfjs',
@@ -28,33 +29,22 @@ const Exercise = ({ arr, setArr, setReady, duration }) => {
     );
     return poseDetector;
   }
-
   async function start() {
     // await initCamera();
-    console.log('2. start');
+
     det = await initPoseDetection();
     setReady(true);
     timer = setInterval(() => {
       render(det);
     }, 100);
   }
-
-  function poseColor(poses) {
-    if (poses[0].score > 0.7) {
-      return 'pink';
-    } else if (poses.score <= 0.7 && poses.score > 0.4) {
-      return 'yellow';
-    } else {
-      return 'red';
-    }
-  }
   async function render(det) {
     if (
       typeof webcamRef.current !== 'undefined' &&
       webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
+      webcamRef.current.video.readyState === 4 &&
+      startSession === true
     ) {
-      console.log('3.render if');
       // Get Video Properties
       const video = webcamRef.current.video;
       const videoWidth = webcamRef.current.video.videoWidth;
@@ -67,27 +57,23 @@ const Exercise = ({ arr, setArr, setReady, duration }) => {
       const estimationConfig = { flipHorizontal: false };
 
       const poses = await det.estimatePoses(video, estimationConfig);
-      let theColor = poseColor(poses);
 
-      if (poses[0].score > 0.5) {
-        drawCanvas(poses, videoWidth, videoHeight, canvasRef, theColor);
-        stats.push(poses[0].keypoints);
+      if (canvasRef.current != null) {
+        drawCanvas(poses, videoWidth, videoHeight, canvasRef);
+        stats = [...stats, poses[0].keypoints];
       }
     } else {
-      console.log('3. render else');
       return;
     }
   }
 
   const begin = () => {
-    console.log('1. begin');
-
     start();
   };
 
   const stopSession = () => {
-    console.log('4.stop');
-    setPredictionArray([...predictionArray, ...stats]);
+    console.log(stats);
+    setStartSession(false);
     clearInterval(timer);
   };
   return (
@@ -119,8 +105,6 @@ const Exercise = ({ arr, setArr, setReady, duration }) => {
         />
       </div>
       <div>
-        <h1>{duration}</h1>
-        <h1>{predictionArray.length}</h1>
         <button onClick={() => begin()}>Start</button>
         <button onClick={() => stopSession()}>Stop</button>
       </div>

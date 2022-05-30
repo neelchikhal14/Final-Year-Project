@@ -1,12 +1,12 @@
 import React from 'react';
-import Exercise from './Exercise';
 
 import './App.css';
+import ExerciseHandler from './ExerciseHandler';
 
 const App = () => {
   return (
     <div>
-      <Exercise />
+      <ExerciseHandler />
     </div>
   );
 };
