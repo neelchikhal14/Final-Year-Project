@@ -5,7 +5,7 @@ import './ExerciseHandler.css';
 let interval;
 const ExerciseHandler = () => {
   const [ready, setReady] = useState(false);
-  const [duration, setDuration] = useState(10);
+  const [duration, setDuration] = useState(15);
   const [exercise, setExercise] = useState('rightTreePose');
   useEffect(() => {
     if (ready) {

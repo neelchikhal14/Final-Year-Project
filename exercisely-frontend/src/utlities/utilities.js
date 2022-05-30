@@ -136,12 +136,12 @@ export const setExerciseInformation = (exercise) => {
   }
 };
 
-export const calculateExerciseStats = (poses, exercise) => {
+export const getExerciseStats = (poses, exercise) => {
   let statsArray = [];
   let exerciseInformation = setExerciseInformation(exercise);
-  console.log(exercise);
-  console.log(poses);
-  console.log(exerciseInformation);
+  // console.log(exercise);
+  // console.log(poses);
+  // console.log(exerciseInformation);
   exerciseInformation.forEach((singleAngle) => {
     let pointOne = poses[0].keypoints[singleAngle.pointOne];
     let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
@@ -151,4 +151,24 @@ export const calculateExerciseStats = (poses, exercise) => {
     statsArray.push({ bodyPart: name, angle });
   });
   return statsArray;
+};
+
+export const calculateStatistics = (statsArray) => {
+  console.log(statsArray);
+  const unique = [...new Set(statsArray.map((item) => item.bodyPart))];
+  let sessionStats = [];
+  console.log(unique);
+  unique.forEach((uniqueMeasurement) => {
+    const tempData = statsArray.filter(
+      (stat) => uniqueMeasurement === stat.bodyPart
+    );
+    let angleArray = [];
+    tempData.forEach((data) => {
+      angleArray.push(data.angle);
+    });
+    const averageAngle =
+      angleArray.reduce((acc, curr) => acc + curr, 0) / angleArray.length;
+    sessionStats.push({ name: uniqueMeasurement, avgAngle: averageAngle });
+  });
+  return sessionStats;
 };
