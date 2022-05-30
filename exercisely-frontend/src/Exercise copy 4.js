@@ -7,7 +7,6 @@ import {
   drawCanvas,
   getExerciseStats,
   calculateStatistics,
-  normaliseExerciseStats,
 } from './utlities/utilities';
 // import '@mediapipe/pose';
 import './Exercise.css';
@@ -76,10 +75,9 @@ const Exercise = ({ exercise, setReady, duration }) => {
       let theColor = poseColor(poses);
 
       if (poses[0].score > 0.5 && canvasRef.current !== null) {
-        // console.log('main operations');
+        console.log('main operations');
         drawCanvas(poses, videoWidth, videoHeight, canvasRef, theColor);
         let temp = getExerciseStats(poses, exercise);
-
         stats = [...stats, ...temp];
       }
     } else {
@@ -94,10 +92,8 @@ const Exercise = ({ exercise, setReady, duration }) => {
   };
 
   const stopSession = () => {
-    // console.log('4.stop');
+    console.log('4.stop');
     console.log(stats.length);
-    normaliseExerciseStats(stats);
-    console.log('after normal', stats.length);
     const finalStats = calculateStatistics(stats);
     setPredictionArray([...predictionArray, finalStats]);
     setDisplayMedialements(false);

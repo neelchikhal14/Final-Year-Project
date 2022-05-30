@@ -154,10 +154,10 @@ export const getExerciseStats = (poses, exercise) => {
 };
 
 export const calculateStatistics = (statsArray) => {
-  console.log(statsArray);
+  // console.log(statsArray);
   const unique = [...new Set(statsArray.map((item) => item.bodyPart))];
   let sessionStats = [];
-  console.log(unique);
+  // console.log(unique);
   unique.forEach((uniqueMeasurement) => {
     const tempData = statsArray.filter(
       (stat) => uniqueMeasurement === stat.bodyPart
@@ -171,4 +171,10 @@ export const calculateStatistics = (statsArray) => {
     sessionStats.push({ name: uniqueMeasurement, avgAngle: averageAngle });
   });
   return sessionStats;
+};
+
+export const normaliseExerciseStats = (statsArray) => {
+  const unique = [...new Set(statsArray.map((item) => item.bodyPart))].length;
+  const endSpliceIndex = 100 * unique;
+  statsArray.splice(0, endSpliceIndex);
 };
