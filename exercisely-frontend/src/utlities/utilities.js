@@ -90,8 +90,8 @@ export const measureAngle = (pointOne, pointTwo, pointThree) => {
 
   let angleDeg = angleRad / Math.PI;
 
-  if (angleDeg < 0) {
-    angleDeg = angleDeg + 180;
+  if (angleDeg > 180) {
+    angleDeg = 360 - angleDeg;
   }
 
   return angleDeg;
@@ -130,9 +130,20 @@ export const rightTreePose = [
   },
 ];
 
+export const bicepCurl = [
+  {
+    pointOne: 11,
+    pointTwo: 13,
+    pointThree: 21,
+    name: 'left_hand',
+  },
+];
+
 export const setExerciseInformation = (exercise) => {
   if (exercise === 'rightTreePose') {
     return rightTreePose;
+  } else if (exercise === 'bicepCurl') {
+    return bicepCurl;
   }
 };
 
@@ -177,4 +188,22 @@ export const normaliseExerciseStats = (statsArray) => {
   const unique = [...new Set(statsArray.map((item) => item.bodyPart))].length;
   const endSpliceIndex = 100 * unique;
   statsArray.splice(0, endSpliceIndex);
+};
+
+export const calculateAngle = (pointOne, pointTwo, pointThree) => {
+  let p1x = pointOne.x;
+  let p1y = pointOne.y;
+  let p2x = pointTwo.x;
+  let p2y = pointTwo.y;
+  let p3x = pointThree.x;
+  let p3y = pointThree.y;
+  let AB = Math.sqrt(Math.pow(p2x - p1x, 2) + Math.pow(p2y - p2x, 2));
+  let BC = Math.sqrt(Math.pow(p2x - p3x, 2) + Math.pow(p2y - p3y, 2));
+  let AC = Math.sqrt(Math.pow(p3x - p1x, 2) + Math.pow(p3y - p1y, 2));
+  let angleRad = Math.acos((BC * BC + AB * AB - AC * AC) / (2 * BC * AB));
+  let angleDeg = (angleRad * 180) / Math.Pi;
+  if (angleDeg < 0) {
+    angleDeg = angleDeg + 180;
+  }
+  return angleDeg;
 };

@@ -8,15 +8,15 @@ import {
   getExerciseStats,
   calculateStatistics,
   normaliseExerciseStats,
-} from './utlities/utilities';
-// import '@mediapipe/pose';
-import './Exercise.css';
+} from '../utlities/utilities';
+
+import './ExerciseTypeOne.css';
 
 let timer;
 let det;
 let stats = [];
 
-const Exercise = ({ exercise, setReady, duration }) => {
+const ExerciseTypeOne = ({ exercise, setReady, duration }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [predictionArray, setPredictionArray] = useState([]);
@@ -39,7 +39,7 @@ const Exercise = ({ exercise, setReady, duration }) => {
     // await initCamera();
     console.log('2. start');
     det = await initPoseDetection();
-    setReady(true);
+    // setReady(true);
     timer = setInterval(() => {
       render(det);
     }, 100);
@@ -90,6 +90,7 @@ const Exercise = ({ exercise, setReady, duration }) => {
 
   const begin = () => {
     console.log('1. begin');
+    setReady(true);
     start();
   };
 
@@ -149,4 +150,4 @@ const Exercise = ({ exercise, setReady, duration }) => {
   );
 };
 
-export default Exercise;
+export default ExerciseTypeOne;

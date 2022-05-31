@@ -7,23 +7,45 @@ import {
   drawCanvas,
   getExerciseStats,
   calculateStatistics,
-} from './utlities/utilities';
-// import '@mediapipe/pose';
-import './Exercise.css';
+  normaliseExerciseStats,
+  setExerciseInformation,
+  measureAngle,
+  calculateAngle,
+} from '../utlities/utilities';
+
+import './ExerciseTypeTwo.css';
 
 let timer;
 let det;
-let stats = [];
+let stage = null;
 
-const Exercise = ({ exercise, setReady, duration }) => {
+const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [predictionArray, setPredictionArray] = useState([]);
   const [displayMedialements, setDisplayMedialements] = useState(true);
-  const model = poseDetection.SupportedModels.BlazePose;
+  const [reps, setReps] = useState(0);
+  useEffect(() => {
+    if (reps === requiredReps) {
+      setDisplayMedialements(false);
+      clearInterval(timer);
+    }
+  }, [reps, requiredReps]);
+  // const model = poseDetection.SupportedModels.BlazePose;
+  // const detectorConfig = {
+  //   runtime: 'tfjs',
+  //   modelType: 'lite',
+  // };
+
+  // async function initPoseDetection() {
+  //   const poseDetector = await poseDetection.createDetector(
+  //     model,
+  //     detectorConfig
+  //   );
+  //   return poseDetector;
+  // }
+  const model = poseDetection.SupportedModels.MoveNet;
   const detectorConfig = {
-    runtime: 'tfjs',
-    modelType: 'lite',
+    modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
   };
 
   async function initPoseDetection() {
@@ -38,10 +60,10 @@ const Exercise = ({ exercise, setReady, duration }) => {
     // await initCamera();
     console.log('2. start');
     det = await initPoseDetection();
-    setReady(true);
+    // setReady(true);
     timer = setInterval(() => {
       render(det);
-    }, 100);
+    }, 700);
   }
 
   function poseColor(poses) {
@@ -75,35 +97,39 @@ const Exercise = ({ exercise, setReady, duration }) => {
       let theColor = poseColor(poses);
 
       if (poses[0].score > 0.5 && canvasRef.current !== null) {
-        console.log('main operations');
+        // console.log('main operations');
         drawCanvas(poses, videoWidth, videoHeight, canvasRef, theColor);
-        let temp = getExerciseStats(poses, exercise);
-        stats = [...stats, ...temp];
+        // reps counter
+        let exerciseInformation = setExerciseInformation(exercise);
+        exerciseInformation.forEach((singleAngle) => {
+          let pointOne = poses[0].keypoints[singleAngle.pointOne];
+          let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
+          let pointThree = poses[0].keypoints[singleAngle.pointThree];
+          let angle = measureAngle(pointOne, pointTwo, pointThree);
+          console.log(angle);
+          if (angle > 160) {
+            stage = 'stretch';
+          }
+          if (stage === 'stretch' && angle < 40) {
+            stage = 'bend';
+            setReps((prevProps) => prevProps + 1);
+          }
+        });
       }
     } else {
       console.log('3. render else');
       return;
     }
   }
-
   const begin = () => {
     console.log('1. begin');
     start();
   };
 
   const stopSession = () => {
-    console.log('4.stop');
-    console.log(stats.length);
-    const finalStats = calculateStatistics(stats);
-    setPredictionArray([...predictionArray, finalStats]);
+    // console.log('4.stop');
     setDisplayMedialements(false);
   };
-  useEffect(() => {
-    if (duration === 0) {
-      setDisplayMedialements(false);
-      clearInterval(timer);
-    }
-  }, [duration]);
   return (
     <div>
       {displayMedialements && (
@@ -136,8 +162,7 @@ const Exercise = ({ exercise, setReady, duration }) => {
       )}
 
       <div>
-        <h1>{duration}</h1>
-        <h1>{predictionArray.length}</h1>
+        <h1>Reps: {reps}</h1>
         <button onClick={() => begin()}>Start</button>
         <button onClick={() => stopSession()}>Stop</button>
       </div>
@@ -145,4 +170,4 @@ const Exercise = ({ exercise, setReady, duration }) => {
   );
 };
 
-export default Exercise;
+export default ExerciseTypeTwo;

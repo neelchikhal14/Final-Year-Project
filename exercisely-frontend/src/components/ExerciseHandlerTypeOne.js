@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Exercise from './Exercise';
-import './ExerciseHandler.css';
+import ExerciseTypeOne from './ExerciseTypeOne';
+import './ExerciseHandlerTypeOne.css';
 
 let interval;
-const ExerciseHandler = () => {
+const ExerciseHandlerTypeOne = ({ exercise }) => {
   const [ready, setReady] = useState(false);
-  const [duration, setDuration] = useState(15);
-  const [exercise, setExercise] = useState('rightTreePose');
+  const [duration, setDuration] = useState(40);
+
   useEffect(() => {
     if (ready) {
       interval = setInterval(() => {
@@ -26,10 +26,14 @@ const ExerciseHandler = () => {
   return (
     <div className='handler-container'>
       <div>
-        <Exercise setReady={setReady} duration={duration} exercise={exercise} />
+        <ExerciseTypeOne
+          setReady={setReady}
+          duration={duration}
+          exercise={exercise}
+        />
       </div>
     </div>
   );
 };
 
-export default ExerciseHandler;
+export default ExerciseHandlerTypeOne;

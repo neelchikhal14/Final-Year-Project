@@ -1,0 +1,7 @@
+#webcam {
+  transform: rotateY(180deg);
+}
+
+#my-canvas {
+  transform: rotateY(180deg);
+}
