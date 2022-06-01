@@ -1,0 +1,7 @@
+.handler-container {
+  display: flex;
+  flex-direction: column;
+}
+.handler-container > div {
+  position: relative;
+}

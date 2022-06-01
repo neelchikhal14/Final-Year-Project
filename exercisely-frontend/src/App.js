@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+import './App.css';
+import ExerciseHandlerTypeOne from './components/ExerciseHandlerTypeOne';
+import ExerciseHandlerTypeTwo from './components/ExerciseHandlerTypeTwo';
+const App = () => {
+  const [displayTypeOne, setDisplayTypeOne] = useState(false);
+  const [displayTypeTwo, setDisplayTypeTwo] = useState(false);
+  const [exercise] = useState('right_prone_knee_flexon');
+  useEffect(() => {
+    if (exercise === 'rightTreePose') {
+      setDisplayTypeOne(true);
+      setDisplayTypeTwo(false);
+    } else if (exercise === 'right_prone_knee_flexon') {
+      setDisplayTypeOne(false);
+      setDisplayTypeTwo(true);
+    }
+  }, [exercise]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {displayTypeOne && <ExerciseHandlerTypeOne exercise={exercise} />}
+      {displayTypeTwo && <ExerciseHandlerTypeTwo exercise={exercise} />}
     </div>
   );
-}
+};
 
 export default App;
