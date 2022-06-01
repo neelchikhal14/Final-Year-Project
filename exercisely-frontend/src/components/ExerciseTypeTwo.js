@@ -7,9 +7,8 @@ import {
   drawCanvas,
   getExerciseStats,
   calculateStatistics,
-  normaliseExerciseStats,
   setExerciseInformation,
-  measureAngle,
+  countReps,
   calculateAngle,
 } from '../utlities/utilities';
 
@@ -18,11 +17,13 @@ import './ExerciseTypeTwo.css';
 let timer;
 let det;
 let stage = null;
+let stats = [];
 
 const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [displayMedialements, setDisplayMedialements] = useState(true);
+  const [predictionArray, setPredictionArray] = useState([]);
   const [reps, setReps] = useState(0);
   useEffect(() => {
     if (reps === requiredReps) {
@@ -30,22 +31,10 @@ const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
       clearInterval(timer);
     }
   }, [reps, requiredReps]);
-  // const model = poseDetection.SupportedModels.BlazePose;
-  // const detectorConfig = {
-  //   runtime: 'tfjs',
-  //   modelType: 'lite',
-  // };
-
-  // async function initPoseDetection() {
-  //   const poseDetector = await poseDetection.createDetector(
-  //     model,
-  //     detectorConfig
-  //   );
-  //   return poseDetector;
-  // }
-  const model = poseDetection.SupportedModels.MoveNet;
+  const model = poseDetection.SupportedModels.BlazePose;
   const detectorConfig = {
-    modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
+    runtime: 'tfjs',
+    modelType: 'lite',
   };
 
   async function initPoseDetection() {
@@ -55,6 +44,18 @@ const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
     );
     return poseDetector;
   }
+  // const model = poseDetection.SupportedModels.MoveNet;
+  // const detectorConfig = {
+  //   modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
+  // };
+
+  // async function initPoseDetection() {
+  //   const poseDetector = await poseDetection.createDetector(
+  //     model,
+  //     detectorConfig
+  //   );
+  //   return poseDetector;
+  // }
 
   async function start() {
     // await initCamera();
@@ -63,7 +64,7 @@ const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
     // setReady(true);
     timer = setInterval(() => {
       render(det);
-    }, 700);
+    }, 100);
   }
 
   function poseColor(poses) {
@@ -105,8 +106,7 @@ const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
           let pointOne = poses[0].keypoints[singleAngle.pointOne];
           let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
           let pointThree = poses[0].keypoints[singleAngle.pointThree];
-          let angle = measureAngle(pointOne, pointTwo, pointThree);
-          console.log(angle);
+          let angle = calculateAngle(pointOne, pointTwo, pointThree);
           if (angle > 160) {
             stage = 'stretch';
           }
@@ -114,6 +114,8 @@ const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
             stage = 'bend';
             setReps((prevProps) => prevProps + 1);
           }
+          let temp = getExerciseStats(poses, exercise);
+          stats = [...stats, ...temp];
         });
       }
     } else {
@@ -128,6 +130,8 @@ const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
 
   const stopSession = () => {
     // console.log('4.stop');
+    const finalStats = calculateStatistics(stats);
+    setPredictionArray([...predictionArray, finalStats]);
     setDisplayMedialements(false);
   };
   return (

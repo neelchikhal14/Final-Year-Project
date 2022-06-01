@@ -6,12 +6,12 @@ import ExerciseHandlerTypeTwo from './components/ExerciseHandlerTypeTwo';
 const App = () => {
   const [displayTypeOne, setDisplayTypeOne] = useState(false);
   const [displayTypeTwo, setDisplayTypeTwo] = useState(false);
-  const [exercise, setExercise] = useState('bicepCurl');
+  const [exercise, setExercise] = useState('right_prone_knee_flexon');
   useEffect(() => {
     if (exercise === 'rightTreePose') {
       setDisplayTypeOne(true);
       setDisplayTypeTwo(false);
-    } else if (exercise === 'bicepCurl') {
+    } else if (exercise === 'right_prone_knee_flexon') {
       setDisplayTypeOne(false);
       setDisplayTypeTwo(true);
     }
