@@ -1,0 +1,26 @@
+{
+  "name": "final-year-project",
+  "version": "1.0.0",
+  "description": "Final Year Project for Queen Mary Uni. Of London",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neelchikhal14/Final-Year-Project.git"
+  },
+  "author": "Neel Chikhal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neelchikhal14/Final-Year-Project/issues"
+  },
+  "homepage": "https://github.com/neelchikhal14/Final-Year-Project#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
