@@ -8,7 +8,6 @@ import {
   getExerciseStats,
   calculateStatistics,
   setExerciseInformation,
-  countReps,
   calculateAngle,
 } from '../utlities/utilities';
 
