@@ -17,6 +17,7 @@ exercisely-frontend/coverage
 exercisely-frontend/build
 
 # misc
+.env
 exercisely-frontend/.DS_Store
 exercisely-frontend/.env.local
 exercisely-frontend/.env.development.local

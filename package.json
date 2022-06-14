@@ -2,10 +2,15 @@
   "name": "final-year-project",
   "version": "1.0.0",
   "description": "Final Year Project for Queen Mary Uni. Of London",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node exercisely-backend/server",
+    "server": "nodemon exercisely-backend/server",
+    "client": "npm start --prefix exercisely-frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d"
   },
   "repository": {
     "type": "git",
@@ -18,9 +23,17 @@
   },
   "homepage": "https://github.com/neelchikhal14/Final-Year-Project#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.7",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^6.14.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.5"
   },
   "devDependencies": {
+    "concurrently": "^7.2.1",
     "nodemon": "^2.0.16"
   }
 }
