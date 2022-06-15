@@ -4,6 +4,9 @@ import connectDB from './config/db.js';
 
 // routes import
 import userRoutes from './routes/userRoutes.js';
+import exerciseRoutes from './routes/exerciseRoutes.js';
+
+//middlewares
 import { errorHandler, notFound } from './middlewares/errorMiddleware.js';
 
 //init express application
@@ -19,6 +22,7 @@ const PORT = process.env.PORT || 5000;
 // ROUTES
 
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/exercise', exerciseRoutes);
 
 //fallback for 404 errors - not found
 app.use(notFound);
