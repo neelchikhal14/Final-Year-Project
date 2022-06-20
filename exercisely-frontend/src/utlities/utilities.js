@@ -178,6 +178,7 @@ export const right_prone_knee_flexon = [
     pointTwo: 13,
     pointThree: 15,
     name: 'left_hand',
+    completeName: 'left_shoulder#left_elbow#left_wrist',
   },
 ];
 
@@ -187,6 +188,7 @@ export const right_squats = [
     pointTwo: 26,
     pointThree: 28,
     name: 'right_leg',
+    completeName: 'right_hip#right_knee#right_ankle',
   },
 ];
 

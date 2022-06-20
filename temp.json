@@ -1,0 +1,23 @@
+{
+  "patient": "62aba9f423da1afe673e6b71",
+  "assignedExercises": [
+    {
+      "doctor": "62ab3bce3eb7f2afdb2ac81f",
+      "exerciseId": "62aa4afcd88405d666fcec79",
+      "desiredValue": {
+        "right_leg": 30,
+        "right_mid_body": 40,
+        "left_mid_body": 30,
+        "right_hand": 30,
+        "left_hand": 10
+      },
+      "reps": 0,
+      "assignedDate": "2020-05-18T14:10:30.000Z",
+      "assignedCompletion": "2020-05-18T14:10:30.000Z",
+      "status": "pending",
+      "instructions": ["Ins-1", "ins-2"],
+      "sessionStats": {},
+      "actualCompletionDate": "2020-05-18T14:10:30.000Z"
+    }
+  ]
+}
