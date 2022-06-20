@@ -5,7 +5,6 @@ const router = express.Router();
 import {
   authenticateUser,
   registerUser,
-  getUserIdByEmail,
   getAllUsers,
 } from '../controllers/userController.js';
 
@@ -19,7 +18,5 @@ import {
 router.get('/', loginProtected, adminProtected, getAllUsers);
 router.post('/', registerUser);
 router.post('/login', authenticateUser);
-
-router.route('/getUser').get(loginProtected, doctorProtected, getUserIdByEmail);
 
 export default router;

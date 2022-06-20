@@ -5,6 +5,8 @@ import connectDB from './config/db.js';
 // routes import
 import userRoutes from './routes/userRoutes.js';
 import exerciseRoutes from './routes/exerciseRoutes.js';
+import doctorRoutes from './routes/doctorRoutes.js';
+import patientRoutes from './routes/patientRoutes.js';
 
 //middlewares
 import { errorHandler, notFound } from './middlewares/errorMiddleware.js';
@@ -23,6 +25,8 @@ const PORT = process.env.PORT || 5000;
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/exercise', exerciseRoutes);
+app.use('/api/v1/doctor', doctorRoutes);
+app.use('/api/v1/patient', patientRoutes);
 
 //fallback for 404 errors - not found
 app.use(notFound);

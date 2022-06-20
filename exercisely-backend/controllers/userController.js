@@ -59,24 +59,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 });
 /**
- * * @desc   get user id by email
- * * route   GET /api/v1/users/getUser
- * ! @access PROTECTED
- */
-export const getUserIdByEmail = asyncHandler(async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
-
-  if (user) {
-    res.json({
-      _id: user._id,
-    });
-  } else {
-    res.status(401);
-    throw new Error('User Not Found');
-  }
-});
-/**
  * * @desc   get all users
  * * route   GET /api/v1/users/
  * !  @access PROTECTED
