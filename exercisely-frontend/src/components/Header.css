@@ -1,0 +1,39 @@
+nav {
+  width: 90vw;
+  height: 20vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+.logo {
+  width: 120px;
+  height: 100%;
+}
+
+.logo img {
+  width: 100px;
+  height: 100%;
+  object-fit: contain;
+}
+
+a {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+li {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+}
