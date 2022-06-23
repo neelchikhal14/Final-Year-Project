@@ -71,6 +71,10 @@ h1 {
   color: white;
   border: none;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .home-banner-info-button:hover {

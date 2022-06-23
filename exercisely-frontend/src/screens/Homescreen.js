@@ -1,6 +1,7 @@
 import React from 'react';
 import { ImQuotesLeft } from 'react-icons/im';
 import { ImQuotesRight } from 'react-icons/im';
+import { Link } from 'react-router-dom';
 
 import './HomeScreen.css';
 
@@ -25,7 +26,9 @@ const HomeScreen = () => {
         <div className='home-banner-info' id='imp'>
           <h3>Join Us Now</h3>
           <h2>Begin your way to speedy recovery</h2>
-          <button className='home-banner-info-button'>Get Started</button>
+          <Link to='/registration' className='home-banner-info-button'>
+            Get Started
+          </Link>
         </div>
       </div>
     </section>
