@@ -23,9 +23,10 @@ body {
   font-family: 'Ubuntu', sans-serif;
   font-weight: 300;
   background-color: var(--base-white);
-  width: 100%;
   line-height: 1.6;
   letter-spacing: 1px;
+
+  /* overflow: hidden; */
 }
 h1,
 h2,
@@ -40,4 +41,10 @@ a {
 
 li {
   list-style-type: none;
+}
+
+main {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }

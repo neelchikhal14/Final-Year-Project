@@ -1,0 +1,83 @@
+.home-main-section {
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  grid-template-columns: 1fr;
+  width: 95%;
+}
+
+.home-title-tag {
+  width: 50%;
+  margin: auto;
+}
+
+h1 {
+  color: var(--primary-green);
+  font-size: 3rem;
+  text-align: center;
+}
+
+#title-start-quote {
+  font-size: 3.5rem;
+}
+#title-end-quote {
+  font-size: 3.5rem;
+}
+
+.home-banner {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.home-banner-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-banner-img img {
+  width: 70%;
+  height: 70%;
+  object-fit: fill;
+}
+
+.home-banner-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+}
+
+.home-banner-info h3 {
+  color: var(--primary-green);
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.home-banner-info h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.home-banner-info-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-banner-info-button:hover {
+  background-color: var(--primary-green);
+  color: var(--primary-black);
+}
