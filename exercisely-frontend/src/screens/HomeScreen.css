@@ -25,8 +25,8 @@ h1 {
 
 .home-banner {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.5fr;
 }
 
 .home-banner-img {
@@ -36,9 +36,8 @@ h1 {
 }
 
 .home-banner-img img {
-  width: 70%;
-  height: 70%;
-  object-fit: fill;
+  width: 650px;
+  height: 500px;
 }
 
 .home-banner-info {
