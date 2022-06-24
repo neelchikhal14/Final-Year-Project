@@ -1,8 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
+import { USER_LOGOUT } from '../constants/userConstants';
 import './Header.css';
 const Header = () => {
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const clickHandler = (e) => {
+    if (e.target.name === 'login') {
+      history.push('/login');
+    } else {
+      dispatch({
+        type: USER_LOGOUT,
+      });
+      history.push('/');
+    }
+  };
   return (
     <nav>
       <div className='logo'>
@@ -11,11 +26,15 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <ul>
-          <li>
-            <Link to='/login'>Login</Link>
-          </li>
-        </ul>
+        {!userInfo ? (
+          <button name='login' onClick={clickHandler}>
+            Login
+          </button>
+        ) : (
+          <button name='logout' onClick={clickHandler}>
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );
