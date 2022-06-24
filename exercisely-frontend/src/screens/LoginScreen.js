@@ -57,10 +57,12 @@ const LoginScreen = ({ location, history }) => {
         />
         <button type='submit'>Login</button>
       </form>
-      <h3>New Customer ?</h3>
-      <Link to='/registration' className='registration-page-link'>
-        Register
-      </Link>
+      <h3>
+        New Customer ?{' '}
+        <Link to='/registration' className='registration-page-link'>
+          Register
+        </Link>
+      </h3>
     </div>
   );
 };
