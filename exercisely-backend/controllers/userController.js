@@ -31,13 +31,14 @@ export const authenticateUser = asyncHandler(async (req, res) => {
  * * @access PUBLIC
  */
 export const registerUser = asyncHandler(async (req, res) => {
-  const { firstname, lastname, email, password, role } = req.body;
+  const { title, firstname, lastname, email, password, role } = req.body;
   //check if user already exists
   const userExists = await User.findOne({ email });
   if (userExists) {
     throw new Error('User already exists');
   }
   const user = await User.create({
+    title,
     firstname,
     lastname,
     email,
@@ -46,12 +47,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
   if (user) {
     res.status(201).json({
-      _id: user._id,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      role: user.role,
-      token: generateToken(user._id),
+      success: true,
     });
   } else {
     res.status(401);
