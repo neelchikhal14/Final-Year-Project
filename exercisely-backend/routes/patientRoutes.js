@@ -7,6 +7,7 @@ import {
   getPendingExercises,
   updateExerciseStats,
   getExerciseStats,
+  getPatientId,
 } from '../controllers/patientController.js';
 
 import {
@@ -18,7 +19,8 @@ import {
 //BASE- /api/v1/patient
 
 router.post('/sendmessage', loginProtected, sendMessage);
-router.get('/:id/getPendingExercises', loginProtected, getPendingExercises);
+router.get('/getPendingExercises/:id', loginProtected, getPendingExercises);
+router.get('/getId/:id', loginProtected, getPatientId);
 router.put('/:id/updateExerciseStats', loginProtected, updateExerciseStats);
 router.get('/:id/getExerciseStats', loginProtected, getExerciseStats);
 

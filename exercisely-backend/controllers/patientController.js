@@ -31,15 +31,35 @@ export const sendMessage = asyncHandler(async (req, res) => {
   }
 });
 /**
+ * * @desc   Get patient id from Patients Table
+ * * route   GET /api/v1/patient/getId/:id
+ * ! @access PROTECTED
+ */
+export const getPatientId = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  //check if patient details already exists
+  console.log(req.params);
+
+  const patientId = await Patient.findOne({ bio: id }).select('_id');
+  if (patientId) {
+    res.status(201).json({
+      patientId,
+    });
+  } else {
+    res.status(401);
+    throw new Error('No Patient Found');
+  }
+});
+/**
  * * @desc   Get a list of Pending exercises
- * * route   POST /api/v1/patient/:id/getPendingExercises
+ * * route   GET /api/v1/patient/getPendingExercises/:id
  * ! @access PROTECTED
  */
 export const getPendingExercises = asyncHandler(async (req, res) => {
   const medicalRecords = await MedicalRecords.findOne({
     patient: req.params.id,
   });
-  console.log(medicalRecords);
+
   const { assignedExercises } = medicalRecords;
   const pendingExercises = assignedExercises.filter(
     (ex) => ex.status === 'pending'

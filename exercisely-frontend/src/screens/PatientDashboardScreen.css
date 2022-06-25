@@ -1,0 +1,36 @@
+.banner {
+  width: 100%;
+  height: 33%;
+}
+.banner-start-exercise,
+.banner-message-doctor {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--banner-grey);
+}
+
+.banner-img {
+  width: 50%;
+  height: 100%;
+}
+
+.banner-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.banner-info {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-view-stats {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--banner-blue);
+}
