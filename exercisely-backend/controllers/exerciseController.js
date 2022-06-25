@@ -46,3 +46,18 @@ export const getAllExercises = asyncHandler(async (req, res) => {
     throw new Error('Exercises not found');
   }
 });
+/**
+ * * @desc   Get Exercise details by id
+ * * route   GET /api/v1/exercise/:id
+ * ! @access PROTECTED
+ */
+export const getExerciseById = asyncHandler(async (req, res) => {
+  const exercise = await Exercise.findOne({ _id: req.params.id });
+  const { _doc } = { ...exercise };
+  if (exercise) {
+    res.json({ ..._doc });
+  } else {
+    res.status(401);
+    throw new Error('Exercise not found');
+  }
+});

@@ -5,6 +5,7 @@ const router = express.Router();
 import {
   addExercise,
   getAllExercises,
+  getExerciseById,
 } from '../controllers/exerciseController.js';
 
 import {
@@ -15,5 +16,6 @@ import {
 //BASE - /api/v1/exercise
 
 router.post('/add', loginProtected, adminProtected, addExercise);
-router.get('/', loginProtected, adminProtected, getAllExercises);
+router.get('/', loginProtected, getAllExercises);
+router.get('/:id', loginProtected, getExerciseById);
 export default router;
