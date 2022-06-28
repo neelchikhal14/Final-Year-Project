@@ -76,30 +76,35 @@ export const getPendingExercises = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   Update Medical records (assignedExercies) of particular exercise stats
- * * route   POST /api/v1/patient/:id/updateExerciseStats
+ * * route   PUT /api/v1/patient/:id/updateExerciseStats
  * ! @access PROTECTED
  */
 export const updateExerciseStats = asyncHandler(async (req, res) => {
   // exid in the params corresponds to particular assigned id in assignedExercises
   const { exid, stats } = req.body;
+  const currentDate = new Date();
+  const currentISODate = currentDate.toISOString();
   const recordExists = await MedicalRecords.findOne({ patient: req.params.id });
   // console.log('---');
   // console.log(recordExists.assignedExercises);
   // console.log(typeof recordExists);
+
   if (recordExists) {
+    console.log(recordExists);
+    console.log(exid);
+    console.log(stats);
+    console.log(req.params.id);
     const { assignedExercises } = recordExists;
     assignedExercises.forEach((ex) => {
       if (ex._id.toString() === exid) {
         ex.status = 'completed';
-        /**
-         * TODO : !!! NEED TO PUT LOGIC TO UPDATE STATS
-         */
-        ex.sessionStats = stats;
+        ex.sessionStats = [...ex.sessionStats, ...stats];
+        ex.actualCompletionDate = currentISODate;
       }
     });
 
     const updatedRecords = await recordExists.save();
-    res.json({ updatedRecords });
+    res.json({ status: 'Session Statistics Saved', record: updatedRecords });
   } else {
     throw new Error('Record does not exists');
   }

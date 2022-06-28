@@ -4,6 +4,9 @@ import {
   PATIENT_EXERCISE_SUCCESS,
   PATIENT_PENDING_EXERCISES_REQUEST,
   PATIENT_SELECTED_EXERCISE,
+  PATIENT_UPDATE_EXERCISE_STATS_FAIL,
+  PATIENT_UPDATE_EXERCISE_STATS_REQUEST,
+  PATIENT_UPDATE_EXERCISE_STATS_SUCCESS,
 } from '../constants/patientConstants';
 
 import axios from 'axios';
@@ -72,3 +75,44 @@ export const setSelectedExercise = (exercise) => async (dispatch) => {
     payload: exercise,
   });
 };
+
+export const updateExerciseStats =
+  (exid, stats) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PATIENT_UPDATE_EXERCISE_STATS_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const {
+        data: {
+          patientId: { _id },
+        },
+      } = await axios.get(`/api/v1/patient/getId/${userInfo._id}`, config);
+      // console.log(_id);
+      const { data } = await axios.put(
+        `/api/v1/patient/${_id}/updateExerciseStats`,
+        { exid, stats },
+        config
+      );
+      dispatch({
+        type: PATIENT_UPDATE_EXERCISE_STATS_SUCCESS,
+        payload: data.status,
+      });
+    } catch (error) {
+      dispatch({
+        type: PATIENT_UPDATE_EXERCISE_STATS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

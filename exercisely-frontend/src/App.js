@@ -7,10 +7,10 @@ import LoginScreen from './screens/LoginScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
 import PatientDashboardScreen from './screens/PatientDashboardScreen';
 import DoctorDashboardScreen from './screens/DoctorDashboardScreen';
-import ExerciseScreenTypeOne from './screens/ExerciseScreenTypeOne';
-import ExerciseScreenTypeTwo from './screens/ExerciseScreenTypeTwo';
 import PatientStatsScreen from './screens/PatientStatsScreen';
 import PatientSendMessageScreen from './screens/PatientSendMessageScreen';
+import ExerciseHandlerScreenTypeOne from './screens/ExerciseHandlerScreenTypeOne';
+import ExerciseHandlerScreenTypeTwo from './screens/ExerciseHandlerScreenTypeTwo';
 
 import './App.css';
 const App = () => {
@@ -27,12 +27,12 @@ const App = () => {
         />
         <Route
           path='/patient/start-exercise-type-one'
-          component={ExerciseScreenTypeOne}
+          component={ExerciseHandlerScreenTypeOne}
           exact
         />
         <Route
           path='/patient/start-exercise-type-two'
-          component={ExerciseScreenTypeTwo}
+          component={ExerciseHandlerScreenTypeTwo}
           exact
         />
         <Route

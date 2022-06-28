@@ -1,0 +1,44 @@
+.exercise-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.media {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+.exercise-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+#webcam {
+  transform: rotateY(180deg);
+}
+
+#my-canvas {
+  transform: rotateY(180deg);
+}
+
+.exercise-complete-banner,
+.exercise-complete-info {
+  width: 50%;
+  height: 100%;
+}
+
+.exercise-complete-banner img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.exercise-complete-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -5,6 +5,7 @@ import { userLoginReducer, userRegisterReducer } from './reducers/userReducer';
 import {
   patientGetExercisesReducer,
   patientSelectExercisesReducer,
+  patientUpdateSessionStatsReducer,
 } from './reducers/patientReducer';
 
 const reducer = combineReducers({
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   patientAssignedExercises: patientGetExercisesReducer,
   patientSelectExercises: patientSelectExercisesReducer,
+  patientUpdateSessionStats: patientUpdateSessionStatsReducer,
 });
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   userRegister: {},
   patientAssignedExercises: {},
   patientSelectExercises: {},
+  patientUpdateSessionStats: {},
 };
 
 const middlewares = [thunk];

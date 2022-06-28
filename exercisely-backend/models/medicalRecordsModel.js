@@ -22,6 +22,9 @@ const medicalRecordsSchema = mongoose.Schema(
           type: Date,
           required: true,
         },
+        duration: {
+          type: Number,
+        },
         assignedCompletion: {
           type: Date,
           required: true,
@@ -35,7 +38,7 @@ const medicalRecordsSchema = mongoose.Schema(
           },
         },
         instructions: [],
-        sessionStats: {},
+        sessionStats: [],
         actualCompletionDate: Date,
       },
     ],

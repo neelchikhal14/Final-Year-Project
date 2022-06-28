@@ -3,7 +3,7 @@ import { ImQuotesLeft } from 'react-icons/im';
 import { ImQuotesRight } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 
-import './HomeScreen.css';
+import './css/HomeScreen.css';
 
 const HomeScreen = () => {
   return (

@@ -229,16 +229,13 @@ export const setExerciseInformation = (exercise) => {
 
 export const getExerciseStats = (poses, exercise) => {
   let statsArray = [];
-  let exerciseInformation = setExerciseInformation(exercise);
-  // console.log(exercise);
-  // console.log(poses);
-  // console.log(exerciseInformation);
-  exerciseInformation.forEach((singleAngle) => {
+
+  exercise.forEach((singleAngle) => {
     let pointOne = poses[0].keypoints[singleAngle.pointOne];
     let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
     let pointThree = poses[0].keypoints[singleAngle.pointThree];
     let angle = calculateAngle(pointOne, pointTwo, pointThree);
-    let name = singleAngle.name;
+    let name = singleAngle.bodyPartName;
     statsArray.push({ bodyPart: name, angle });
   });
   return statsArray;
@@ -288,3 +285,52 @@ export const calculateAngle = (pointOne, pointTwo, pointThree) => {
   }
   return angleDeg;
 };
+
+/**
+ *  ? MAY REQUIRE IN FUTURE LOGIC TO COUNT REPS
+ */
+
+// const rightProneKneeFlexionRepCounter = (
+//   poses,
+//   selectedExercise,
+//   stage,
+//   setReps
+// ) => {
+//   let tempStats = [];
+//   selectedExercise.bodyParams.forEach((singleAngle) => {
+//     let pointOne = poses[0].keypoints[singleAngle.pointOne];
+//     let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
+//     let pointThree = poses[0].keypoints[singleAngle.pointThree];
+//     let angle = calculateAngle(pointOne, pointTwo, pointThree);
+//     if (angle > 160) {
+//       stage = 'stretch';
+//     }
+//     if (stage === 'stretch' && angle < 40) {
+//       stage = 'bend';
+//       setReps((prevProps) => prevProps + 1);
+//     }
+
+//     let name = singleAngle.bodyPartName;
+//     tempStats.push({ bodyPart: name, angle });
+//     return tempStats;
+//   });
+// };
+
+// export const countReps = (poses, selectedExercise, stage, setReps) => {
+//   let stats = [];
+//   switch (selectedExercise.name) {
+//     case 'Right Prone Knee Flexion':
+//       stats = [
+//         ...stats,
+//         ...rightProneKneeFlexionRepCounter(
+//           poses,
+//           selectedExercise,
+//           stage,
+//           setReps
+//         ),
+//       ];
+//       return stats;
+//     default:
+//       return stats;
+//   }
+// };

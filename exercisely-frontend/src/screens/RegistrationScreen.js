@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { register } from '../actions/userActions';
 
-import './RegistrationScreen.css';
+import './css/RegistrationScreen.css';
 const RegistrationScreen = ({ history }) => {
   const [registrationDetails, setRegistrationDetails] = useState({
     title: 'Mr. ',
