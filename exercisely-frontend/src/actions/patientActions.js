@@ -7,6 +7,9 @@ import {
   PATIENT_UPDATE_EXERCISE_STATS_FAIL,
   PATIENT_UPDATE_EXERCISE_STATS_REQUEST,
   PATIENT_UPDATE_EXERCISE_STATS_SUCCESS,
+  PATIENT_SEND_MESSAGE_REQUEST,
+  PATIENT_SEND_MESSAGE_SUCCESS,
+  PATIENT_SEND_MESSAGE_FAIL,
 } from '../constants/patientConstants';
 
 import axios from 'axios';
@@ -116,3 +119,46 @@ export const updateExerciseStats =
       });
     }
   };
+export const sendMessage = (subject, body) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PATIENT_SEND_MESSAGE_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    // console.log(userInfo);
+    const {
+      data: { patientId },
+    } = await axios.get(`/api/v1/patient/getId/${userInfo._id}`, config);
+
+    const {
+      data: { docId },
+    } = await axios.get(`/api/v1/patient/getDocId/${patientId._id}`, config);
+
+    const { data } = await axios.post(
+      `/api/v1/patient/sendmessage`,
+      { from: patientId._id, to: docId._id, subject, messageBody: body },
+      config
+    );
+
+    dispatch({
+      type: PATIENT_SEND_MESSAGE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PATIENT_SEND_MESSAGE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

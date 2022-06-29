@@ -75,6 +75,25 @@ export const getPendingExercises = asyncHandler(async (req, res) => {
   }
 });
 /**
+ * * @desc   Get Doctors name from Patient Record (Patient table)
+ * * route   GET /api/v1/patient/getDocId/:id
+ * ! @access PROTECTED
+ */
+export const getDocId = asyncHandler(async (req, res) => {
+  const docId = await MedicalRecords.findOne({
+    patient: req.params.id,
+  }).select('doctor');
+
+  if (docId) {
+    res.status(201).json({
+      docId,
+    });
+  } else {
+    res.status(404);
+    throw new Error('No Doctor Found');
+  }
+});
+/**
  * * @desc   Update Medical records (assignedExercies) of particular exercise stats
  * * route   PUT /api/v1/patient/:id/updateExerciseStats
  * ! @access PROTECTED

@@ -50,6 +50,7 @@ const App = () => {
           component={DoctorDashboardScreen}
           exact
         />
+
         <Route path='/' component={HomeScreen} exact />
       </main>
       <Footer />

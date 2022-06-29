@@ -71,7 +71,7 @@ export const getPatientIdByEmail = asyncHandler(async (req, res) => {
  * ! @access PROTECTED
  */
 export const createPatientExercise = asyncHandler(async (req, res) => {
-  const { pid, assignedExercises } = req.body;
+  const { pid, docId, assignedExercises } = req.body;
   //check if user already exists
   const recordExists = await MedicalRecords.findOne({ pid });
   if (recordExists) {
@@ -79,6 +79,7 @@ export const createPatientExercise = asyncHandler(async (req, res) => {
   }
   const newRecord = await MedicalRecords.create({
     patient: pid,
+    doctor: docId,
     assignedExercises,
   });
   if (newRecord) {

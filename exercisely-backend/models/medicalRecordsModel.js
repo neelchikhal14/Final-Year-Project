@@ -6,12 +6,12 @@ const medicalRecordsSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Patient',
     },
+    doctor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Doctor',
+    },
     assignedExercises: [
       {
-        doctor: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Doctor',
-        },
         exerciseId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Exercise',
