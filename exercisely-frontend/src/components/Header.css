@@ -1,6 +1,6 @@
 nav {
   width: 90vw;
-  height: 20vh;
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,7 +23,7 @@ a {
   font-weight: 300;
 }
 
-li {
+/* li {
   background-color: black;
   height: 36px;
   width: 126px;
@@ -31,7 +31,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 a:hover {
   text-decoration: underline;

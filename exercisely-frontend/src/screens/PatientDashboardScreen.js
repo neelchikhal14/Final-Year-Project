@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllExercises } from '../actions/patientActions';
 
 import { setSelectedExercise } from '../actions/patientActions';
-import './PatientDashboardScreen.css';
+import './css/PatientDashboardScreen.css';
 
 const PatientDashboardScreen = ({ history }) => {
   const [exerciseName, setExerciseName] = useState('');
@@ -32,9 +32,9 @@ const PatientDashboardScreen = ({ history }) => {
      * ? CHECK ROUTING
      */
     if (selectedExercise[0].repsRequired) {
-      history.push('/patient/start-exercise-type-one');
-    } else {
       history.push('/patient/start-exercise-type-two');
+    } else {
+      history.push('/patient/start-exercise-type-one');
     }
   };
 

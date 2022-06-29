@@ -8,6 +8,7 @@ import {
   updateExerciseStats,
   getExerciseStats,
   getPatientId,
+  getDocId,
 } from '../controllers/patientController.js';
 
 import {
@@ -23,5 +24,6 @@ router.get('/getPendingExercises/:id', loginProtected, getPendingExercises);
 router.get('/getId/:id', loginProtected, getPatientId);
 router.put('/:id/updateExerciseStats', loginProtected, updateExerciseStats);
 router.get('/:id/getExerciseStats', loginProtected, getExerciseStats);
+router.get('/getDocId/:id', loginProtected, getDocId);
 
 export default router;
