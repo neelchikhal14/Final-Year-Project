@@ -20,14 +20,14 @@ export const patientGetExercisesReducer = (state = { state: {} }, action) => {
       };
     case PATIENT_EXERCISE_SUCCESS:
       return {
-        loading: false,
         ...state,
+        loading: false,
         assignedExercises: action.payload,
       };
     case PATIENT_PENDING_EXERCISES_REQUEST:
       return {
-        loading: false,
         ...state,
+        loading: false,
         assignedExercisesDetailed: action.payload,
       };
 
