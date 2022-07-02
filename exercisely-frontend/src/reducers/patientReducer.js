@@ -10,6 +10,9 @@ import {
   PATIENT_SEND_MESSAGE_REQUEST,
   PATIENT_SEND_MESSAGE_SUCCESS,
   PATIENT_SEND_MESSAGE_FAIL,
+  PATIENT_EXERCISE_STATS_FAIL,
+  PATIENT_EXERCISE_STATS_REQUEST,
+  PATIENT_EXERCISE_STATS_SUCCESS,
 } from '../constants/patientConstants';
 
 export const patientGetExercisesReducer = (state = { state: {} }, action) => {
@@ -91,6 +94,30 @@ export const patientSendMessageReducer = (state = { state: {} }, action) => {
         loading: false,
       };
     case PATIENT_SEND_MESSAGE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+export const patientGetExerciseStatsReducer = (
+  state = { state: {} },
+  action
+) => {
+  switch (action.type) {
+    case PATIENT_EXERCISE_STATS_REQUEST:
+      return {
+        loading: true,
+      };
+    case PATIENT_EXERCISE_STATS_SUCCESS:
+      return {
+        completeExerciseDetails: action.payload,
+        loading: false,
+      };
+    case PATIENT_EXERCISE_STATS_FAIL:
       return {
         loading: false,
         error: action.payload,
