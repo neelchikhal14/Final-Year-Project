@@ -13,6 +13,9 @@ import {
   PATIENT_EXERCISE_STATS_FAIL,
   PATIENT_EXERCISE_STATS_REQUEST,
   PATIENT_EXERCISE_STATS_SUCCESS,
+  PATIENT_REGISTER_BASIC_DETAILS_FAIL,
+  PATIENT_REGISTER_BASIC_DETAILS_REQUEST,
+  PATIENT_REGISTER_BASIC_DETAILS_SUCCESS,
 } from '../constants/patientConstants';
 
 export const patientGetExercisesReducer = (state = { state: {} }, action) => {
@@ -118,6 +121,30 @@ export const patientGetExerciseStatsReducer = (
         loading: false,
       };
     case PATIENT_EXERCISE_STATS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+export const patientRegisterBasicDetailsReducer = (
+  state = { state: {} },
+  action
+) => {
+  switch (action.type) {
+    case PATIENT_REGISTER_BASIC_DETAILS_REQUEST:
+      return {
+        loading: true,
+      };
+    case PATIENT_REGISTER_BASIC_DETAILS_SUCCESS:
+      return {
+        basicDetails: action.payload,
+        loading: false,
+      };
+    case PATIENT_REGISTER_BASIC_DETAILS_FAIL:
       return {
         loading: false,
         error: action.payload,

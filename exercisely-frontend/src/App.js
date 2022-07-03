@@ -6,9 +6,10 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
 import PatientDashboardScreen from './screens/PatientDashboardScreen';
-import DoctorDashboardScreen from './screens/DoctorDashboardScreen';
 import PatientStatsScreen from './screens/PatientStatsScreen';
 import PatientSendMessageScreen from './screens/PatientSendMessageScreen';
+import PatientAddDetailsScreen from './screens/PatientAddDetailsScreen';
+import DoctorDashboardScreen from './screens/DoctorDashboardScreen';
 import ExerciseHandlerScreenTypeOne from './screens/ExerciseHandlerScreenTypeOne';
 import ExerciseHandlerScreenTypeTwo from './screens/ExerciseHandlerScreenTypeTwo';
 
@@ -43,6 +44,11 @@ const App = () => {
         <Route
           path='/patient/send-message'
           component={PatientSendMessageScreen}
+          exact
+        />
+        <Route
+          path='/patient/add-details'
+          component={PatientAddDetailsScreen}
           exact
         />
         <Route

@@ -77,9 +77,6 @@ const patientSchema = mongoose.Schema(
         message: '{VALUE} is not supported',
       },
     },
-    additionalNotes: {
-      type: String,
-    },
   },
   {
     timestamps: true,
