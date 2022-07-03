@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerBasicDetails } from '../actions/patientActions';
 const PatientAddDetailsScreen = ({ history }) => {
+  /**
+   * TODO : Need to check details already extst in useEffect then only render form
+   */
   const [patientDetails, setPatientDetails] = useState({
     age: 0,
     country: '',
@@ -18,15 +21,10 @@ const PatientAddDetailsScreen = ({ history }) => {
     marital: 'single',
   });
   const dispatch = useDispatch();
-  // const userRegister = useSelector((state) => state.userRegister);
-
-  // const { loading, userRegDetails, error } = userRegister;
   const handleOnChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setPatientDetails({ ...patientDetails, [name]: value });
-
-    // console.log(registrationDetails);
   };
   const registerDetailsHandler = (e) => {
     console.log('submitted');

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './screens/HomeScreen';
@@ -10,6 +10,9 @@ import PatientStatsScreen from './screens/PatientStatsScreen';
 import PatientSendMessageScreen from './screens/PatientSendMessageScreen';
 import PatientAddDetailsScreen from './screens/PatientAddDetailsScreen';
 import DoctorDashboardScreen from './screens/DoctorDashboardScreen';
+import DoctorAddExerciseScreen from './screens/DoctorAddExerciseScreen.js';
+import DoctorReadPatientMessagesScreen from './screens/DoctorReadPatientMessagesScreen.js';
+import DoctorCheckPatientHistoryScreen from './screens/DoctorCheckPatientHistoryScreen.js';
 import ExerciseHandlerScreenTypeOne from './screens/ExerciseHandlerScreenTypeOne';
 import ExerciseHandlerScreenTypeTwo from './screens/ExerciseHandlerScreenTypeTwo';
 
@@ -54,6 +57,21 @@ const App = () => {
         <Route
           path='/doctor-dashboard'
           component={DoctorDashboardScreen}
+          exact
+        />
+        <Route
+          path='/doctor-add-exercise'
+          component={DoctorAddExerciseScreen}
+          exact
+        />
+        <Route
+          path='/doctor-read-patient-messages'
+          component={DoctorReadPatientMessagesScreen}
+          exact
+        />
+        <Route
+          path='/doctor-check-patient-messages'
+          component={DoctorCheckPatientHistoryScreen}
           exact
         />
 
