@@ -39,7 +39,6 @@ export const sendMessage = asyncHandler(async (req, res) => {
 export const getPatientId = asyncHandler(async (req, res) => {
   const { id } = req.params;
   //check if patient details already exists
-  console.log(req.params);
 
   const patientId = await Patient.findOne({ bio: id }).select('_id');
   if (patientId) {
@@ -76,7 +75,7 @@ export const getPendingExercises = asyncHandler(async (req, res) => {
   }
 });
 /**
- * * @desc   Get Doctors name from Patient Record (Patient table)
+ * * @desc   Get Doctors name from Patient Record (Medical Record)
  * * route   GET /api/v1/patient/getDocId/:id
  * ! @access PROTECTED
  */

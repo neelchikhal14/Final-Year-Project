@@ -100,8 +100,8 @@ const ExerciseTypeTwo = ({ requiredReps, exercise }) => {
         // console.log('main operations');
         drawCanvas(poses, videoWidth, videoHeight, canvasRef, theColor);
         // reps counter
-        let exerciseInformation = setExerciseInformation(exercise);
-        exerciseInformation.forEach((singleAngle) => {
+        // let exerciseInformation = setExerciseInformation(exercise);
+        exercise[0].bodyParams.forEach((singleAngle) => {
           let pointOne = poses[0].keypoints[singleAngle.pointOne];
           let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
           let pointThree = poses[0].keypoints[singleAngle.pointThree];

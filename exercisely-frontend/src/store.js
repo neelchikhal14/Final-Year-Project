@@ -10,7 +10,15 @@ import {
   patientGetExerciseStatsReducer,
   patientRegisterBasicDetailsReducer,
 } from './reducers/patientReducer';
-
+import {
+  doctorFetchPatientReducer,
+  doctorGetExercisesReducer,
+  doctorSetExerciseReducer,
+  doctorCheckMedicalRecordReducer,
+  doctorCreateMedicalRecordReducer,
+  doctorRetrieveMessagesReducer,
+  doctorGetPatientHistoryReducer,
+} from './reducers/doctorReducer';
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -20,6 +28,13 @@ const reducer = combineReducers({
   patientSendMessage: patientSendMessageReducer,
   patientGetExerciseStats: patientGetExerciseStatsReducer,
   patientRegisterBasicDetail: patientRegisterBasicDetailsReducer,
+  doctorFetchPatient: doctorFetchPatientReducer,
+  doctorGetExercises: doctorGetExercisesReducer,
+  doctorSetExercise: doctorSetExerciseReducer,
+  doctorCheckMedicalRecord: doctorCheckMedicalRecordReducer,
+  doctorCreateMedicalRecord: doctorCreateMedicalRecordReducer,
+  doctorRetrieveMessages: doctorRetrieveMessagesReducer,
+  doctorGetPatientHistory: doctorGetPatientHistoryReducer,
 });
 
 const initialState = {
@@ -31,6 +46,13 @@ const initialState = {
   patientSendMessage: {},
   patientGetExerciseStats: {},
   patientRegisterBasicDetail: {},
+  doctorFetchPatient: {},
+  doctorGetExercises: {},
+  doctorSetExercise: {},
+  doctorCheckMedicalRecord: {},
+  doctorCreateMedicalRecord: {},
+  doctorRetrieveMessages: {},
+  doctorGetPatientHistory: {},
 };
 
 const middlewares = [thunk];

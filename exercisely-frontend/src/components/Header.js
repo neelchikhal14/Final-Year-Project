@@ -27,11 +27,11 @@ const Header = () => {
       </div>
       <div>
         {!userInfo ? (
-          <button name='login' onClick={clickHandler}>
+          <button name='login' onClick={clickHandler} className='login'>
             Login
           </button>
         ) : (
-          <button name='logout' onClick={clickHandler}>
+          <button name='logout' onClick={clickHandler} className='logout'>
             Logout
           </button>
         )}

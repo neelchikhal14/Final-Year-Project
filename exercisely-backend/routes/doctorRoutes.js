@@ -4,11 +4,13 @@ const router = express.Router();
 
 import {
   registerDoctor,
-  getPatientIdByEmail,
+  getPatientId,
   addPatientExercise,
-  createPatientExercise,
+  createMedicalRecord,
   readPatientMessages,
   checkPatientHistory,
+  checkMedicalRecord,
+  getDoctorDetails,
 } from '../controllers/doctorController.js';
 
 import {
@@ -20,11 +22,12 @@ import {
 //BASE- /api/v1/doctor
 
 router.post('/register', registerDoctor);
-router.get('/getPatient', loginProtected, doctorProtected, getPatientIdByEmail);
+router.get('/getPatient/:firstname/:lastname', getPatientId);
+router.get('/:docId', getDoctorDetails);
 router.put('/addPatientExercise', addPatientExercise);
-router.post('/createPatientExercise', createPatientExercise);
+router.post('/createMedicalRecord', createMedicalRecord);
 // router.post('/register-patient/basicdetails', registerPatientBasic);
 router.get('/:id/readMessages', readPatientMessages);
-router.get('/checkPatientHistory', checkPatientHistory);
-
+router.get('/checkPatientHistory/:fname/:lname', checkPatientHistory);
+router.get('/:patientId/checkMedicalRecords', checkMedicalRecord);
 export default router;

@@ -147,10 +147,10 @@ export const sendMessage = (subject, body) => async (dispatch, getState) => {
     const {
       data: { docId },
     } = await axios.get(`/api/v1/patient/getDocId/${patientId._id}`, config);
-
+    console.log(userInfo._id, docId.doctor);
     const { data } = await axios.post(
       `/api/v1/patient/sendmessage`,
-      { from: patientId._id, to: docId._id, subject, messageBody: body },
+      { from: userInfo._id, to: docId.doctor, subject, messageBody: body },
       config
     );
 
@@ -262,11 +262,11 @@ export const registerBasicDetails = (details) => async (dispatch, getState) => {
       },
       config
     );
-    console.log(data);
-    // dispatch({
-    //   type: PATIENT_REGISTER_BASIC_DETAILS_SUCCESS,
-    //   payload: data,
-    // });
+
+    dispatch({
+      type: PATIENT_REGISTER_BASIC_DETAILS_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: PATIENT_REGISTER_BASIC_DETAILS_FAIL,

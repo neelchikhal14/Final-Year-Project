@@ -1,0 +1,35 @@
+.patient-messages-container {
+  width: 95vw;
+  display: flex;
+  flex-direction: row;
+}
+.patient-list-container {
+  width: 30%;
+  background-color: pink;
+}
+
+.patient-list-item > button {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: blueviolet;
+}
+
+.sender-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-message {
+  width: 70%;
+  background-color: skyblue;
+}

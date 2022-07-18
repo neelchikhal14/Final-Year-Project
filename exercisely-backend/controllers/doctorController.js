@@ -50,16 +50,23 @@ export const registerDoctor = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   get user id by email
- * * route   GET /api/v1/doctor/getPatient
+ * * route   GET /api/v1/doctor/getPatient/:firstname/:lastname
  * ! @access PROTECTED
  */
-export const getPatientIdByEmail = asyncHandler(async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
+export const getPatientId = asyncHandler(async (req, res) => {
+  const { firstname, lastname } = req.params;
+  const user = await User.findOne({ firstname, lastname });
   if (user) {
-    res.json({
-      _id: user._id,
-    });
+    const patientDetails = await Patient.findOne({ bio: user._id });
+    if (patientDetails) {
+      res.status(200).json({
+        basicDetails: user,
+        bioData: patientDetails,
+      });
+    } else {
+      res.status(401);
+      throw new Error('Patient Registration is incomplete.');
+    }
   } else {
     res.status(401);
     throw new Error('User Not Found');
@@ -67,20 +74,20 @@ export const getPatientIdByEmail = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   Create Patient Exercise
- * * route   PUT /api/v1/doctor/createPatientExercise
+ * * route   POST /api/v1/doctor/createMedicalRecord
  * ! @access PROTECTED
  */
-export const createPatientExercise = asyncHandler(async (req, res) => {
-  const { pid, docId, assignedExercises } = req.body;
+export const createMedicalRecord = asyncHandler(async (req, res) => {
+  const { pid, docId } = req.body;
   //check if user already exists
-  const recordExists = await MedicalRecords.findOne({ pid });
+  const recordExists = await MedicalRecords.findOne({ patient: pid });
   if (recordExists) {
     throw new Error('Record already exists');
   }
   const newRecord = await MedicalRecords.create({
     patient: pid,
     doctor: docId,
-    assignedExercises,
+    assignedExercises: {},
   });
   if (newRecord) {
     res.status(201).json({
@@ -98,7 +105,7 @@ export const createPatientExercise = asyncHandler(async (req, res) => {
  */
 export const addPatientExercise = asyncHandler(async (req, res) => {
   const { patient, newExercises } = req.body;
-  const recordExists = await MedicalRecords.findOne({ pid: patient });
+  const recordExists = await MedicalRecords.findOne({ patient });
   if (recordExists) {
     recordExists.assignedExercises.push(...newExercises);
     const updatedExercises = await recordExists.save();
@@ -117,14 +124,14 @@ export const readPatientMessages = asyncHandler(async (req, res) => {
   const { id } = req.params;
   //check if patient details already exists
   const messages = await Messages.find({ to: id }).select(
-    '-_id -from -to -updatedAt -__v'
+    '-to -updatedAt -__v'
   );
   if (!messages) {
     throw new Error('No messages');
   }
 
   if (messages) {
-    res.status(201).json({ messages });
+    res.status(200).json({ messages });
   } else {
     res.status(401);
     throw new Error('Invalid Data');
@@ -132,17 +139,21 @@ export const readPatientMessages = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   See Patient History
- * * route   GET /api/v1/doctor/checkPatientHistory
+ * * route   GET /api/v1/doctor/checkPatientHistory/:fname/:lname
  * ! @access PROTECTED
  */
 export const checkPatientHistory = asyncHandler(async (req, res) => {
-  const { firstname, lastname } = req.body;
-  const userid = await User.findOne({ firstname, lastname }).select('_id');
-  if (!userid) {
+  const { fname, lname } = req.params;
+  const user = await User.findOne({
+    firstname: fname,
+    lastname: lname,
+  }).select('-password -role -createdAt -updatedAt');
+
+  if (!user) {
     res.status(401);
     throw new Error('User Does not exists');
   }
-  const patientDetails = await Patient.findOne({ bio: userid }).select(
+  const patientDetails = await Patient.findOne({ bio: user._id }).select(
     '-bio -createdAt -updatedAt -__v'
   );
   if (!patientDetails) {
@@ -157,8 +168,44 @@ export const checkPatientHistory = asyncHandler(async (req, res) => {
     throw new Error('No Medical Records Exists');
   }
   res.json({
-    userid,
+    bioData: {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+    },
     patientDetails,
     medicalDetails,
+  });
+});
+/**
+ * * @desc   Get Doctor's Details By Id
+ * * route   GET /api/v1/doctor/:docId
+ * ! @access PROTECTED
+ */
+export const getDoctorDetails = asyncHandler(async (req, res) => {
+  const { docId } = req.params;
+  const doctor = await Doctor.findOne({ bio: docId }).select('_id');
+  if (!doctor) {
+    res.status(401);
+    throw new Error('Doctor Does not exists');
+  }
+  res.json({
+    doctor,
+  });
+});
+/**
+ * * @desc   Check if Medical Records exists or not
+ * * route   GET /api/v1/doctor/:patientId/checkMedicalRecords
+ * ! @access PROTECTED
+ */
+export const checkMedicalRecord = asyncHandler(async (req, res) => {
+  const { patientId } = req.params;
+  const record = await MedicalRecords.findOne({ patient: patientId });
+  if (!record) {
+    res.status(401);
+    throw new Error('Medical Record does not exists');
+  }
+  res.json({
+    record,
   });
 });

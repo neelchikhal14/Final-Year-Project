@@ -63,8 +63,8 @@ const PatientDashboardScreen = ({ history }) => {
               <option value='DEFAULT' disabled hidden>
                 Choose here
               </option>
-              {assignedExercises.map((option) => (
-                <option key={option.name} value={option.name}>
+              {assignedExercises.map((option, idx) => (
+                <option key={idx} value={option.name}>
                   {option.name}
                 </option>
               ))}

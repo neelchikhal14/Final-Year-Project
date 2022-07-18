@@ -69,3 +69,19 @@ export const getAllUsers = asyncHandler(async (req, res) => {
     throw new Error('Users not found');
   }
 });
+/**
+ * * @desc   get user by id
+ * * route   GET /api/v1/users/:_id
+ * !  @access PROTECTED
+ */
+export const getUserById = asyncHandler(async (req, res) => {
+  const { _id } = req.params;
+  const user = await User.findById({ _id });
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(401);
+    throw new Error('User not found');
+  }
+});
