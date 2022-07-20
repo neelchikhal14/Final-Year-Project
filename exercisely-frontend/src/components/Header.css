@@ -1,6 +1,6 @@
 nav {
   width: 90vw;
-  height: 10vh;
+  min-height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,4 +36,43 @@ a {
 a:hover {
   text-decoration: underline;
   text-decoration-color: white;
+}
+
+.login,
+.logout {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Responsive Design */
+@media only screen and (max-width: 400px) {
+  nav {
+    width: 90vw;
+    height: 20vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+  }
+  .logo {
+    width: 150px;
+    height: 100%;
+  }
+  .login,
+  .logout {
+    width: 22vw;
+    height: 10vw;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+  }
 }

@@ -146,6 +146,7 @@ const ExerciseScreenTypeTwo = () => {
         });
       }
     } else {
+      // ! NEED TO REMOVE FROM FINAL CODE
       console.log('3. render else');
       return;
     }
@@ -161,36 +162,19 @@ const ExerciseScreenTypeTwo = () => {
     dispatch(updateExerciseStats(detailedExercise._id, finalStats));
     history.push('/patient-dashboard');
   };
+  //useEffect to clear timer that calls model evry 100 ms
+  useEffect(() => {
+    if (!displayMedialements) clearInterval(timer);
+  }, [displayMedialements]);
+
   return (
     <>
       <section className='exercise-section'>
         {displayMedialements && (
           <>
             <div className='media'>
-              <Webcam
-                width='640px'
-                height='480px'
-                id='webcam'
-                ref={webcamRef}
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  padding: '0px',
-                }}
-              />
-              <canvas
-                ref={canvasRef}
-                id='my-canvas'
-                width='640px'
-                height='480px'
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  zIndex: 1,
-                }}
-              />
+              <Webcam id='webcam' ref={webcamRef} />
+              <canvas ref={canvasRef} id='my-canvas' />
             </div>
 
             <div className='exercise-info'>
@@ -204,10 +188,17 @@ const ExerciseScreenTypeTwo = () => {
                     <li key={idx}>{ins}</li>
                   ))}
               </ul>
-              <h1>Rep Count: {reps}</h1>
-              <h1>Angle:{angle}</h1>
-              {detailedExercise && <h3>Required: {detailedExercise.reps}</h3>}
-              <button onClick={() => begin()}>Start</button>
+              <div className='reps-data'>
+                <span className='rep-count'>Rep Count: {reps}</span>
+                {detailedExercise && (
+                  <span className='required-reps'>
+                    Required: {detailedExercise.reps}
+                  </span>
+                )}
+              </div>
+              <button onClick={() => begin()} className='start-exercise-button'>
+                Start
+              </button>
             </div>
           </>
         )}
@@ -223,7 +214,9 @@ const ExerciseScreenTypeTwo = () => {
               <h2>Wohoo!!</h2>
               <h3>You have successfully completed the session</h3>
               <h4>Please click the below button to generate Statistics</h4>
-              <button onClick={genStats}>Generate Statistics</button>
+              <button onClick={genStats} className='genrate-stats-button'>
+                Generate Statistics
+              </button>
             </div>
           </>
         )}

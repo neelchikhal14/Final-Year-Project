@@ -34,11 +34,11 @@ const LoginScreen = ({ location, history }) => {
   }, [history, userInfo]);
 
   return (
-    <div>
+    <div className='login-form-container'>
       <h1>Hello Again !</h1>
       {error && <h3>{error}</h3>}
       {loading && <h3>Loading</h3>}
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className='login-form'>
         <label>Email</label>
         <input
           type='text'
@@ -55,14 +55,16 @@ const LoginScreen = ({ location, history }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type='submit'>Login</button>
+        <button type='submit' className='login-button'>
+          Login
+        </button>
       </form>
-      <h3>
+      <h2>
         New Customer ?{' '}
         <Link to='/registration' className='registration-page-link'>
           Register
         </Link>
-      </h3>
+      </h2>
     </div>
   );
 };

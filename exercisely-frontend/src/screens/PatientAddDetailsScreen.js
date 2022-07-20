@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerBasicDetails } from '../actions/patientActions';
+
+import './css/PatientAddDetailsScreen.css';
 const PatientAddDetailsScreen = ({ history }) => {
   /**
    * TODO : Need to check details already extst in useEffect then only render form
@@ -54,9 +56,9 @@ const PatientAddDetailsScreen = ({ history }) => {
     e.preventDefault();
   };
   return (
-    <div>
+    <div className='add-details-container'>
       <h1>Fill Your Details</h1>
-      <form onSubmit={registerDetailsHandler}>
+      <form onSubmit={registerDetailsHandler} className='details-form'>
         <label htmlFor='age'>Age</label>
         <input
           type='number'
@@ -99,46 +101,58 @@ const PatientAddDetailsScreen = ({ history }) => {
         <input
           type='text'
           name='postalCode'
-          placeholder='Enter POstal Code'
+          placeholder='Enter Postal Code'
           value={patientDetails.postalCode}
           onChange={handleOnChange}
           required
         />
+        <label htmlFor='gender'>Gender</label>
+        <div className='gender' name='gender'>
+          <div>
+            <input
+              type='radio'
+              name='gender'
+              value='man'
+              checked={patientDetails.gender === 'man'}
+              onChange={handleOnChange}
+            />
+            <label htmlFor='gender'>Male</label>
+          </div>
 
-        <div>
-          <label htmlFor='gender'>Male</label>
-          <input
-            type='radio'
-            name='gender'
-            value='man'
-            checked={patientDetails.gender === 'man'}
-            onChange={handleOnChange}
-          />
-          <label htmlFor='gender'>Female</label>
-          <input
-            type='radio'
-            name='gender'
-            value='woman'
-            checked={patientDetails.gender === 'woman'}
-            onChange={handleOnChange}
-          />
-          <label htmlFor='gender'>Transgender Man</label>
-          <input
-            type='radio'
-            name='gender'
-            value='transgender man'
-            checked={patientDetails.gender === 'transgender man'}
-            onChange={handleOnChange}
-          />
-          <label htmlFor='gender'>Transgender Female</label>
-          <input
-            type='radio'
-            name='gender'
-            value='transgender woman'
-            checked={patientDetails.gender === 'transgender woman'}
-            onChange={handleOnChange}
-          />
+          <div>
+            <input
+              type='radio'
+              name='gender'
+              value='woman'
+              checked={patientDetails.gender === 'woman'}
+              onChange={handleOnChange}
+            />
+            <label htmlFor='gender'>Female</label>
+          </div>
+
+          <div>
+            <input
+              type='radio'
+              name='gender'
+              value='transgender man'
+              checked={patientDetails.gender === 'transgender man'}
+              onChange={handleOnChange}
+            />
+            <label htmlFor='gender'>Transgender Man</label>
+          </div>
+
+          <div>
+            <input
+              type='radio'
+              name='gender'
+              value='transgender woman'
+              checked={patientDetails.gender === 'transgender woman'}
+              onChange={handleOnChange}
+            />
+            <label htmlFor='gender'>Transgender Female</label>
+          </div>
         </div>
+
         <label htmlFor='dob'>Date of Birth</label>
         <input
           type='date'
@@ -193,39 +207,50 @@ const PatientAddDetailsScreen = ({ history }) => {
           onChange={handleOnChange}
           required
         />
+        <label htmlFor='martial-status-container'>Marital Status</label>
+        <div
+          className='martial-status-container'
+          name='martial-status-container'
+        >
+          <div>
+            <input
+              type='radio'
+              name='marital'
+              id='marital'
+              value='single'
+              checked={patientDetails.marital === 'single'}
+              onChange={handleOnChange}
+            />
+            <label htmlFor='marital'>Single</label>
+          </div>
 
-        <div>
-          <label htmlFor='marital'>Single</label>
-          <input
-            type='radio'
-            name='marital'
-            id='marital'
-            value='single'
-            checked={patientDetails.marital === 'single'}
-            onChange={handleOnChange}
-          />
+          <div>
+            <input
+              type='radio'
+              name='marital'
+              id='marital'
+              value='married'
+              checked={patientDetails.marital === 'married'}
+              onChange={handleOnChange}
+            />
+            <label htmlFor='marital'>Married</label>
+          </div>
 
-          <label htmlFor='marital'>Married</label>
-          <input
-            type='radio'
-            name='marital'
-            id='marital'
-            value='married'
-            checked={patientDetails.marital === 'married'}
-            onChange={handleOnChange}
-          />
-
-          <label htmlFor='marital'>Divorced</label>
-          <input
-            type='radio'
-            name='marital'
-            id='marital'
-            value='divorced'
-            checked={patientDetails.marital === 'divorced'}
-            onChange={handleOnChange}
-          />
+          <div>
+            <input
+              type='radio'
+              name='marital'
+              id='marital'
+              value='divorced'
+              checked={patientDetails.marital === 'divorced'}
+              onChange={handleOnChange}
+            />
+            <label htmlFor='marital'>Divorced</label>
+          </div>
         </div>
-        <button type='submit'>Register Details</button>
+        <button type='submit' className='register-details-button'>
+          Register Details
+        </button>
       </form>
     </div>
   );

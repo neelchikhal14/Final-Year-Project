@@ -43,7 +43,7 @@ const PatientDashboardScreen = ({ history }) => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className='patient-dashboard-container'>
       {error && <h3>{error}</h3>}
       {loading && <h3>Loading</h3>}
       <section className='banner-start-exercise banner'>
@@ -72,14 +72,29 @@ const PatientDashboardScreen = ({ history }) => {
           ) : (
             <h2>No Pending Exercises</h2>
           )}
-          <button onClick={startExerciseHandler}>Start Exercise</button>
+          <button
+            onClick={startExerciseHandler}
+            className='patient-functionality-button'
+            disabled={
+              !assignedExercises || assignedExercises === 'undefined'
+                ? true
+                : false
+            }
+          >
+            Start Exercise
+          </button>
         </div>
       </section>
       <section className='banner banner-view-stats'>
         <div className='banner-info'>
           <h2>State Quest</h2>
           <h3>Check Your Accuracy</h3>
-          <button onClick={seeStatsHandler}>See Statistics</button>
+          <button
+            onClick={seeStatsHandler}
+            className='patient-functionality-button'
+          >
+            See Statistics
+          </button>
         </div>
         <div className='banner-img'>
           <img
@@ -97,13 +112,23 @@ const PatientDashboardScreen = ({ history }) => {
         </div>
         <div className='banner-info'>
           <h2>Want to have a Word with your Doctor ?</h2>
-          <button onClick={sendMessageHandler}>Send Message</button>
+          <button
+            className='patient-functionality-button'
+            onClick={sendMessageHandler}
+          >
+            Send Message
+          </button>
         </div>
       </section>
       <section className='banner add-details-banner'>
         <div className='banner-info'>
           <h2>Add My Details</h2>
-          <button onClick={addPatientDetails}>Add My Details</button>
+          <button
+            className='patient-functionality-button'
+            onClick={addPatientDetails}
+          >
+            Add My Details
+          </button>
         </div>
         <div className='banner-img'>
           <img src='./images/patient-add-detailts.jpg' alt='banner-1-img' />

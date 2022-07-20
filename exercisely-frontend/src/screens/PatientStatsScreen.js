@@ -35,17 +35,13 @@ const PatientStatsScreen = ({ history }) => {
     });
   };
 
-  const dashboardHandler = () => {
-    history.push('/patient-dashboard');
-  };
-
   return (
-    <div>
+    <div className='patient-stat-screen-container'>
       {loading && <h2>Loading</h2>}
       {error && <h2>{error}</h2>}
       <h1>Stat Screen</h1>
       <section className='date-range-form'>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} className='date-form'>
           <label htmlFor='fromDate'>From Date:</label>
           <input
             type='date'
@@ -60,41 +56,42 @@ const PatientStatsScreen = ({ history }) => {
             value={toDate}
             onChange={(e) => setToDate(e.target.value)}
           />
-          <button type='submit'>Get Statistics</button>
+          <button type='submit' className='get-stats-button'>
+            Get Statistics
+          </button>
         </form>
-        <button onClick={dashboardHandler}>Dashboard</button>
       </section>
       {completeExerciseDetails && completeExerciseDetails.length > 0 && (
-        <section>
+        <section className='graph-and-details-section'>
           {completeExerciseDetails.map((instance) => (
             <div className='exercise-container' key={instance._id}>
               <BarChart singleExerciseInfo={instance} />
               <div className='exercise-stats-info'>
-                <h4>
+                <h3>
                   Exercise Name: <span>{instance.exInfo.name}</span>
-                </h4>
+                </h3>
                 {instance.reps > 0 && (
-                  <h4>
+                  <h3>
                     Reps: <span>{instance.reps}</span>
-                  </h4>
+                  </h3>
                 )}
-                <h4>
+                <h3>
                   Exercise Session Assigned Completion Date:{' '}
                   <span>
                     {new Date(instance.assignedCompletion)
                       .toISOString()
                       .substring(0, 10)}
                   </span>
-                </h4>
-                <h4>
+                </h3>
+                <h3>
                   Exercise Session Actual Completion Date:{' '}
                   <span>
                     {new Date(instance.actualCompletionDate)
                       .toISOString()
                       .substring(0, 10)}
                   </span>
-                </h4>
-                <h4>Statistics:</h4>
+                </h3>
+                <h3>Statistics:</h3>
                 {/* {instance.sessionStats.forEach((sessionStat) => {
                   for (const dValue in instance.desiredValue) {
                     console.log(instance.desiredValue[dValue]);

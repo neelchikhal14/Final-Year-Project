@@ -114,9 +114,9 @@ const DoctorAddExerciseScreen = () => {
   }, [recordStatus]);
 
   return (
-    <div>
+    <div className='add-exercises-container'>
       <section className='get-patient-details-section'>
-        <form onSubmit={getPatientDetails}>
+        <form onSubmit={getPatientDetails} className='get-patient-form'>
           <label htmlFor='firstname'>Enter Patient's Firstname</label>
           <input
             type='text'
@@ -131,18 +131,25 @@ const DoctorAddExerciseScreen = () => {
             value={getPatient.lastname}
             onChange={onChangeHandlerName}
           />
-          <button type='submit'>Get Patient</button>
+          <button type='submit' className='get-patient-button'>
+            Get Patient
+          </button>
         </form>
       </section>
 
       <section className='check-patient-medical-record'>
         <h3>Check if Patient's Medical Record Exists ?</h3>
-        <button onClick={handleCheckMedicalRecord}>Check Medical Record</button>
+        <button
+          onClick={handleCheckMedicalRecord}
+          className='check-medical-record-button'
+        >
+          Check Medical Record
+        </button>
         {recordExists === 'Exists' && <h4>Record Exists Process Further</h4>}
         {recordExists === 'Not Exists' && (
           <>
             <h4>
-              Record does not exists for this PAtient.First Create A record
+              Record does not exists for this Patient.First Create A record
             </h4>
             <button onClick={createRecord}>Create Record</button>
             {recordCreated && <h4>Record Created</h4>}
@@ -206,7 +213,8 @@ const DoctorAddExerciseScreen = () => {
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
               />
-              <form onSubmit={setExerciseParams}>
+              <form onSubmit={setExerciseParams} className='set-angle-form'>
+                <h4>Set Angles for Differetn Body Part Combinations</h4>
                 <select
                   defaultValue={'DEFAULT'}
                   onChange={handleChange}
@@ -228,20 +236,31 @@ const DoctorAddExerciseScreen = () => {
                   onChange={handleChange}
                   name='angle'
                 />
-                <button type='submit'>Set Exercise Params</button>
+                <button type='submit' className='set-angle-button'>
+                  Set Exercise Parameters
+                </button>
               </form>
+              <div className='set-angle-details'>
+                {completeExerciseDetails &&
+                  Object.entries(completeExerciseDetails).map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <span>
+                          {item[0].split('_').join(' ').toUpperCase()} :{' '}
+                          {item[1]}
+                        </span>
+                      </div>
+                    );
+                  })}
+              </div>
 
-              {completeExerciseDetails &&
-                Object.entries(completeExerciseDetails).map((item, index) => {
-                  return (
-                    <div key={index}>
-                      <span>{item[0].split('_').join(' ').toUpperCase()}</span>:
-                      <span>{item[1]}</span>
-                    </div>
-                  );
-                })}
               {completeExerciseDetails && (
-                <button onClick={setPatientExercises}>Set Exercise</button>
+                <button
+                  onClick={setPatientExercises}
+                  className='set-exercise-button'
+                >
+                  Set Exercise
+                </button>
               )}
             </div>
           </section>

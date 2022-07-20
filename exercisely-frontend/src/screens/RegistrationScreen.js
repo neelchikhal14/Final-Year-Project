@@ -52,11 +52,11 @@ const RegistrationScreen = ({ history }) => {
   };
 
   return (
-    <div>
+    <div className='registration-form-container'>
       {loading && <h3>Loading</h3>}
       {error && <h3>{error}</h3>}
-      <h3>Create New Account</h3>
-      <form onSubmit={submitHandler}>
+      <h1>Create New Account</h1>
+      <form onSubmit={submitHandler} className='registration-form'>
         <label htmlFor='title'>Title</label>
         <select
           name='title'
@@ -107,7 +107,6 @@ const RegistrationScreen = ({ history }) => {
         />
 
         <div>
-          <label htmlFor='role'>Doctor</label>
           <input
             type='radio'
             name='role'
@@ -115,7 +114,7 @@ const RegistrationScreen = ({ history }) => {
             checked={registrationDetails.role === 'doctor'}
             onChange={handleOnChange}
           />
-          <label htmlFor='role'>Patient</label>
+          <label htmlFor='role'>Doctor</label>
           <input
             type='radio'
             name='role'
@@ -123,8 +122,11 @@ const RegistrationScreen = ({ history }) => {
             checked={registrationDetails.role === 'patient'}
             onChange={handleOnChange}
           />
+          <label htmlFor='role'>Patient</label>
         </div>
-        <button type='submit'>Register</button>
+        <button type='submit' className='register-user-button'>
+          Register
+        </button>
       </form>
     </div>
   );

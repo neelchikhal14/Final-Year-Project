@@ -1,4 +1,259 @@
+.add-exercises-container {
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  align-items: center;
+}
+
+.get-patient-details-section,
+.check-patient-medical-record,
+.exercise-section,
+.assign-exercise-data-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+  min-height: 50px;
+}
+
+.get-patient-form {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.get-patient-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.get-patient-form > label {
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin: 10px;
+}
+
+.get-patient-form > input {
+  width: 30%;
+  height: 40px;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+}
+
+.get-patient-form > input:focus {
+  border: 3px solid var(--primary-green);
+}
+
+.get-patient-form .get-patient-button,
+.check-medical-record-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.check-patient-medical-record {
+  margin-left: 10px;
+  margin-top: 10px;
+  justify-content: space-around;
+  width: 90%;
+}
+.check-patient-medical-record > h3 {
+  font-size: 1rem;
+}
+.check-patient-medical-record > h4 {
+  font-size: 0.8rem;
+  margin-left: 15px;
+}
+
+.exercise-section > h3 {
+  font-size: 1rem;
+}
+.exercise-section > select {
+  width: 80%;
+  background-color: white;
+  height: 40px;
+  border-radius: 0.25rem;
+}
+
+.assign-exercise-data-img,
+.assign-exercise-data {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
 .assign-exercise-data-img {
-  background-color: gray;
-  border: 2px solid black;
+  justify-content: center;
+}
+.assign-exercise-data-img > img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.assign-exercise-data > label {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.assign-exercise-data > input {
+  width: 80%;
+  height: 40px;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+}
+.assign-exercise-data > textarea {
+  overflow: hidden;
+  border-radius: 0.25rem;
+  border: 1px solid black;
+  width: 95%;
+  height: 30vh;
+  font-size: 1rem;
+  background-color: white;
+}
+.assign-exercise-data > textarea:focus {
+  border: 3px solid var(--primary-green);
+}
+
+.set-angle-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.set-angle-form > select {
+  width: 80%;
+  background-color: white;
+  height: 40px;
+  border-radius: 0.25rem;
+}
+
+.set-angle-form > input {
+  width: 80%;
+  height: 25px;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+}
+
+.assign-exercise-data > textarea {
+  overflow: hidden;
+  border-radius: 0.25rem;
+  border: 1px solid black;
+  width: 95%;
+  height: 30vh;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.set-angle-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
+  overflow-wrap: break-word;
+}
+.set-angle-details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+}
+.set-angle-details > div {
+  margin: 5px;
+}
+.set-exercise-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
+  overflow-wrap: break-word;
+}
+
+/* responsive design */
+@media only screen and (max-width: 400px) {
+  .get-patient-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .get-patient-form .get-patient-button,
+  .check-medical-record-button,
+  .set-angle-button,
+  .set-exercise-button {
+    background-color: black;
+    height: 10vw;
+    width: 28vw;
+    border-radius: 30px;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    overflow-wrap: break-word;
+    text-align: center;
+    line-height: 1;
+  }
+  .check-patient-medical-record {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .exercise-section {
+    margin: 10px;
+  }
+  .exercise-section > h3 {
+    align-self: flex-start;
+    font-size: 0.8rem;
+  }
+
+  .get-patient-form > input {
+    width: 100%;
+    height: 30px;
+  }
+
+  .get-patient-form > input:focus {
+    border: 3px solid var(--primary-green);
+  }
+
+  .assign-exercise-data-section {
+    display: flex;
+    flex-direction: column;
+  }
+  .set-angle-form > select {
+    width: 100%;
+    height: 30px;
+  }
+
+  .set-angle-form > input {
+    width: 100%;
+    height: 25px;
+  }
+
+  .assign-exercise-data > textarea {
+    width: 95%;
+    height: 20vh;
+    font-size: 0.8rem;
+  }
 }

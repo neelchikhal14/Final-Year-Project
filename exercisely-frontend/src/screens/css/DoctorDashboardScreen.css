@@ -1,4 +1,4 @@
-.patient-dashboard-container {
+.doctor-dashboard-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,8 +6,8 @@
 .banner {
   width: 90vw;
 }
-.banner-start-exercise,
-.banner-message-doctor {
+.banner-add-exercise,
+.banner-check-patient-history {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -15,7 +15,6 @@
   background-color: var(--banner-grey);
   justify-content: center;
 }
-
 .banner-img {
   display: flex;
   flex-direction: column;
@@ -50,7 +49,7 @@
   font-size: 2rem;
 }
 
-.patient-functionality-button {
+.doctor-functionality-button {
   background-color: black;
   height: 36px;
   width: 126px;
@@ -59,29 +58,18 @@
   border: none;
   cursor: pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
   margin-top: 10px;
+  font-size: 0.8rem;
 }
 
-.banner-view-stats,
-.add-details-banner {
+.banner-read-patient-messages {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
   background-color: var(--banner-blue);
-}
-
-.banner-info > select {
-  width: 80%;
-  background-color: white;
-  height: 40px;
-  border-radius: 0.25rem;
-}
-
-.banner-start-exercise > .banner-info > button:disabled {
-  background-color: gray;
-  cursor: default;
+  justify-content: center;
 }
 
 /* Responsive Design */
@@ -91,7 +79,7 @@
     line-height: 0.2;
   }
   .banner-info h2 {
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: 1;
     text-align: center;
   }
@@ -103,13 +91,6 @@
     background-color: black;
     color: white;
     text-align: center;
-    font-size: 0.5rem;
-  }
-  .banner-info > select {
-    width: 80%;
-    background-color: white;
-    height: 20px;
-    border-radius: 0.25rem;
-    margin-bottom: 10px;
+    font-size: 0.7rem;
   }
 }
