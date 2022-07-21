@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { login } from '../actions/userActions';
 
+import Error from '../components/Error';
 import './css/LoginScreen.css';
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -36,8 +37,11 @@ const LoginScreen = ({ location, history }) => {
   return (
     <div className='login-form-container'>
       <h1>Hello Again !</h1>
-      {error && <h3>{error}</h3>}
-      {loading && <h3>Loading</h3>}
+      {error && (
+        <Error>
+          <h3>{error}</h3>
+        </Error>
+      )}
       <form onSubmit={submitHandler} className='login-form'>
         <label>Email</label>
         <input
