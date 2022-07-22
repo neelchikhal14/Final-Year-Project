@@ -13,6 +13,9 @@ import {
   PATIENT_EXERCISE_STATS_FAIL,
   PATIENT_EXERCISE_STATS_REQUEST,
   PATIENT_EXERCISE_STATS_SUCCESS,
+  PATIENT_REGISTER_BASIC_DETAILS_FAIL,
+  PATIENT_REGISTER_BASIC_DETAILS_REQUEST,
+  PATIENT_REGISTER_BASIC_DETAILS_SUCCESS,
 } from '../constants/patientConstants';
 
 import axios from 'axios';
@@ -222,6 +225,51 @@ export const getExercisesStats = (from, to) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PATIENT_EXERCISE_STATS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const registerBasicDetails = (details) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PATIENT_REGISTER_BASIC_DETAILS_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      '/api/v1/patient/register-patient/basicdetails',
+      {
+        bio: userInfo._id,
+        age: details.age,
+        address: details.address,
+        gender: details.gender,
+        dob: details.dob,
+        homeTelephone: details.homeTelephone,
+        mobileTelephone: details.mobileTelephone,
+        nextOfKin: details.nextOfKin,
+        maritalStatus: details.maritalStatus,
+      },
+      config
+    );
+    console.log(data);
+    // dispatch({
+    //   type: PATIENT_REGISTER_BASIC_DETAILS_SUCCESS,
+    //   payload: data,
+    // });
+  } catch (error) {
+    dispatch({
+      type: PATIENT_REGISTER_BASIC_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -9,6 +9,7 @@ import {
   getExerciseStats,
   getPatientId,
   getDocId,
+  registerPatientBasic,
 } from '../controllers/patientController.js';
 
 import {
@@ -29,5 +30,6 @@ router.get(
   getExerciseStats
 );
 router.get('/getDocId/:id', loginProtected, getDocId);
+router.post('/register-patient/basicdetails', registerPatientBasic);
 
 export default router;

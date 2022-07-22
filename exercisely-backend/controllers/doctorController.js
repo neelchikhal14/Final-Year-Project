@@ -107,61 +107,7 @@ export const addPatientExercise = asyncHandler(async (req, res) => {
     throw new Error('Record does not exists');
   }
 });
-/**
- * * @desc   Get Basic Details of Patient
- * * route   POST /api/v1/doctor/register-patient/basicdetails
- * ! @access PROTECTED
- */
-export const registerPatientBasic = asyncHandler(async (req, res) => {
-  const {
-    bio,
-    age,
-    address,
-    gender,
-    dob,
-    homeTelephone,
-    mobileTelephone,
-    nextOfKin,
-    maritalStatus,
-    additionalNotes,
-  } = req.body;
-  //check if patient details already exists
-  const patientDetailsExists = await Patient.findOne({ bio });
-  if (patientDetailsExists) {
-    throw new Error('Patient Details already exists');
-  }
 
-  const patientDetails = await Patient.create({
-    bio,
-    age,
-    address,
-    gender,
-    dob,
-    homeTelephone,
-    mobileTelephone,
-    nextOfKin,
-    maritalStatus,
-    additionalNotes,
-  });
-  if (patientDetails) {
-    res.status(201).json({
-      _id: patientDetails._id,
-      bio: patientDetails.bio,
-      age: patientDetails.age,
-      address: patientDetails.address,
-      gender: patientDetails.gender,
-      dob: patientDetails.dob,
-      homeTelephone: patientDetails.homeTelephone,
-      mobileTelephone: patientDetails.mobileTelephone,
-      nextOfKin: patientDetails.nextOfKin,
-      maritalStatus: patientDetails.maritalStatus,
-      additionalNotes: patientDetails.additionalNotes,
-    });
-  } else {
-    res.status(401);
-    throw new Error('Invalid Data');
-  }
-});
 /**
  * * @desc   Read Patient Messages
  * * route   GET /api/v1/doctor/:id/readMessages

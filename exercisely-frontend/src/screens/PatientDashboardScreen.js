@@ -27,15 +27,15 @@ const PatientDashboardScreen = ({ history }) => {
     );
 
     dispatch(setSelectedExercise(selectedExercise));
-
-    /**
-     * ? CHECK ROUTING
-     */
     if (selectedExercise[0].repsRequired) {
       history.push('/patient/start-exercise-type-two');
     } else {
       history.push('/patient/start-exercise-type-one');
     }
+  };
+
+  const addPatientDetails = () => {
+    history.push('/patient/add-details');
   };
 
   useEffect(() => {
@@ -98,6 +98,15 @@ const PatientDashboardScreen = ({ history }) => {
         <div className='banner-info'>
           <h2>Want to have a Word with your Doctor ?</h2>
           <button onClick={sendMessageHandler}>Send Message</button>
+        </div>
+      </section>
+      <section className='banner add-details-banner'>
+        <div className='banner-info'>
+          <h2>Add My Details</h2>
+          <button onClick={addPatientDetails}>Add My Details</button>
+        </div>
+        <div className='banner-img'>
+          <img src='./images/patient-add-detailts.jpg' alt='banner-1-img' />
         </div>
       </section>
     </div>
