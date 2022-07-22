@@ -23,9 +23,9 @@ const DoctorCheckPatientHistoryScreen = () => {
     dispatch(getPatientHistory(patientData.firstname, patientData.lastname));
   };
   return (
-    <div className='patient-history container'>
-      <div>
-        <form onSubmit={submitHandler}>
+    <div className='patient-history-container'>
+      <>
+        <form onSubmit={submitHandler} className='get-patient-details-form'>
           <label htmlFor='firstname'>Enter Firstname</label>
           <input
             type='text'
@@ -40,11 +40,20 @@ const DoctorCheckPatientHistoryScreen = () => {
             value={patientData.lastname}
             onChange={dataChangeHandler}
           />
-          <button type='submit'>Get Patient History</button>
+          <button type='submit' className='get-patient-details'>
+            Get Patient History
+          </button>
         </form>
         {patientHistory && (
           <div className='patient-details-container'>
-            <div className='patient-avatar'></div>
+            <div className='patient-avatar'>
+              <img
+                src='https://source.unsplash.com/random/300×300/?person'
+                alt='patient'
+                height='300px'
+                width='300px'
+              />
+            </div>
             <div className='personal-details'>
               <h3>Personal Details</h3>
               <span>Firstname:{patientHistory.bioData.firstname}</span>
@@ -56,7 +65,12 @@ const DoctorCheckPatientHistoryScreen = () => {
                 {patientHistory.patientDetails.address.addressLine},
                 {patientHistory.patientDetails.address.postalCode}
               </span>
-              <span>Date of Birth: {patientHistory.patientDetails.dob}</span>
+              <span>
+                Date of Birth:{' '}
+                {new Date(patientHistory.patientDetails.dob)
+                  .toISOString()
+                  .substring(0, 10)}
+              </span>
               <span>
                 Cell Number: {patientHistory.patientDetails.homeTelephone}
               </span>
@@ -72,14 +86,14 @@ const DoctorCheckPatientHistoryScreen = () => {
               <span>
                 Relation: {patientHistory.patientDetails.nextOfKin.relationship}
               </span>
-            </div>
-            <div className='medical-details'>
-              <h3>Medical Details</h3>
-              <span>Age: {patientHistory.patientDetails.age}</span>
+              <div className='medical-details'>
+                <h3>Medical Details</h3>
+                <span>Age: {patientHistory.patientDetails.age}</span>
+              </div>
             </div>
           </div>
         )}
-      </div>
+      </>
     </div>
   );
 };

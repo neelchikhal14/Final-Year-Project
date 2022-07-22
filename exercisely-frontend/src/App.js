@@ -70,7 +70,7 @@ const App = () => {
           exact
         />
         <Route
-          path='/doctor-check-patient-messages'
+          path='/doctor-check-patient-history'
           component={DoctorCheckPatientHistoryScreen}
           exact
         />

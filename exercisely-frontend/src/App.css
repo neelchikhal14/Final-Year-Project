@@ -1,3 +1,15 @@
-main {
-  min-height: 90vh;
+/* temp */
+@media only screen and (min-width: 401px) {
+  main {
+    min-height: 90vh;
+  }
+}
+/* Responsive Design */
+
+@media only screen and (max-width: 400px) {
+  main {
+    min-height: 70vh;
+    /* width: 90vw;
+    overflow: hidden; */
+  }
 }
