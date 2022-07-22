@@ -36,6 +36,15 @@ const skeletonLookup = [
   [30, 32],
 ];
 
+export const bodyPartsRef = [
+  'right_hand',
+  'left_hand',
+  'right_mid_body',
+  'left_mid_body',
+  'right_leg',
+  'left_leg',
+];
+
 function drawSkeleton(poses, ctx, color) {
   skeletonLookup.forEach((item) => {
     const startPoints = poses[0].keypoints[item[0]];

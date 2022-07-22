@@ -20,18 +20,15 @@ const medicalRecordsSchema = mongoose.Schema(
         reps: Number,
         assignedDate: {
           type: Date,
-          required: true,
         },
         duration: {
           type: Number,
         },
         assignedCompletion: {
           type: Date,
-          required: true,
         },
         status: {
           type: String,
-          required: [true, 'status is required'],
           enum: {
             values: ['completed', 'pending'],
             message: '{VALUE} is not supported',

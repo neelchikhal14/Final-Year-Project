@@ -10,6 +10,7 @@ import {
   normaliseExerciseStats,
 } from '../utlities/utilities';
 
+import { useHistory } from 'react-router';
 import './ExerciseTypeOne.css';
 
 let timer;
@@ -17,6 +18,7 @@ let det;
 let stats = [];
 
 const ExerciseTypeOne = ({ exercise, setReady, duration }) => {
+  const history = useHistory();
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [predictionArray, setPredictionArray] = useState([]);
@@ -102,6 +104,7 @@ const ExerciseTypeOne = ({ exercise, setReady, duration }) => {
     const finalStats = calculateStatistics(stats);
     setPredictionArray([...predictionArray, finalStats]);
     setDisplayMedialements(false);
+    history.push('/patient-dashboard');
   };
   useEffect(() => {
     if (duration === 0) {

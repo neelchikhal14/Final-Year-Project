@@ -6,6 +6,7 @@ import {
   authenticateUser,
   registerUser,
   getAllUsers,
+  getUserById,
 } from '../controllers/userController.js';
 
 import {
@@ -16,6 +17,7 @@ import {
 
 //BASE- /api/v1/users
 router.get('/', loginProtected, adminProtected, getAllUsers);
+router.get('/:_id', getUserById);
 router.post('/', registerUser);
 router.post('/login', authenticateUser);
 

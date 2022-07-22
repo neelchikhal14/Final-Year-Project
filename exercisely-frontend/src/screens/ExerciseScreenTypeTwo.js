@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useHistory } from 'react-router';
 import '@tensorflow/tfjs-core';
 import Webcam from 'react-webcam';
 import '@tensorflow/tfjs-backend-webgl';
@@ -13,16 +13,16 @@ import {
   calculateAngle,
 } from '../utlities/utilities';
 
-import './css/ExerciseScreenTypeTwo.css';
 import { updateExerciseStats } from '../actions/patientActions';
+import './css/ExerciseScreenTypeTwo.css';
 let timer;
 let det;
 let stage = null;
 let stats = [];
 let requiredReps;
-const ExerciseScreenTypeTwo = ({ history }) => {
+const ExerciseScreenTypeTwo = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const { selectedExercise } = useSelector(
     (state) => state.patientSelectExercises
   );
@@ -41,6 +41,8 @@ const ExerciseScreenTypeTwo = ({ history }) => {
   const [reps, setReps] = useState(0);
 
   const [detailedExercise, setDetailedExercise] = useState(null);
+
+  const [angle, setAngle] = useState(0);
 
   useEffect(() => {
     const exercise = pendingExercises.filter(
@@ -119,13 +121,26 @@ const ExerciseScreenTypeTwo = ({ history }) => {
           let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
           let pointThree = poses[0].keypoints[singleAngle.pointThree];
           let angle = calculateAngle(pointOne, pointTwo, pointThree);
+          console.log(singleAngle.bodyPartName);
+          setAngle(angle);
+          // 159 to 163
+          // 156 - 160 bend
+          // 161 - 165 str
           if (angle > 160) {
             stage = 'stretch';
           }
-          if (stage === 'stretch' && angle < 40) {
+          if (stage === 'stretch' && angle <= 160) {
             stage = 'bend';
             setReps((prevProps) => prevProps + 1);
           }
+          // squats
+          // if (angle > 180 && angle <= 200) {
+          //   stage = 'stretch';
+          // }
+          // if (stage === 'stretch' && angle <= 310 && angle > 271) {
+          //   stage = 'bend';
+          //   setReps((prevProps) => prevProps + 1);
+          // }
           let temp = getExerciseStats(poses, selectedExercise[0].bodyParams);
           stats = [...stats, ...temp];
         });
@@ -144,7 +159,7 @@ const ExerciseScreenTypeTwo = ({ history }) => {
     const finalStats = calculateStatistics(stats);
     setDisplayMedialements(false);
     dispatch(updateExerciseStats(detailedExercise._id, finalStats));
-    history.push(`/patient-dashboard`);
+    history.push('/patient-dashboard');
   };
   return (
     <>
@@ -189,8 +204,9 @@ const ExerciseScreenTypeTwo = ({ history }) => {
                     <li key={idx}>{ins}</li>
                   ))}
               </ul>
-              <h3>{reps}</h3>
-              <h3>Required: {requiredReps}</h3>
+              <h1>Rep Count: {reps}</h1>
+              <h1>Angle:{angle}</h1>
+              {detailedExercise && <h3>Required: {detailedExercise.reps}</h3>}
               <button onClick={() => begin()}>Start</button>
             </div>
           </>
