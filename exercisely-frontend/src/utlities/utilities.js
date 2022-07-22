@@ -334,3 +334,45 @@ export const calculateAngle = (pointOne, pointTwo, pointThree) => {
 //       return stats;
 //   }
 // };
+
+export const dataParamsForBarChart = (statsObj) => {
+  const labels = [];
+  const data = [];
+  const bgColor = [];
+  const bgBorderColor = [];
+  const borderWidth = 2;
+  const label = statsObj.exInfo.name;
+  statsObj.exInfo.bodyParams.forEach((bpart) => {
+    let name = bpart.bodyPartName.split('_').join(' ').toUpperCase();
+    labels.push(name);
+  });
+  statsObj.sessionStats.forEach((st) => {
+    let bodyPart = st.name;
+    data.push(st.avgAngle);
+    if (statsObj.reps !== 0) {
+      if (st.avgAngle * 0.5 < statsObj.desiredValue[bodyPart]) {
+        bgColor.push('#f28c82');
+        bgBorderColor.push('#b7190a');
+      } else {
+        bgColor.push('#d1e7dd');
+        bgBorderColor.push('#009400');
+      }
+    } else {
+      bgColor.push('#98a1e9');
+      bgBorderColor.push('#06116b');
+    }
+  });
+
+  return {
+    labels,
+    datasets: [
+      {
+        label,
+        data,
+        backgroundColor: bgColor,
+        borderColor: bgBorderColor,
+        borderWidth,
+      },
+    ],
+  };
+};

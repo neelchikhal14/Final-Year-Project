@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Patient from '../models/patientModel.js';
 import Messages from '../models/messagesModel.js';
 import MedicalRecords from '../models/medicalRecordsModel.js';
+import Exercise from '../models/exerciseModel.js';
 
 /**
  * * @desc   Send message to the doctor
@@ -130,14 +131,15 @@ export const updateExerciseStats = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   Get Exercise Stats within a given date range
- * * route   GET /api/v1/patient/:id/getExerciseStats
+ * * route   GET /:id/getExerciseStats/:fromdate/:todate
  * ! @access PROTECTED
  */
 export const getExerciseStats = asyncHandler(async (req, res) => {
   // exid in the params corresponds to particular assigned id in assignedExercises
-  const { from, to } = req.body;
-  const fromISODate = new Date(from);
-  const toISODate = new Date(to);
+
+  const { fromdate, todate } = req.params;
+  const fromISODate = new Date(fromdate);
+  const toISODate = new Date(todate);
   let stats = [];
   const recordExists = await MedicalRecords.findOne({
     patient: req.params.id,
@@ -146,7 +148,7 @@ export const getExerciseStats = asyncHandler(async (req, res) => {
   if (recordExists) {
     const { assignedExercises } = recordExists;
     // console.log(assignedExercises);
-    assignedExercises.forEach((ex) => {
+    assignedExercises.forEach(async (ex) => {
       if (ex.status === 'completed') {
         const assignedISODate = new Date(ex.assignedDate);
         if (
@@ -154,13 +156,12 @@ export const getExerciseStats = asyncHandler(async (req, res) => {
           assignedISODate.getTime() <= toISODate.getTime()
         ) {
           stats.push({
-            completionDate: ex.actualCompletionDate,
-            sessionStats: ex.sessionStats,
+            exerciseDetails: ex,
           });
         }
       }
     });
-    const updatedRecords = await recordExists.save();
+
     res.json({ stats });
   } else {
     throw new Error('Record does not exists');

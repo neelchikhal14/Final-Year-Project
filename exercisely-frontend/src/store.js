@@ -7,6 +7,7 @@ import {
   patientSelectExercisesReducer,
   patientUpdateSessionStatsReducer,
   patientSendMessageReducer,
+  patientGetExerciseStatsReducer,
 } from './reducers/patientReducer';
 
 const reducer = combineReducers({
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   patientSelectExercises: patientSelectExercisesReducer,
   patientUpdateSessionStats: patientUpdateSessionStatsReducer,
   patientSendMessage: patientSendMessageReducer,
+  patientGetExerciseStats: patientGetExerciseStatsReducer,
 });
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
   patientSelectExercises: {},
   patientUpdateSessionStats: {},
   patientSendMessage: {},
+  patientGetExerciseStats: {},
 };
 
 const middlewares = [thunk];

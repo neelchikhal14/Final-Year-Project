@@ -10,6 +10,9 @@ import {
   PATIENT_SEND_MESSAGE_REQUEST,
   PATIENT_SEND_MESSAGE_SUCCESS,
   PATIENT_SEND_MESSAGE_FAIL,
+  PATIENT_EXERCISE_STATS_FAIL,
+  PATIENT_EXERCISE_STATS_REQUEST,
+  PATIENT_EXERCISE_STATS_SUCCESS,
 } from '../constants/patientConstants';
 
 import axios from 'axios';
@@ -155,6 +158,70 @@ export const sendMessage = (subject, body) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PATIENT_SEND_MESSAGE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const getExercisesStats = (from, to) => async (dispatch, getState) => {
+  try {
+    let promises = [];
+
+    dispatch({
+      type: PATIENT_EXERCISE_STATS_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const {
+      data: {
+        patientId: { _id },
+      },
+    } = await axios.get(`/api/v1/patient/getId/${userInfo._id}`, config);
+    // console.log(_id);
+    console.log(from, to);
+    const { data } = await axios.get(
+      `/api/v1/patient/${_id}/getExerciseStats/${from}/${to}`,
+      config
+    );
+    // console.log(data.stats);
+
+    async function getExerciseDetails() {
+      for (const ex of data.stats) {
+        const result = await axios.get(
+          `/api/v1/exercise/${ex.exerciseDetails.exerciseId}`,
+          config
+        );
+        promises.push(result);
+      }
+      const results = await Promise.all(promises);
+      const exercises = results.map((result) => result.data);
+      return exercises;
+    }
+
+    const theExercises = await getExerciseDetails();
+    // console.log(theExercises);
+    const finalExerciseData = [];
+    data.stats.forEach((ex, idx) => {
+      const exInfo = theExercises[idx];
+      finalExerciseData.push({ ...ex.exerciseDetails, exInfo });
+    });
+    console.log(finalExerciseData);
+    dispatch({
+      type: PATIENT_EXERCISE_STATS_SUCCESS,
+      payload: finalExerciseData,
+    });
+  } catch (error) {
+    dispatch({
+      type: PATIENT_EXERCISE_STATS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
