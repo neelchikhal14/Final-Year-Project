@@ -147,7 +147,7 @@ export const sendMessage = (subject, body) => async (dispatch, getState) => {
     const {
       data: { docId },
     } = await axios.get(`/api/v1/patient/getDocId/${patientId._id}`, config);
-    console.log(userInfo._id, docId.doctor);
+
     const { data } = await axios.post(
       `/api/v1/patient/sendmessage`,
       { from: userInfo._id, to: docId.doctor, subject, messageBody: body },

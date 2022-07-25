@@ -23,6 +23,15 @@ import {
 } from '../constants/doctorConstants';
 
 import axios from 'axios';
+import {
+  PATIENT_EXERCISE_FAIL,
+  PATIENT_EXERCISE_REQUEST,
+  PATIENT_EXERCISE_STATS_FAIL,
+  PATIENT_EXERCISE_STATS_REQUEST,
+  PATIENT_EXERCISE_STATS_SUCCESS,
+  PATIENT_EXERCISE_SUCCESS,
+  PATIENT_PENDING_EXERCISES_REQUEST,
+} from '../constants/patientConstants';
 
 export const fetchPatient = (patientDetails) => async (dispatch, getState) => {
   try {
@@ -329,8 +338,6 @@ export const getPatientHistory =
         `/api/v1/doctor/checkPatientHistory/${fname}/${lname}`,
         config
       );
-      console.log(data);
-
       dispatch({
         type: DOCTOR_GET_HISTORY_SUCCESS,
         payload: data,
@@ -338,6 +345,141 @@ export const getPatientHistory =
     } catch (error) {
       dispatch({
         type: DOCTOR_GET_HISTORY_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const getPatientExerciseStat =
+  (fname, lname) => async (dispatch, getState) => {
+    try {
+      let promises = [];
+
+      dispatch({
+        type: PATIENT_EXERCISE_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const response = await axios.get(
+        `/api/v1/users/${fname}/${lname}`,
+        config
+      );
+
+      const {
+        data: {
+          patientId: { _id },
+        },
+      } = await axios.get(`/api/v1/patient/getId/${response.data._id}`, config);
+      console.log(_id);
+      const { data } = await axios.get(
+        `/api/v1/patient/getPendingExercises/${_id}`,
+        config
+      );
+
+      dispatch({
+        type: PATIENT_PENDING_EXERCISES_REQUEST,
+        payload: data,
+      });
+      async function getNames() {
+        for (const ex of data.pendingExercises) {
+          const result = await axios.get(
+            `/api/v1/exercise/${ex.exerciseId}`,
+            config
+          );
+          promises.push(result);
+        }
+        const results = await Promise.all(promises);
+        const exercises = results.map((result) => result.data);
+        return exercises;
+      }
+      const theExercises = await getNames();
+      dispatch({
+        type: PATIENT_EXERCISE_SUCCESS,
+        payload: theExercises,
+      });
+    } catch (error) {
+      dispatch({
+        type: PATIENT_EXERCISE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+export const doctorGetPateientExerciseStats =
+  (from, to, fname, lname) => async (dispatch, getState) => {
+    try {
+      let promises = [];
+
+      dispatch({
+        type: PATIENT_EXERCISE_STATS_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const response = await axios.get(
+        `/api/v1/users/${fname}/${lname}`,
+        config
+      );
+      const {
+        data: {
+          patientId: { _id },
+        },
+      } = await axios.get(`/api/v1/patient/getId/${response.data._id}`, config);
+      // console.log(_id);
+      console.log(from, to);
+      const { data } = await axios.get(
+        `/api/v1/patient/${_id}/getExerciseStats/${from}/${to}`,
+        config
+      );
+      // console.log(data.stats);
+
+      async function getExerciseDetails() {
+        for (const ex of data.stats) {
+          const result = await axios.get(
+            `/api/v1/exercise/${ex.exerciseDetails.exerciseId}`,
+            config
+          );
+          promises.push(result);
+        }
+        const results = await Promise.all(promises);
+        const exercises = results.map((result) => result.data);
+        return exercises;
+      }
+
+      const theExercises = await getExerciseDetails();
+      // console.log(theExercises);
+      const finalExerciseData = [];
+      data.stats.forEach((ex, idx) => {
+        const exInfo = theExercises[idx];
+        finalExerciseData.push({ ...ex.exerciseDetails, exInfo });
+      });
+      console.log(finalExerciseData);
+      dispatch({
+        type: PATIENT_EXERCISE_STATS_SUCCESS,
+        payload: finalExerciseData,
+      });
+    } catch (error) {
+      dispatch({
+        type: PATIENT_EXERCISE_STATS_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

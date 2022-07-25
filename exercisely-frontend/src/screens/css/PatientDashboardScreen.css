@@ -39,7 +39,8 @@
 }
 
 .banner-info h2,
-.banner-info h3 {
+.banner-info h3,
+.banner-info h4 {
   color: var(--primary-green);
 }
 

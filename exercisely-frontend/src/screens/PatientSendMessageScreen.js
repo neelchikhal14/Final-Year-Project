@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { sendMessage } from '../actions/patientActions';
 
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+
 import './css/PatientSendMessageScreen.css';
 const PatientSendMessageScreen = ({ history }) => {
   const [subject, setSubject] = useState('');
@@ -9,7 +12,8 @@ const PatientSendMessageScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  const { loading, error } = useSelector((state) => state.patientSendMessage);
+  const { loading: loadingPatientSendMessage, error: errorPatientSendMessage } =
+    useSelector((state) => state.patientSendMessage);
 
   const submitHandler = () => {
     dispatch(sendMessage(subject, body));
@@ -17,9 +21,13 @@ const PatientSendMessageScreen = ({ history }) => {
   };
   return (
     <div className='send-message-container'>
-      {loading && <h2>Loading</h2>}
-      {error && <h2>error</h2>}
       <h1>Send A Message To Your Doctor</h1>
+      {loadingPatientSendMessage && <Loader />}
+      {errorPatientSendMessage && (
+        <Error>
+          <h3>{errorPatientSendMessage}</h3>
+        </Error>
+      )}
       <form onSubmit={submitHandler} className='message-form'>
         <label>Subject</label>
         <input

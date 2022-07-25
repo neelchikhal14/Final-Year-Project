@@ -49,6 +49,7 @@ export const register =
           'Content-Type': 'application/json',
         },
       };
+      console.log(title, firstname, lastname, email, password, role);
       const { data } = await axios.post(
         'api/v1/users/',
         { title, firstname, lastname, email, password, role },

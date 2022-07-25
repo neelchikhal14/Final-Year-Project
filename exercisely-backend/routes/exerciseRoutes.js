@@ -10,12 +10,12 @@ import {
 
 import {
   loginProtected,
-  adminProtected,
+  doctorProtected,
 } from '../middlewares/authMiddleware.js';
 
 //BASE - /api/v1/exercise
 
-router.post('/add', loginProtected, adminProtected, addExercise);
-router.get('/', loginProtected, getAllExercises);
-router.get('/:id', loginProtected, getExerciseById);
+router.post('/add', loginProtected, doctorProtected, addExercise);
+router.get('/', loginProtected, doctorProtected, getAllExercises);
+router.get('/:id', loginProtected, doctorProtected, getExerciseById);
 export default router;

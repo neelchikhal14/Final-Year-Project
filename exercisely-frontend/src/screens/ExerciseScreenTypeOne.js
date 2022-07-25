@@ -109,9 +109,6 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
 
         stats = [...stats, ...temp];
       }
-    } else {
-      console.log('3. render else');
-      return;
     }
   }
 
@@ -126,6 +123,9 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
     const finalStats = calculateStatistics(stats);
     setDisplayMedialements(false);
     dispatch(updateExerciseStats(detailedExercise._id, finalStats));
+    if (timer) {
+      clearInterval(timer);
+    }
     history.push(`/patient-dashboard`);
   };
   useEffect(() => {
@@ -147,30 +147,8 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
         {displayMedialements && (
           <>
             <div className='media'>
-              <Webcam
-                width='640px'
-                height='480px'
-                id='webcam'
-                ref={webcamRef}
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  padding: '0px',
-                }}
-              />
-              <canvas
-                ref={canvasRef}
-                id='my-canvas'
-                width='640px'
-                height='480px'
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  zIndex: 1,
-                }}
-              />
+              <Webcam id='webcam' ref={webcamRef} />
+              <canvas ref={canvasRef} id='my-canvas' />
             </div>
 
             <div className='exercise-info'>
@@ -182,8 +160,10 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
                     <li key={idx}>{ins}</li>
                   ))}
               </ul>
-              <h1>{duration}</h1>
-              <button onClick={() => begin()}>Start</button>
+              <span className='rep-count'>{duration}</span>
+              <button onClick={() => begin()} className='start-exercise-button'>
+                Start
+              </button>
             </div>
           </>
         )}
@@ -199,7 +179,9 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
               <h2>Wohoo!!</h2>
               <h3>You have successfully completed the session</h3>
               <h4>Please click the below button to generate Statistics</h4>
-              <button onClick={genStats}>Generate Statistics</button>
+              <button onClick={genStats} className='genrate-stats-button'>
+                Generate Statistics
+              </button>
             </div>
           </>
         )}

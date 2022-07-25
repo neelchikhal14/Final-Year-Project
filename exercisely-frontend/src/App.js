@@ -16,6 +16,8 @@ import DoctorCheckPatientHistoryScreen from './screens/DoctorCheckPatientHistory
 import ExerciseHandlerScreenTypeOne from './screens/ExerciseHandlerScreenTypeOne';
 import ExerciseHandlerScreenTypeTwo from './screens/ExerciseHandlerScreenTypeTwo';
 
+import ProtectedRoute from './components/ProtectedRoute';
+
 import './App.css';
 const App = () => {
   return (
@@ -29,6 +31,11 @@ const App = () => {
           component={PatientDashboardScreen}
           exact
         />
+        {/* <ProtectedRoute
+          path='/patient-dashboard'
+          component={PatientDashboardScreen}
+          auth={false}
+        /> */}
         <Route
           path='/patient/start-exercise-type-one'
           component={ExerciseHandlerScreenTypeOne}

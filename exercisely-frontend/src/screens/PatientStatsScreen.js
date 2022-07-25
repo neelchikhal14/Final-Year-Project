@@ -1,45 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import BarChart from '../components/charts/BarChart';
+
 import { getExercisesStats } from '../actions/patientActions';
 
+import BarChart from '../components/charts/BarChart';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+
+import { generateStatistics } from '../utlities/utilities.js';
+
 import './css/PatientStatsScreen.css';
-const PatientStatsScreen = ({ history }) => {
+const PatientStatsScreen = () => {
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
   const [stats, setStats] = useState(null);
 
   const dispatch = useDispatch();
 
-  const { completeExerciseDetails, loading, error } = useSelector(
-    (state) => state.patientGetExerciseStats
-  );
+  const {
+    completeExerciseDetails,
+    loading: loaderPatientGetExerciseStat,
+    error: errorPatientGetExerciseStat,
+  } = useSelector((state) => state.patientGetExerciseStats);
 
   const submitHandler = (e) => {
     dispatch(getExercisesStats(fromDate, toDate));
     e.preventDefault();
   };
 
-  const genStats = (instance) => {
-    instance.sessionStats.forEach((sessionStat) => {
-      for (const dValue in instance.desiredValue) {
-        console.log(instance.desiredValue[dValue]);
-        if (sessionStat.avgAngle * 0.5 < instance.desiredValue[dValue]) {
-          console.log('if');
-          return `<h2>Need to increase angle at ${dValue}</h2>`;
-        } else {
-          console.log('else');
-          return `<h2>Need to decrease angle at ${dValue}</h2>`;
-        }
-      }
-    });
-  };
+  useEffect(() => {
+    if (completeExerciseDetails) {
+      const statsArray = generateStatistics(completeExerciseDetails);
+      setStats([...statsArray]);
+    }
+  }, [completeExerciseDetails]);
 
   return (
     <div className='patient-stat-screen-container'>
-      {loading && <h2>Loading</h2>}
-      {error && <h2>{error}</h2>}
-      <h1>Stat Screen</h1>
+      {loaderPatientGetExerciseStat && <Loader />}
+      {errorPatientGetExerciseStat && (
+        <Error>
+          <h3>{errorPatientGetExerciseStat}</h3>
+        </Error>
+      )}
+      <h1>Statistics Screen</h1>
       <section className='date-range-form'>
         <form onSubmit={submitHandler} className='date-form'>
           <label htmlFor='fromDate'>From Date:</label>
@@ -63,7 +67,7 @@ const PatientStatsScreen = ({ history }) => {
       </section>
       {completeExerciseDetails && completeExerciseDetails.length > 0 && (
         <section className='graph-and-details-section'>
-          {completeExerciseDetails.map((instance) => (
+          {completeExerciseDetails.map((instance, idx) => (
             <div className='exercise-container' key={instance._id}>
               <BarChart singleExerciseInfo={instance} />
               <div className='exercise-stats-info'>
@@ -91,22 +95,14 @@ const PatientStatsScreen = ({ history }) => {
                       .substring(0, 10)}
                   </span>
                 </h3>
-                <h3>Statistics:</h3>
-                {/* {instance.sessionStats.forEach((sessionStat) => {
-                  for (const dValue in instance.desiredValue) {
-                    console.log(instance.desiredValue[dValue]);
-                    if (
-                      sessionStat.avgAngle * 0.5 <
-                      instance.desiredValue[dValue]
-                    ) {
-                      console.log('if');
-                      return `<h2>Need to increase angle at ${dValue}</h2>`;
-                    } else {
-                      console.log('else');
-                      return `<h2>Need to decrease angle at ${dValue}</h2>`;
-                    }
-                  }
-                })} */}
+                <h3>Feedback:</h3>
+                {stats && (
+                  <ul>
+                    {stats[idx].map((singleExStat, index) => {
+                      return <li key={index}>{singleExStat}</li>;
+                    })}
+                  </ul>
+                )}
               </div>
             </div>
           ))}

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { login } from '../actions/userActions';
 
 import Error from '../components/Error';
+import Loader from '../components/Loader';
 import './css/LoginScreen.css';
-const LoginScreen = ({ location, history }) => {
+const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,7 +14,11 @@ const LoginScreen = ({ location, history }) => {
 
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const {
+    loading: loadingUserLogin,
+    error: errorUserLogin,
+    userInfo,
+  } = userLogin;
 
   const submitHandler = (e) => {
     dispatch(login(email, password));
@@ -28,8 +33,6 @@ const LoginScreen = ({ location, history }) => {
         history.push(`/patient-dashboard`);
       } else if (userInfo.role === 'doctor') {
         history.push(`/doctor-dashboard`);
-      } else {
-        history.push(`/admin-dashboard`);
       }
     }
   }, [history, userInfo]);
@@ -37,9 +40,10 @@ const LoginScreen = ({ location, history }) => {
   return (
     <div className='login-form-container'>
       <h1>Hello Again !</h1>
-      {error && (
+      {loadingUserLogin && <Loader />}
+      {errorUserLogin && (
         <Error>
-          <h3>{error}</h3>
+          <h3>{errorUserLogin}</h3>
         </Error>
       )}
       <form onSubmit={submitHandler} className='login-form'>

@@ -14,20 +14,49 @@ import {
 } from '../controllers/doctorController.js';
 
 import {
-  doctorProtected,
   loginProtected,
-  adminProtected,
+  doctorProtected,
 } from '../middlewares/authMiddleware.js';
 
 //BASE- /api/v1/doctor
 
-router.post('/register', registerDoctor);
-router.get('/getPatient/:firstname/:lastname', getPatientId);
-router.get('/:docId', getDoctorDetails);
-router.put('/addPatientExercise', addPatientExercise);
-router.post('/createMedicalRecord', createMedicalRecord);
+router.post('/register', loginProtected, doctorProtected, registerDoctor);
+router.get(
+  '/getPatient/:firstname/:lastname',
+  loginProtected,
+  doctorProtected,
+  getPatientId
+);
+router.get('/:docId', loginProtected, doctorProtected, getDoctorDetails);
+router.put(
+  '/addPatientExercise',
+  loginProtected,
+  doctorProtected,
+  addPatientExercise
+);
+router.post(
+  '/createMedicalRecord',
+  loginProtected,
+  doctorProtected,
+  createMedicalRecord
+);
 // router.post('/register-patient/basicdetails', registerPatientBasic);
-router.get('/:id/readMessages', readPatientMessages);
-router.get('/checkPatientHistory/:fname/:lname', checkPatientHistory);
-router.get('/:patientId/checkMedicalRecords', checkMedicalRecord);
+router.get(
+  '/:id/readMessages',
+  loginProtected,
+  doctorProtected,
+  readPatientMessages
+);
+router.get(
+  '/checkPatientHistory/:fname/:lname',
+  loginProtected,
+  doctorProtected,
+  checkPatientHistory
+);
+router.get(
+  '/:patientId/checkMedicalRecords',
+  loginProtected,
+  doctorProtected,
+  checkMedicalRecord
+);
 export default router;
