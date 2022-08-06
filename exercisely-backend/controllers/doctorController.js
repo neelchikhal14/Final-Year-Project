@@ -94,7 +94,7 @@ export const createMedicalRecord = asyncHandler(async (req, res) => {
   const newRecord = await MedicalRecords.create({
     patient: pid,
     doctor: docId,
-    assignedExercises: {},
+    assignedExercises: [],
   });
   if (newRecord) {
     res.status(201).json({

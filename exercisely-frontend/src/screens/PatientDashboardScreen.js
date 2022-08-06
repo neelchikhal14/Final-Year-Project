@@ -88,7 +88,7 @@ const PatientDashboardScreen = ({ history }) => {
         </div>
         <div className='banner-info'>
           <h2>Exercise Time ?</h2>
-          {assignedExercises ? (
+          {assignedExercises && assignedExercises.length > 0 ? (
             <select
               defaultValue={'DEFAULT'}
               onChange={(e) => setExerciseName(e.target.value)}

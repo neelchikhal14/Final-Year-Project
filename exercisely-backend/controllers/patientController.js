@@ -118,16 +118,30 @@ export const updateExerciseStats = asyncHandler(async (req, res) => {
 
     const { assignedExercises } = recordExists;
     assignedExercises.forEach((ex) => {
+      if (!ex.sessionStats) {
+        ex['sessionStats'] = [];
+      }
+
       console.log('()()()');
       console.log(ex);
+      console.log(`999--${ex.exerciseId}--999`);
+      console.log(`999--${exid}--999`);
       if (ex.exerciseId.toString() === exid.toString()) {
-        ex.status = 'completed';
-        ex.sessionStats = [...stats];
-        ex.actualCompletionDate = currentISODate;
+        console.log('****I EXECUTED*****');
+        ex['status'] = 'completed';
+        ex['sessionStats'] = [...stats];
+        ex['actualCompletionDate'] = currentISODate;
+        console.log('EX', ex);
+      } else {
+        console.log('WRONG EXECUTED');
       }
     });
+    console.log('assignedExercises', assignedExercises);
 
-    const updatedRecords = await recordExists.save();
+    const updatedRecords = await MedicalRecords.findOneAndUpdate(
+      { patient: req.params.id },
+      { assignedExercises }
+    );
     res.json({ status: 'Session Statistics Saved', record: updatedRecords });
   } else {
     throw new Error('Record does not exists');

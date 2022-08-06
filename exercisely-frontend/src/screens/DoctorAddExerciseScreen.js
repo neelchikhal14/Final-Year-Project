@@ -24,6 +24,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
   const [exerciseDetails, setExerciseDetails] = useState({
     bodyPart: '',
     angle: 0,
+    std: 0,
   });
 
   const handleChange = (e) => {
@@ -35,16 +36,25 @@ const DoctorAddExerciseScreen = ({ history }) => {
   const [selectedExerciseId, setSelectedExerciseId] = useState('');
 
   const [completeExerciseDetails, setCompleteExerciseDetails] = useState({});
+  const [standardDeviation, setStandardDeviation] = useState({});
 
   const setExerciseParams = (e) => {
     e.preventDefault();
+    console.log('exercise details', exerciseDetails);
     const entries = Object.entries(exerciseDetails);
+    console.log('entries', entries);
     const key = entries[0][1];
     const value = entries[1][1];
     setCompleteExerciseDetails({
       ...completeExerciseDetails,
       [key]: Number(value),
     });
+    const stdValue = entries[2][1];
+    setStandardDeviation({
+      ...standardDeviation,
+      [key]: Number(stdValue),
+    });
+    console.log('std Deviation', standardDeviation);
   };
 
   const [reps, setReps] = useState(0);
@@ -83,12 +93,13 @@ const DoctorAddExerciseScreen = ({ history }) => {
   const setPatientExercises = () => {
     let assignedDate = new Date();
     assignedDate = assignedDate.toISOString();
-
+    // console.log('std deviation final', standardDeviation);
     const details = {
       pid: patient.bioData._id,
       doctorId: patient.bioData._id,
       exerciseId: selectedExerciseId,
       desiredValue: completeExerciseDetails,
+      std: standardDeviation,
       reps,
       assignedDate,
       duration,
@@ -97,7 +108,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
       instructions: instructions.split(';'),
       sessionStats: [],
     };
-    // console.log(details);
+    console.log(details);
     dispatch(setExercise(details));
     history.push('/doctor-dashboard');
   };
@@ -232,7 +243,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
                   </option>
                   {bodyPartsRef.map((option, idx) => (
                     <option key={idx} value={option}>
-                      {console.log(option.split('_').join(' ').toUpperCase())}
+                      {/* {console.log(option.split('_').join(' ').toUpperCase())} */}
                       {option.split('_').join(' ').toUpperCase()}
                     </option>
                   ))}
@@ -243,6 +254,13 @@ const DoctorAddExerciseScreen = ({ history }) => {
                   value={exerciseDetails.name}
                   onChange={handleChange}
                   name='angle'
+                />
+                <label htmlFor='std'>Allowed Deviation</label>
+                <input
+                  type='number'
+                  value={exerciseDetails.std}
+                  onChange={handleChange}
+                  name='std'
                 />
                 <button type='submit' className='set-angle-button'>
                   Set Exercise Parameters

@@ -169,14 +169,15 @@ export const setExercise = (details) => async (dispatch, getState) => {
     if (medicalRecordsResponse.status === 401) {
       console.log(medicalRecordsResponse);
     }
-    if (medicalRecordsResponse.data.record.assignedExercises.length > 0) {
+    if (medicalRecordsResponse.data.record.assignedExercises) {
       const newExercises = [
         {
           exerciseId: details.exerciseId,
           desiredValue: details.desiredValue,
+          std: details.std,
           reps: details.reps,
           assignedDate: details.assignedDate,
-          duration: details.duration,
+          duration: Number(details.duration),
           assignedCompletion: details.assignedCompletion,
           status: details.status,
           instructions: details.instructions,
