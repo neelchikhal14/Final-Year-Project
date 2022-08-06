@@ -31,7 +31,6 @@ const PatientAddDetailsScreen = ({ history }) => {
     setPatientDetails({ ...patientDetails, [name]: value });
   };
   const registerDetailsHandler = (e) => {
-    console.log('submitted');
     const localDob = new Date(patientDetails.dob);
     const details = {
       age: patientDetails.age,
@@ -59,11 +58,14 @@ const PatientAddDetailsScreen = ({ history }) => {
   };
 
   useEffect(() => {
-    if (assignedExercises.length > 0) {
+    if (assignedExercises && assignedExercises.length > 0) {
       setShowRegistrationForm(false);
     }
   }, [assignedExercises]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className='add-details-container'>
       {showRegistrationForm ? (
@@ -190,7 +192,7 @@ const PatientAddDetailsScreen = ({ history }) => {
               onChange={handleOnChange}
               required
             />
-
+            <label>Next Of Kin</label>
             <label htmlFor='name'>Name</label>
             <input
               type='text'

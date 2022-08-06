@@ -32,11 +32,7 @@ router.get(
   getPendingExercises
 );
 router.get('/getId/:id', loginProtected, doctorPatientProtected, getPatientId);
-router.put(
-  '/:id/updateExerciseStats',
-  doctorPatientProtected,
-  updateExerciseStats
-);
+router.put('/:id/updateExerciseStats', updateExerciseStats);
 router.get(
   '/:id/getExerciseStats/:fromdate/:todate',
   loginProtected,

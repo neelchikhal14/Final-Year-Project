@@ -52,6 +52,7 @@ li {
 main {
   display: flex;
   justify-content: center;
+  /* align-items: center; */
 }
 
 /* reset button styles */

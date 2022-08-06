@@ -5,7 +5,7 @@ import ExerciseScreenTypeOne from './ExerciseScreenTypeOne';
 
 let interval;
 
-const ExerciseHandlerScreenTypeOne = () => {
+const ExerciseHandlerScreenTypeOne = ({ history }) => {
   const [ready, setReady] = useState(false);
   const [duration, setDuration] = useState(null);
   const assignedExercise = useSelector(
@@ -46,7 +46,12 @@ const ExerciseHandlerScreenTypeOne = () => {
 
   return (
     <>
-      <ExerciseScreenTypeOne setReady={setReady} duration={duration} />
+      {console.log(history)}
+      <ExerciseScreenTypeOne
+        setReady={setReady}
+        duration={duration}
+        history={history}
+      />
     </>
   );
 };

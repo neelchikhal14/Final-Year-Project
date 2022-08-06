@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+
 import '@tensorflow/tfjs-core';
 import Webcam from 'react-webcam';
 import '@tensorflow/tfjs-backend-webgl';
@@ -9,7 +9,6 @@ import {
   drawCanvas,
   getExerciseStats,
   calculateStatistics,
-  setExerciseInformation,
   calculateAngle,
 } from '../utlities/utilities';
 
@@ -20,9 +19,9 @@ let det;
 let stage = null;
 let stats = [];
 let requiredReps;
-const ExerciseScreenTypeTwo = () => {
+const ExerciseScreenTypeTwo = ({ history }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const { selectedExercise } = useSelector(
     (state) => state.patientSelectExercises
   );
@@ -61,7 +60,7 @@ const ExerciseScreenTypeTwo = () => {
   const model = poseDetection.SupportedModels.BlazePose;
   const detectorConfig = {
     runtime: 'tfjs',
-    modelType: 'lite',
+    modelType: 'heavy',
   };
 
   async function initPoseDetection() {
@@ -78,7 +77,7 @@ const ExerciseScreenTypeTwo = () => {
     // setReady(true);
     timer = setInterval(() => {
       render(det);
-    }, 100);
+    }, 400);
   }
 
   function poseColor(poses) {
@@ -126,21 +125,21 @@ const ExerciseScreenTypeTwo = () => {
           // 159 to 163
           // 156 - 160 bend
           // 161 - 165 str
-          if (angle > 160) {
-            stage = 'stretch';
-          }
-          if (stage === 'stretch' && angle <= 160) {
-            stage = 'bend';
-            setReps((prevProps) => prevProps + 1);
-          }
-          // squats
-          // if (angle > 180 && angle <= 200) {
+          // if (angle > 160) {
           //   stage = 'stretch';
           // }
-          // if (stage === 'stretch' && angle <= 310 && angle > 271) {
+          // if (stage === 'stretch' && angle <= 160) {
           //   stage = 'bend';
           //   setReps((prevProps) => prevProps + 1);
           // }
+          // squats
+          if (angle > 180 && angle <= 200) {
+            stage = 'stretch';
+          }
+          if (stage === 'stretch' && angle <= 310 && angle > 271) {
+            stage = 'bend';
+            setReps((prevProps) => prevProps + 1);
+          }
           let temp = getExerciseStats(poses, selectedExercise[0].bodyParams);
           stats = [...stats, ...temp];
         });

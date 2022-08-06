@@ -8,46 +8,12 @@ const doctorsSchema = mongoose.Schema(
       ref: 'User',
     },
     clinicAddress: {
-      streetAddressLineOne: {
-        type: String,
-        required: true,
-      },
-      streetAddressLineTwo: {
-        type: String,
-      },
-      country: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      postalCode: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
     },
     homeAddress: {
-      streetAddressLineOne: {
-        type: String,
-        required: true,
-      },
-      streetAddressLineTwo: {
-        type: String,
-      },
-      country: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      postalCode: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
     },
     dob: {
       type: Date,

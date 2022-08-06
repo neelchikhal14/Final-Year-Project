@@ -34,6 +34,9 @@ const PatientStatsScreen = () => {
       setStats([...statsArray]);
     }
   }, [completeExerciseDetails]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className='patient-stat-screen-container'>
@@ -96,7 +99,7 @@ const PatientStatsScreen = () => {
                   </span>
                 </h3>
                 <h3>Feedback:</h3>
-                {stats && (
+                {stats && stats[idx] !== undefined && (
                   <ul>
                     {stats[idx].map((singleExStat, index) => {
                       return <li key={index}>{singleExStat}</li>;

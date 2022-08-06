@@ -10,6 +10,7 @@ import {
   drawCanvas,
   getExerciseStats,
   calculateStatistics,
+  setCurrentAngles,
 } from '../utlities/utilities';
 
 import './css/ExerciseScreenTypeOne.css';
@@ -18,9 +19,9 @@ let timer;
 let det;
 let stats = [];
 
-const ExerciseScreenTypeOne = ({ setReady, duration }) => {
+const ExerciseScreenTypeOne = ({ setReady, duration, history }) => {
   //init history
-  const history = useHistory();
+  // const history = useHistory();
   //init dispatch
   const dispatch = useDispatch();
   //access states from store
@@ -44,12 +45,13 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
   // init local state
   const [detailedExercise, setDetailedExercise] = useState(null);
   const [displayMedialements, setDisplayMedialements] = useState(true);
+  const [currentAngleInfo, setCurrentAngleInfo] = useState({});
 
   //model init
   const model = poseDetection.SupportedModels.BlazePose;
   const detectorConfig = {
     runtime: 'tfjs',
-    modelType: 'lite',
+    modelType: 'heavy',
   };
 
   async function initPoseDetection() {
@@ -67,7 +69,7 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
     // setReady(true);
     timer = setInterval(() => {
       render(det);
-    }, 100);
+    }, 500);
   }
 
   function poseColor(poses) {
@@ -106,8 +108,8 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
         drawCanvas(poses, videoWidth, videoHeight, canvasRef, theColor);
 
         let temp = getExerciseStats(poses, bodyParams);
-
         stats = [...stats, ...temp];
+        setCurrentAngleInfo(setCurrentAngles(poses, bodyParams));
       }
     }
   }
@@ -120,12 +122,20 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
 
   const genStats = () => {
     // normaliseExerciseStats(stats);
+    // console.log('clicked');
+    console.log(stats);
     const finalStats = calculateStatistics(stats);
+    console.log(finalStats);
+    console.log('****');
+    console.log(detailedExercise);
+    console.log(detailedExercise.exerciseId, finalStats);
     setDisplayMedialements(false);
-    dispatch(updateExerciseStats(detailedExercise._id, finalStats));
+    dispatch(updateExerciseStats(detailedExercise.exerciseId, finalStats));
     if (timer) {
+      console.log(timer);
       clearInterval(timer);
     }
+    console.log(history);
     history.push(`/patient-dashboard`);
   };
   useEffect(() => {
@@ -139,8 +149,10 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
     const exercise = pendingExercises.filter(
       (ex) => ex.exerciseId === selectedExercise[0]._id
     );
+    console.log(exercise);
     setDetailedExercise(...exercise);
   }, [detailedExercise, pendingExercises, selectedExercise]);
+
   return (
     <>
       <section className='exercise-section'>
@@ -154,13 +166,26 @@ const ExerciseScreenTypeOne = ({ setReady, duration }) => {
             <div className='exercise-info'>
               <h3>Instructions</h3>
               <ul>
-                <li>You are about to start a session of {name}</li>
+                <li>
+                  You are about to start a session of <b>{name}</b>
+                </li>
                 {detailedExercise !== null &&
                   detailedExercise.instructions.map((ins, idx) => (
                     <li key={idx}>{ins}</li>
                   ))}
               </ul>
-              <span className='rep-count'>{duration}</span>
+              <span className='rep-count'>
+                <b>Duration :</b>
+                {duration}
+              </span>
+              <div>
+                {Object.keys(currentAngleInfo).length > 0 &&
+                  Object.keys(currentAngleInfo).map((key) => (
+                    <span>
+                      {key} = {currentAngleInfo[key]}
+                    </span>
+                  ))}
+              </div>
               <button onClick={() => begin()} className='start-exercise-button'>
                 Start
               </button>

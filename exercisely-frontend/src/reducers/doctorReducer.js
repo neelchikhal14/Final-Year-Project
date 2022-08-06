@@ -20,6 +20,12 @@ import {
   DOCTOR_GET_HISTORY_FAIL,
   DOCTOR_GET_HISTORY_REQUEST,
   DOCTOR_GET_HISTORY_SUCCESS,
+  DOCTOR_REGISTER_DETAILS_REQUEST,
+  DOCTOR_REGISTER_DETAILS_SUCCESS,
+  DOCTOR_REGISTER_DETAILS_FAIL,
+  DOCTOR_CHECK_DETAILS_EXISTS_FAIL,
+  DOCTOR_CHECK_DETAILS_EXISTS_REQUEST,
+  DOCTOR_CHECK_DETAILS_EXISTS_SUCCESS,
 } from '../constants/doctorConstants';
 
 export const doctorFetchPatientReducer = (state = { state: {} }, action) => {
@@ -172,6 +178,38 @@ export const doctorGetPatientHistoryReducer = (
         loading: false,
       };
     case DOCTOR_GET_HISTORY_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+export const doctorRegisterPersonalDetailsReducer = (
+  state = { state: {} },
+  action
+) => {
+  switch (action.type) {
+    case DOCTOR_REGISTER_DETAILS_REQUEST:
+      return {
+        loading: true,
+      };
+    case DOCTOR_REGISTER_DETAILS_SUCCESS:
+      return {
+        docPersonalDetails: action.payload,
+        loading: false,
+      };
+    case DOCTOR_CHECK_DETAILS_EXISTS_REQUEST:
+      return { loading: true };
+    case DOCTOR_CHECK_DETAILS_EXISTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        detailsExists: action.payload,
+      };
+    case DOCTOR_REGISTER_DETAILS_FAIL:
       return {
         loading: false,
         error: action.payload,

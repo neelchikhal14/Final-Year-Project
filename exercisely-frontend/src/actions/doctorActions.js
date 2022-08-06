@@ -20,6 +20,12 @@ import {
   DOCTOR_GET_HISTORY_FAIL,
   DOCTOR_GET_HISTORY_REQUEST,
   DOCTOR_GET_HISTORY_SUCCESS,
+  DOCTOR_REGISTER_DETAILS_FAIL,
+  DOCTOR_REGISTER_DETAILS_REQUEST,
+  DOCTOR_REGISTER_DETAILS_SUCCESS,
+  DOCTOR_CHECK_DETAILS_EXISTS_REQUEST,
+  DOCTOR_CHECK_DETAILS_EXISTS_FAIL,
+  DOCTOR_CHECK_DETAILS_EXISTS_SUCCESS,
 } from '../constants/doctorConstants';
 
 import axios from 'axios';
@@ -487,3 +493,81 @@ export const doctorGetPateientExerciseStats =
       });
     }
   };
+
+export const registerPersonalDetails =
+  (details) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: DOCTOR_REGISTER_DETAILS_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        '/api/v1/doctor/register',
+        {
+          bio: userInfo._id,
+          clinicAddress: details.clinicAddress,
+          homeAddress: details.homeAddress,
+          dob: details.dob,
+          workTelephone: details.workTelephone,
+          homeTelephone: details.homeTelephone,
+          gender: details.gender,
+          qualification: details.qualification,
+        },
+        config
+      );
+
+      dispatch({
+        type: DOCTOR_REGISTER_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: DOCTOR_REGISTER_DETAILS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const checkDetailsExists = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DOCTOR_CHECK_DETAILS_EXISTS_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/v1/doctor/${userInfo._id}`, config);
+
+    dispatch({
+      type: DOCTOR_CHECK_DETAILS_EXISTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DOCTOR_CHECK_DETAILS_EXISTS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
