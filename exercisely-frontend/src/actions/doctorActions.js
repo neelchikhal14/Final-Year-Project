@@ -26,6 +26,10 @@ import {
   DOCTOR_CHECK_DETAILS_EXISTS_REQUEST,
   DOCTOR_CHECK_DETAILS_EXISTS_FAIL,
   DOCTOR_CHECK_DETAILS_EXISTS_SUCCESS,
+  DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+  DOCTOR_GET_MULTIPLE_PATIENTS_FAIL,
+  DOCTOR_GET_MULTIPLE_PATIENTS_REQUEST,
+  DOCTOR_GET_MULTIPLE_PATIENTS_SUCCESS,
 } from '../constants/doctorConstants';
 
 import axios from 'axios';
@@ -39,7 +43,7 @@ import {
   PATIENT_PENDING_EXERCISES_REQUEST,
 } from '../constants/patientConstants';
 
-export const fetchPatient = (patientDetails) => async (dispatch, getState) => {
+export const fetchPatient = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: DOCTOR_FETCH_PATIENT_REQUEST,
@@ -56,7 +60,7 @@ export const fetchPatient = (patientDetails) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `/api/v1/doctor/getPatient/${patientDetails.firstname}/${patientDetails.lastname}`,
+      `/api/v1/doctor/getPatientByID/${id}`,
       config
     );
 
@@ -282,7 +286,10 @@ export const getPatientMessages = () => async (dispatch, getState) => {
 
     async function getSendersDetails() {
       for (const sender of messages) {
-        const result = await axios.get(`/api/v1/users/${sender.from}`, config);
+        const result = await axios.get(
+          `/api/v1/users/getUserById/${sender.from}`,
+          config
+        );
         promises.push(result);
       }
       const results = await Promise.all(promises);
@@ -379,7 +386,7 @@ export const getPatientExerciseStat =
       };
 
       const response = await axios.get(
-        `/api/v1/users/${fname}/${lname}`,
+        `/api/v1/users/getUserByName/${fname}/${lname}`,
         config
       );
 
@@ -443,7 +450,7 @@ export const doctorGetPateientExerciseStats =
         },
       };
       const response = await axios.get(
-        `/api/v1/users/${fname}/${lname}`,
+        `/api/v1/users/getUserByName/${fname}/${lname}`,
         config
       );
       const {
@@ -572,3 +579,39 @@ export const checkDetailsExists = () => async (dispatch, getState) => {
     });
   }
 };
+export const getMultiplePatients =
+  (firstname, lastname) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: DOCTOR_GET_MULTIPLE_PATIENTS_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `/api/v1/users/getManyUsers/${firstname}/${lastname}`,
+        config
+      );
+
+      dispatch({
+        type: DOCTOR_GET_MULTIPLE_PATIENTS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: DOCTOR_GET_MULTIPLE_PATIENTS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

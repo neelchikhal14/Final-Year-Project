@@ -216,3 +216,28 @@ export const checkMedicalRecord = asyncHandler(async (req, res) => {
     record,
   });
 });
+/**
+ * * @desc   get user id by email
+ * * route   GET /api/v1/doctor/getPatientByID/:id
+ * ! @access PROTECTED
+ */
+export const getPatientByID = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findOne({ _id: id });
+  console.log(user);
+  if (user) {
+    const patientDetails = await Patient.findOne({ bio: user._id });
+    if (patientDetails) {
+      res.status(200).json({
+        basicDetails: user,
+        bioData: patientDetails,
+      });
+    } else {
+      res.status(401);
+      throw new Error('Patient Registration is incomplete.');
+    }
+  } else {
+    res.status(401);
+    throw new Error('User Not Found');
+  }
+});

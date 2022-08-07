@@ -79,12 +79,17 @@ const App = () => {
           role='doctor'
           exact
         />
-        <ProtectedRoute
+        <Route
+          path='/doctor-add-exercise'
+          component={DoctorAddExerciseScreen}
+          exact
+        />
+        {/* <ProtectedRoute
           path='/doctor-add-exercise'
           component={DoctorAddExerciseScreen}
           role='doctor'
           exact
-        />
+        /> */}
         <ProtectedRoute
           path='/doctor-read-patient-messages'
           component={DoctorReadPatientMessagesScreen}

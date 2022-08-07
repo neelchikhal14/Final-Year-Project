@@ -11,6 +11,7 @@ import {
   checkPatientHistory,
   checkMedicalRecord,
   getDoctorDetails,
+  getPatientByID,
 } from '../controllers/doctorController.js';
 
 import {
@@ -21,6 +22,12 @@ import {
 //BASE- /api/v1/doctor
 
 router.post('/register', loginProtected, doctorProtected, registerDoctor);
+router.get(
+  '/getPatientByID/:id',
+  loginProtected,
+  doctorProtected,
+  getPatientByID
+);
 router.get(
   '/getPatient/:firstname/:lastname',
   loginProtected,
