@@ -55,7 +55,7 @@ router.get(
   readPatientMessages
 );
 router.get(
-  '/checkPatientHistory/:fname/:lname',
+  '/checkPatientHistory/:id',
   loginProtected,
   doctorProtected,
   checkPatientHistory

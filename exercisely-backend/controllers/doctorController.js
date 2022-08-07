@@ -146,14 +146,13 @@ export const readPatientMessages = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   See Patient History
- * * route   GET /api/v1/doctor/checkPatientHistory/:fname/:lname
+ * * route   GET /api/v1/doctor/checkPatientHistory/:id
  * ! @access PROTECTED
  */
 export const checkPatientHistory = asyncHandler(async (req, res) => {
-  const { fname, lname } = req.params;
+  const { id } = req.params;
   const user = await User.findOne({
-    firstname: fname,
-    lastname: lname,
+    _id: id,
   }).select('-password -role -createdAt -updatedAt');
 
   if (!user) {

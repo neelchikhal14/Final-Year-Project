@@ -178,23 +178,27 @@ const DoctorAddExerciseScreen = ({ history }) => {
       {patientDetails && patientDetails.length > 0 && (
         <section className='patient-reference-section'>
           <table>
-            <tr>
-              <th>Patient Name</th>
-              <th>Email</th>
-              <th>Patient Reference Number</th>
-            </tr>
-            {patientDetails.map((singlePatient, index) => {
-              return (
-                <tr key={index}>
-                  <td>
-                    {singlePatient.firstname.toUpperCase()}
-                    {} {singlePatient.lastname.toUpperCase()}
-                  </td>
-                  <td>{singlePatient.email}</td>
-                  <td>{singlePatient._id}</td>
-                </tr>
-              );
-            })}
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Email</th>
+                <th>Patient Reference Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              {patientDetails.map((singlePatient, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      {singlePatient.firstname.toUpperCase()}
+                      {} {singlePatient.lastname.toUpperCase()}
+                    </td>
+                    <td>{singlePatient.email}</td>
+                    <td>{singlePatient._id}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </section>
       )}
