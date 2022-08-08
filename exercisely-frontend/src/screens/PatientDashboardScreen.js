@@ -8,6 +8,8 @@ import Loader from '../components/Loader';
 import Error from '../components/Error';
 import Information from '../components/Information';
 
+import { clearState } from '../utlities/utilities';
+
 import './css/PatientDashboardScreen.css';
 
 const PatientDashboardScreen = ({ history }) => {
@@ -52,6 +54,10 @@ const PatientDashboardScreen = ({ history }) => {
     history.push('/patient/add-details');
   };
 
+  // useEffect(() => {
+  //   let timer = setTimeout(() => {
+  //     dispatch(getAllExercises());
+  //   }, 5000);
   useEffect(() => {
     dispatch(getAllExercises());
   }, [dispatch]);
@@ -59,6 +65,13 @@ const PatientDashboardScreen = ({ history }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(history.location);
+  //   if (history.location['state'] !== undefined) {
+  //     clearState(history.location.state.from, dispatch);
+  //   }
+  // }, [dispatch, history]);
 
   return (
     <div className='patient-dashboard-container'>

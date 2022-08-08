@@ -1,3 +1,23 @@
+import {
+  DOCTOR_CHECK_MEDICAL_RECORD_CLEAR,
+  DOCTOR_CREATE_MEDICAL_RECORD_CLEAR,
+  DOCTOR_DELETE_EXERCISE_CLEAR,
+  DOCTOR_FETCH_PATIENT_CLEAR,
+  DOCTOR_GET_EXERCISE_CLEAR,
+  DOCTOR_GET_HISTORY_CLEAR,
+  DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+  DOCTOR_REGISTER_DETAILS_CLEAR,
+  DOCTOR_RETRIEVE_MESSAGES_CLEAR,
+  DOCTOR_SET_EXERCISE_CLEAR,
+  DOCTOR_UPDATE_EXERCISE_CLEAR,
+} from '../constants/doctorConstants.js';
+import {
+  PATIENT_EXERCISE_CLEAR,
+  PATIENT_EXERCISE_STATS_CLEAR,
+  PATIENT_REGISTER_BASIC_DETAILS_CLEAR,
+  PATIENT_SEND_MESSAGE_CLEAR,
+  PATIENT_UPDATE_EXERCISE_STATS_CLEAR,
+} from '../constants/patientConstants.js';
 const skeletonLookup = [
   [0, 1],
   [0, 4],
@@ -634,4 +654,158 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
     // console.log('##################');
   });
   return finalStats;
+};
+
+export const clearState = (pageInfo, dispatch) => {
+  if (pageInfo === '/doctor-add-exercise') {
+    dispatch({
+      type: DOCTOR_SET_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_CHECK_MEDICAL_RECORD_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_CREATE_MEDICAL_RECORD_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_FETCH_PATIENT_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_EXERCISE_CLEAR,
+    });
+  }
+  if (pageInfo === '/doctor-update-patient-exercise') {
+    dispatch({
+      type: DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_FETCH_PATIENT_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_CLEAR,
+    });
+  }
+  if (pageInfo === '/doctor-delete-patient-exercise') {
+    dispatch({
+      type: DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_FETCH_PATIENT_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_CLEAR,
+    });
+  }
+  if (pageInfo === '/doctor-read-patient-messages') {
+    dispatch({
+      type: DOCTOR_RETRIEVE_MESSAGES_CLEAR,
+    });
+  }
+  if (pageInfo === '/doctor-check-patient-history') {
+    dispatch({
+      type: DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_HISTORY_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_EXERCISE_STATS_CLEAR,
+    });
+  }
+  if (pageInfo === '/doctor-add-personal-details') {
+    dispatch({
+      type: DOCTOR_REGISTER_DETAILS_CLEAR,
+    });
+  }
+  if (
+    pageInfo === '/patient/start-exercise-type-two' ||
+    pageInfo === '/patient/start-exercise-type-one'
+  ) {
+    dispatch({
+      type: PATIENT_UPDATE_EXERCISE_STATS_CLEAR,
+    });
+  }
+  if (pageInfo === '/patient/add-details') {
+    dispatch({
+      type: PATIENT_REGISTER_BASIC_DETAILS_CLEAR,
+    });
+  }
+  if (pageInfo === '/send-message') {
+    dispatch({
+      type: PATIENT_SEND_MESSAGE_CLEAR,
+    });
+  }
+  if (pageInfo === '/patient/view-staticstics') {
+    dispatch({
+      type: PATIENT_EXERCISE_STATS_CLEAR,
+    });
+  }
+  if (pageInfo === 'all') {
+    dispatch({
+      type: DOCTOR_CHECK_MEDICAL_RECORD_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_CREATE_MEDICAL_RECORD_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_FETCH_PATIENT_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_HISTORY_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_REGISTER_DETAILS_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_RETRIEVE_MESSAGES_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_SET_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_EXERCISE_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_EXERCISE_STATS_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_REGISTER_BASIC_DETAILS_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_SEND_MESSAGE_CLEAR,
+    });
+    dispatch({
+      type: DOCTOR_CHECK_MEDICAL_RECORD_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_UPDATE_EXERCISE_STATS_CLEAR,
+    });
+    if (sessionStorage.key('expiresAt')) {
+      sessionStorage.removeItem('expiresAt');
+    }
+  }
 };

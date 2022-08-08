@@ -9,10 +9,10 @@ import {
   getExercises,
   getMultiplePatients,
   getPendingExercises,
-  updateTheExercise,
 } from '../actions/doctorActions';
 
 import './css/DoctorDeletePatientExerciseScreen.css';
+
 const DoctorDeletePatientExerciseScreen = ({ history }) => {
   const [getPatient, setGetPatient] = useState({
     firstname: '',

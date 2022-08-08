@@ -16,6 +16,12 @@ import {
   PATIENT_REGISTER_BASIC_DETAILS_FAIL,
   PATIENT_REGISTER_BASIC_DETAILS_REQUEST,
   PATIENT_REGISTER_BASIC_DETAILS_SUCCESS,
+  PATIENT_EXERCISE_CLEAR,
+  PATIENT_SELECTED_EXERCISE_CLEAR,
+  PATIENT_UPDATE_EXERCISE_STATS_CLEAR,
+  PATIENT_SEND_MESSAGE_CLEAR,
+  PATIENT_EXERCISE_STATS_CLEAR,
+  PATIENT_REGISTER_BASIC_DETAILS_CLEAR,
 } from '../constants/patientConstants';
 
 export const patientGetExercisesReducer = (state = { state: {} }, action) => {
@@ -42,6 +48,8 @@ export const patientGetExercisesReducer = (state = { state: {} }, action) => {
         loading: false,
         error: action.payload,
       };
+    case PATIENT_EXERCISE_CLEAR:
+      return {};
 
     default:
       return state;
@@ -56,6 +64,8 @@ export const patientSelectExercisesReducer = (
       return {
         selectedExercise: action.payload,
       };
+    case PATIENT_SELECTED_EXERCISE_CLEAR:
+      return {};
 
     default:
       return state;
@@ -80,6 +90,8 @@ export const patientUpdateSessionStatsReducer = (
         loading: false,
         error: action.payload,
       };
+    case PATIENT_UPDATE_EXERCISE_STATS_CLEAR:
+      return {};
 
     default:
       return state;
@@ -101,6 +113,8 @@ export const patientSendMessageReducer = (state = { state: {} }, action) => {
         loading: false,
         error: action.payload,
       };
+    case PATIENT_SEND_MESSAGE_CLEAR:
+      return {};
 
     default:
       return state;
@@ -125,6 +139,8 @@ export const patientGetExerciseStatsReducer = (
         loading: false,
         error: action.payload,
       };
+    case PATIENT_EXERCISE_STATS_CLEAR:
+      return {};
 
     default:
       return state;
@@ -149,6 +165,8 @@ export const patientRegisterBasicDetailsReducer = (
         loading: false,
         error: action.payload,
       };
+    case PATIENT_REGISTER_BASIC_DETAILS_CLEAR:
+      return {};
 
     default:
       return state;
