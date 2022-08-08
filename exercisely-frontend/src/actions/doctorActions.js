@@ -189,6 +189,7 @@ export const setExercise = (details) => async (dispatch, getState) => {
           desiredValue: details.desiredValue,
           std: details.std,
           reps: details.reps,
+          videoLink: details.videoLink,
           assignedDate: details.assignedDate,
           duration: Number(details.duration),
           assignedCompletion: details.assignedCompletion,

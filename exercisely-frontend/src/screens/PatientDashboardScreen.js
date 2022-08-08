@@ -72,6 +72,9 @@ const PatientDashboardScreen = ({ history }) => {
   //     clearState(history.location.state.from, dispatch);
   //   }
   // }, [dispatch, history]);
+  const refreshExerciseList = () => {
+    dispatch(getAllExercises());
+  };
 
   return (
     <div className='patient-dashboard-container'>
@@ -128,6 +131,12 @@ const PatientDashboardScreen = ({ history }) => {
             }
           >
             Start Exercise
+          </button>
+          <button
+            onClick={refreshExerciseList}
+            className='patient-functionality-button'
+          >
+            Refresh List
           </button>
         </div>
       </section>

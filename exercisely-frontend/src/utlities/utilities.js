@@ -15,6 +15,7 @@ import {
   PATIENT_EXERCISE_CLEAR,
   PATIENT_EXERCISE_STATS_CLEAR,
   PATIENT_REGISTER_BASIC_DETAILS_CLEAR,
+  PATIENT_SELECTED_EXERCISE_CLEAR,
   PATIENT_SEND_MESSAGE_CLEAR,
   PATIENT_UPDATE_EXERCISE_STATS_CLEAR,
 } from '../constants/patientConstants.js';
@@ -803,6 +804,9 @@ export const clearState = (pageInfo, dispatch) => {
     });
     dispatch({
       type: PATIENT_UPDATE_EXERCISE_STATS_CLEAR,
+    });
+    dispatch({
+      type: PATIENT_SELECTED_EXERCISE_CLEAR,
     });
     if (sessionStorage.key('expiresAt')) {
       sessionStorage.removeItem('expiresAt');

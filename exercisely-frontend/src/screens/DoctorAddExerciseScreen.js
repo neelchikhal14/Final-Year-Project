@@ -66,7 +66,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
   const [assignedCompletion, setAssignedCompletion] = useState(new Date());
   const [instructions, setInstructions] = useState([]);
   const [duration, setDuration] = useState(0);
-
+  const [videoLink, setVideoLink] = useState('');
   const [recordExists, setRecordExists] = useState('');
   const [recordCreated, setRecordCreated] = useState(false);
 
@@ -120,6 +120,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
       desiredValue: completeExerciseDetails,
       std: standardDeviation,
       reps,
+      videoLink,
       assignedDate,
       duration,
       assignedCompletion: new Date(assignedCompletion).toISOString(),
@@ -289,6 +290,13 @@ const DoctorAddExerciseScreen = ({ history }) => {
                 name='completionDate'
                 value={assignedCompletion}
                 onChange={(e) => setAssignedCompletion(e.target.value)}
+              />
+              <label htmlFor='videoLink'>Video Link</label>
+              <input
+                type='text'
+                name='videoLink'
+                value={videoLink}
+                onChange={(e) => setVideoLink(e.target.value)}
               />
               <label htmlFor='instructions'>Instructions</label>
               <textarea

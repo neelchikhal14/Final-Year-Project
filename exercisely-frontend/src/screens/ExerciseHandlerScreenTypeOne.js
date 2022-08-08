@@ -46,7 +46,6 @@ const ExerciseHandlerScreenTypeOne = ({ history }) => {
 
   return (
     <>
-      {console.log(history)}
       <ExerciseScreenTypeOne
         setReady={setReady}
         duration={duration}

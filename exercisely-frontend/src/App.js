@@ -59,9 +59,11 @@ const App = () => {
         <Route path='/login' component={LoginScreen} />
         <Route path='/registration' component={RegistrationScreen} exact />
         {displayAlert && (
-          <Information>
-            <h3>Timer will expire</h3>
-          </Information>
+          <div className='session-alert'>
+            <Information>
+              <h3>Timer will expire in 1 minute</h3>
+            </Information>
+          </div>
         )}
         {/* <Route
           path='/patient-dashboard'

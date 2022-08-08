@@ -46,7 +46,7 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
 
   const [completeExerciseDetails, setCompleteExerciseDetails] = useState({});
   const [standardDeviation, setStandardDeviation] = useState({});
-
+  const [videoLink, setVideoLink] = useState('');
   const setExerciseParams = (e) => {
     e.preventDefault();
     console.log('exercise details', exerciseDetails);
@@ -144,6 +144,7 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
       desiredValue: completeExerciseDetails,
       std: standardDeviation,
       reps,
+      videoLink,
       assignedDate,
       duration,
       assignedCompletion: new Date(assignedCompletion).toISOString(),
@@ -339,6 +340,13 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
                 name='completionDate'
                 value={assignedCompletion}
                 onChange={(e) => setAssignedCompletion(e.target.value)}
+              />
+              <label htmlFor='videoLink'>Video Link</label>
+              <input
+                type='text'
+                name='videoLink'
+                value={videoLink}
+                onChange={(e) => setVideoLink(e.target.value)}
               />
               <label htmlFor='instructions'>Instructions</label>
               <textarea

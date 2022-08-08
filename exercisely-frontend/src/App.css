@@ -1,4 +1,15 @@
 /* temp */
+
+.session-alert {
+  width: 90vw;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.session-alert > div {
+  width: 100%;
+}
 @media only screen and (min-width: 401px) {
   main {
     min-height: 90vh;
