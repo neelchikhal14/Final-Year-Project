@@ -10,10 +10,12 @@ import PatientStatsScreen from './screens/PatientStatsScreen';
 import PatientSendMessageScreen from './screens/PatientSendMessageScreen';
 import PatientAddDetailsScreen from './screens/PatientAddDetailsScreen';
 import DoctorDashboardScreen from './screens/DoctorDashboardScreen';
-import DoctorAddExerciseScreen from './screens/DoctorAddExerciseScreen.js';
-import DoctorReadPatientMessagesScreen from './screens/DoctorReadPatientMessagesScreen.js';
-import DoctorCheckPatientHistoryScreen from './screens/DoctorCheckPatientHistoryScreen.js';
-import DoctorAddPersonalDetailsScreen from './screens/DoctorAddPersonalDetailsScreen.js';
+import DoctorAddExerciseScreen from './screens/DoctorAddExerciseScreen';
+import DoctorReadPatientMessagesScreen from './screens/DoctorReadPatientMessagesScreen';
+import DoctorCheckPatientHistoryScreen from './screens/DoctorCheckPatientHistoryScreen';
+import DoctorAddPersonalDetailsScreen from './screens/DoctorAddPersonalDetailsScreen';
+import DoctorUpdatePatientExerciseScreen from './screens/DoctorUpdatePatientExerciseScreen';
+import DoctorDeletePatientExerciseScreen from './screens/DoctorDeletePatientExerciseScreen';
 import ExerciseHandlerScreenTypeOne from './screens/ExerciseHandlerScreenTypeOne';
 import ExerciseHandlerScreenTypeTwo from './screens/ExerciseHandlerScreenTypeTwo';
 
@@ -103,8 +105,14 @@ const App = () => {
           exact
         />
         <ProtectedRoute
-          path='/doctor-add-personal-details'
-          component={DoctorAddPersonalDetailsScreen}
+          path='/doctor-delete-patient-exercise'
+          component={DoctorDeletePatientExerciseScreen}
+          role='doctor'
+          exact
+        />
+        <ProtectedRoute
+          path='/doctor-update-patient-exercise'
+          component={DoctorUpdatePatientExerciseScreen}
           role='doctor'
           exact
         />

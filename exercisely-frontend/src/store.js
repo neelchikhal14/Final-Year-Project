@@ -20,6 +20,7 @@ import {
   doctorGetPatientHistoryReducer,
   doctorRegisterPersonalDetailsReducer,
   doctorGetMultiplePatientsReducer,
+  doctorUpdatePatientExerciseReducer,
 } from './reducers/doctorReducer';
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -39,6 +40,7 @@ const reducer = combineReducers({
   doctorGetPatientHistory: doctorGetPatientHistoryReducer,
   doctorRegisterPersonalDetails: doctorRegisterPersonalDetailsReducer,
   doctorGetMultiplePatients: doctorGetMultiplePatientsReducer,
+  doctorUpdatePatientExercise: doctorUpdatePatientExerciseReducer,
 });
 
 const initialState = {
@@ -59,6 +61,7 @@ const initialState = {
   doctorGetPatientHistory: {},
   doctorRegisterPersonalDetails: {},
   doctorGetMultiplePatients: {},
+  doctorUpdatePatientExercise: {},
 };
 
 const middlewares = [thunk];

@@ -12,6 +12,7 @@ import {
   checkMedicalRecord,
   getDoctorDetails,
   getPatientByID,
+  updatePatientExercise,
 } from '../controllers/doctorController.js';
 
 import {
@@ -40,6 +41,12 @@ router.put(
   loginProtected,
   doctorProtected,
   addPatientExercise
+);
+router.put(
+  '/updatePatientExercise',
+  loginProtected,
+  doctorProtected,
+  updatePatientExercise
 );
 router.post(
   '/createMedicalRecord',

@@ -30,6 +30,11 @@ import {
   DOCTOR_GET_MULTIPLE_PATIENTS_REQUEST,
   DOCTOR_GET_MULTIPLE_PATIENTS_SUCCESS,
   DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+  DOCTOR_UPDATE_EXERCISE_CLEAR,
+  DOCTOR_UPDATE_EXERCISE_FAIL,
+  DOCTOR_UPDATE_EXERCISE_REQUEST,
+  DOCTOR_UPDATE_EXERCISE_SUCCESS,
+  DOCTOR_UPDATE_EFFECT_SUCCESS,
 } from '../constants/doctorConstants';
 
 export const doctorFetchPatientReducer = (state = { state: {} }, action) => {
@@ -241,6 +246,41 @@ export const doctorGetMultiplePatientsReducer = (
       return { state: {} };
 
     case DOCTOR_GET_MULTIPLE_PATIENTS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+export const doctorUpdatePatientExerciseReducer = (
+  state = { state: { updateDetails: {}, updateEffect: {} } },
+  action
+) => {
+  switch (action.type) {
+    case DOCTOR_UPDATE_EXERCISE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DOCTOR_UPDATE_EXERCISE_SUCCESS:
+      return {
+        ...state,
+        updateDetails: action.payload,
+        loading: false,
+      };
+    case DOCTOR_UPDATE_EFFECT_SUCCESS:
+      return {
+        ...state,
+        updateEffect: action.payload,
+        loading: false,
+      };
+    case DOCTOR_UPDATE_EXERCISE_CLEAR:
+      return { state: {} };
+
+    case DOCTOR_UPDATE_EXERCISE_FAIL:
       return {
         loading: false,
         error: action.payload,

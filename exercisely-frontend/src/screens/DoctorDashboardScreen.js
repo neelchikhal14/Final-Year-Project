@@ -17,6 +17,12 @@ const DoctorDashboardScreen = ({ history }) => {
   const addDoctorDetails = () => {
     history.push('/doctor-add-personal-details');
   };
+  const updateExerciseHandler = () => {
+    history.push('/doctor-update-patient-exercise');
+  };
+  const deleteExerciseHandler = () => {
+    history.push('/doctor-delete-patient-exercise');
+  };
   return (
     <div className='doctor-dashboard-container'>
       <section className='banner-add-exercise banner'>
@@ -33,6 +39,20 @@ const DoctorDashboardScreen = ({ history }) => {
             className='doctor-functionality-button'
           >
             Add Exercise
+          </button>
+          <h2>Modify Exercise for a Patient</h2>
+          <button
+            onClick={updateExerciseHandler}
+            className='doctor-functionality-button'
+          >
+            Update Exercise
+          </button>
+          <h2>Delete Exercise for a Patient</h2>
+          <button
+            onClick={deleteExerciseHandler}
+            className='doctor-functionality-button'
+          >
+            Delete Exercise
           </button>
         </div>
       </section>
