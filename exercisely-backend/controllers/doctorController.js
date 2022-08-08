@@ -264,12 +264,52 @@ export const updatePatientExercise = asyncHandler(async (req, res) => {
   ];
   if (recordExists) {
     const filteredExercises = recordExists.assignedExercises.filter(
-      (ex) => ex.exerciseId !== details.exerciseId
+      (ex) => ex.assignedDate !== details.exerciseReference
     );
     console.log('filtered ones', filteredExercises);
     console.log('length', filteredExercises.length);
     console.log('new', newExercises[0]);
     filteredExercises.push(newExercises[0]);
+    console.log('filtered ones', filteredExercises);
+
+    recordExists.assignedExercises = [...filteredExercises];
+    console.log('final', recordExists.assignedExercises);
+    const updatedExercises = await recordExists.save();
+    res.json({ updatedExercises });
+  } else {
+    throw new Error('Record does not exists');
+  }
+});
+/**
+ * * @desc   Delete patient Exercise
+ * * route   PUT /api/v1/doctor/deletePatientExercise
+ * ! @access PROTECTED
+ */
+export const deletePatientExercise = asyncHandler(async (req, res) => {
+  const { details } = req.body;
+  const recordExists = await MedicalRecords.findOne({ patient: details.pid });
+  // const newExercises = [
+  //   {
+  //     exerciseId: details.exerciseId,
+  //     desiredValue: details.desiredValue,
+  //     std: details.std,
+  //     reps: details.reps,
+  //     assignedDate: details.assignedDate,
+  //     duration: details.duration,
+  //     assignedCompletion: details.assignedCompletion,
+  //     status: details.status,
+  //     instructions: details.instructions,
+  //     sessionStats: details.sessionStats,
+  //   },
+  // ];
+  if (recordExists) {
+    const filteredExercises = recordExists.assignedExercises.filter(
+      (ex) => ex.assignedDate !== details.exerciseReference
+    );
+    console.log('filtered ones', filteredExercises);
+    console.log('length', filteredExercises.length);
+    // console.log('new', newExercises[0]);
+    // filteredExercises.push(newExercises[0]);
     console.log('filtered ones', filteredExercises);
 
     recordExists.assignedExercises = [...filteredExercises];

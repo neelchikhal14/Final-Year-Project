@@ -240,7 +240,9 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
           </button>
         </form>
       </section>
-
+      {updateDetails && updateDetails.pendingExercises.length === 0 && (
+        <h3>No Pending Exercise</h3>
+      )}
       {updateDetails && updateDetails.pendingExercises.length > 0 && (
         <section className='patient-reference-section'>
           <h3>List of Assigned Pending Exercises</h3>
@@ -253,24 +255,25 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
               </tr>
             </thead>
             <tbody>
-              {updateDetails.pendingExercises.map((singlePendingExercise) => {
-                return exercises.map((ex, idx) => {
-                  if (singlePendingExercise.exerciseId === ex._id) {
-                    return (
-                      <tr key={idx}>
-                        <td>{ex.name.toUpperCase()}</td>
-                        <td>
-                          {new Date(singlePendingExercise.assignedDate)
-                            .toISOString()
-                            .substring(0, 10)}
-                        </td>
-                        <td>{singlePendingExercise.assignedDate}</td>
-                        {console.log(ex.name)}
-                      </tr>
-                    );
-                  }
-                });
-              })}
+              {exercises &&
+                updateDetails.pendingExercises.map((singlePendingExercise) => {
+                  return exercises.map((ex, idx) => {
+                    if (singlePendingExercise.exerciseId === ex._id) {
+                      return (
+                        <tr key={idx}>
+                          <td>{ex.name.toUpperCase()}</td>
+                          <td>
+                            {new Date(singlePendingExercise.assignedDate)
+                              .toISOString()
+                              .substring(0, 10)}
+                          </td>
+                          <td>{singlePendingExercise.assignedDate}</td>
+                          {console.log(ex.name)}
+                        </tr>
+                      );
+                    }
+                  });
+                })}
             </tbody>
           </table>
         </section>

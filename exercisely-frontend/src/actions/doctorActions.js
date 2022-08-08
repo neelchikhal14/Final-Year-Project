@@ -35,6 +35,10 @@ import {
   DOCTOR_UPDATE_EXERCISE_REQUEST,
   DOCTOR_UPDATE_EXERCISE_SUCCESS,
   DOCTOR_UPDATE_EFFECT_SUCCESS,
+  DOCTOR_DELETE_EXERCISE_REQUEST,
+  DOCTOR_DELETE_EFFECT_SUCCESS,
+  DOCTOR_DELETE_EXERCISE_FAIL,
+  DOCTOR_DELETE_EXERCISE_SUCCESS,
 } from '../constants/doctorConstants';
 
 import axios from 'axios';
@@ -752,6 +756,48 @@ export const updateTheExercise = (details) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: DOCTOR_UPDATE_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const deleteTheExercise = (details) => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    // const { doctorFetchPatient } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_REQUEST,
+    });
+
+    console.log(details);
+
+    const { data } = await axios.put(
+      `/api/v1/doctor/deletePatientExercise`,
+      { details },
+      config
+    );
+
+    console.log(data);
+
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_SUCCESS,
+      payload: { data },
+    });
+  } catch (error) {
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

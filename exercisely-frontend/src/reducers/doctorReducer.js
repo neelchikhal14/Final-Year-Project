@@ -35,6 +35,11 @@ import {
   DOCTOR_UPDATE_EXERCISE_REQUEST,
   DOCTOR_UPDATE_EXERCISE_SUCCESS,
   DOCTOR_UPDATE_EFFECT_SUCCESS,
+  DOCTOR_DELETE_EXERCISE_REQUEST,
+  DOCTOR_DELETE_EXERCISE_SUCCESS,
+  DOCTOR_DELETE_EFFECT_SUCCESS,
+  DOCTOR_DELETE_EXERCISE_CLEAR,
+  DOCTOR_DELETE_EXERCISE_FAIL,
 } from '../constants/doctorConstants';
 
 export const doctorFetchPatientReducer = (state = { state: {} }, action) => {
@@ -281,6 +286,41 @@ export const doctorUpdatePatientExerciseReducer = (
       return { state: {} };
 
     case DOCTOR_UPDATE_EXERCISE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+export const doctorDeletePatientExerciseReducer = (
+  state = { state: { deleteDetails: {}, deleteEffect: {} } },
+  action
+) => {
+  switch (action.type) {
+    case DOCTOR_DELETE_EXERCISE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DOCTOR_DELETE_EXERCISE_SUCCESS:
+      return {
+        ...state,
+        deleteDetails: action.payload,
+        loading: false,
+      };
+    case DOCTOR_DELETE_EFFECT_SUCCESS:
+      return {
+        ...state,
+        deleteEffect: action.payload,
+        loading: false,
+      };
+    case DOCTOR_DELETE_EXERCISE_CLEAR:
+      return { state: {} };
+
+    case DOCTOR_DELETE_EXERCISE_FAIL:
       return {
         loading: false,
         error: action.payload,
