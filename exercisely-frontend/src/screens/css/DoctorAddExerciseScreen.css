@@ -47,7 +47,10 @@
 }
 
 .get-patient-form .get-patient-button,
-.check-medical-record-button {
+.check-medical-record-button,
+.create-medical-record-button,
+.set-angle-button,
+.set-exercise-button {
   background-color: black;
   height: 36px;
   width: 126px;
@@ -55,9 +58,9 @@
   color: white;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1;
   margin-left: 10px;
 }
 
@@ -78,11 +81,13 @@
 .exercise-section > h3 {
   font-size: 1rem;
 }
-.exercise-section > select {
+.exercise-section > select,
+.set-angle-form > select {
   width: 80%;
   background-color: white;
   height: 40px;
   border-radius: 0.25rem;
+  border: 1px solid black;
 }
 
 .assign-exercise-data-img,
@@ -199,7 +204,8 @@
   .get-patient-form .get-patient-button,
   .check-medical-record-button,
   .set-angle-button,
-  .set-exercise-button {
+  .set-exercise-button,
+  .create-medical-record-button {
     background-color: black;
     height: 10vw;
     width: 28vw;

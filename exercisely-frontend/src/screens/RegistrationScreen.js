@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+
 import { register } from '../actions/userActions';
 
 import './css/RegistrationScreen.css';
+import { useEffect } from 'react';
 const RegistrationScreen = ({ history }) => {
   const [registrationDetails, setRegistrationDetails] = useState({
     title: 'Mr. ',
@@ -16,7 +20,11 @@ const RegistrationScreen = ({ history }) => {
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
   // const history = useHistory();
-  const { loading, userRegDetails, error } = userRegister;
+  const {
+    loading: loadingUserRegister,
+    userRegDetails,
+    error: errorUserRegister,
+  } = userRegister;
   const handleOnChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -28,8 +36,8 @@ const RegistrationScreen = ({ history }) => {
     dispatch(
       register(
         registrationDetails.title,
-        registrationDetails.firstname,
-        registrationDetails.lastname,
+        registrationDetails.firstname.toLowerCase(),
+        registrationDetails.lastname.toLowerCase(),
         registrationDetails.email,
         registrationDetails.password,
         registrationDetails.role
@@ -45,16 +53,23 @@ const RegistrationScreen = ({ history }) => {
       role: 'patient',
     });
 
-    if (userRegDetails.success) {
-      history.push('/login');
-    }
     e.preventDefault();
   };
+  useEffect(() => {
+    if (userRegDetails && userRegDetails.success) {
+      history.push('/login');
+      dispatch({ type: 'USER_CLEAR_REGISTRATION_DETAILS' });
+    }
+  }, [dispatch, history, userRegDetails]);
 
   return (
     <div className='registration-form-container'>
-      {loading && <h3>Loading</h3>}
-      {error && <h3>{error}</h3>}
+      {loadingUserRegister && <Loader />}
+      {errorUserRegister && (
+        <Error>
+          <h3>{errorUserRegister}</h3>
+        </Error>
+      )}
       <h1>Create New Account</h1>
       <form onSubmit={submitHandler} className='registration-form'>
         <label htmlFor='title'>Title</label>

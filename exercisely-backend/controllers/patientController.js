@@ -109,15 +109,20 @@ export const updateExerciseStats = asyncHandler(async (req, res) => {
   // console.log(typeof recordExists);
 
   if (recordExists) {
-    console.log(recordExists);
+    console.log('-------');
+    console.log('recordExists', recordExists);
+    console.log('***');
+    console.log('coming from body');
     console.log(exid);
     console.log(stats);
-    console.log(req.params.id);
+
     const { assignedExercises } = recordExists;
     assignedExercises.forEach((ex) => {
-      if (ex._id.toString() === exid) {
+      console.log('()()()');
+      console.log(ex);
+      if (ex.exerciseId.toString() === exid.toString()) {
         ex.status = 'completed';
-        ex.sessionStats = [...ex.sessionStats, ...stats];
+        ex.sessionStats = [...stats];
         ex.actualCompletionDate = currentISODate;
       }
     });

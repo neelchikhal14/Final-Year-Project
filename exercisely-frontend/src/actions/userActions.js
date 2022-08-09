@@ -24,10 +24,21 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
+
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
+    const localDate = new Date().getTime();
+    // 1 min expiry
+    const expirestAt = localDate + 20 * 60 * 1000;
+    console.log(localDate, expirestAt);
+    if (sessionStorage.getItem('expiresAt')) {
+      sessionStorage.removeItem('expiresAt');
+      sessionStorage.setItem('expiresAt', expirestAt.toString());
+    } else {
+      sessionStorage.setItem('expiresAt', expirestAt.toString());
+    }
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -49,6 +60,7 @@ export const register =
           'Content-Type': 'application/json',
         },
       };
+      console.log(title, firstname, lastname, email, password, role);
       const { data } = await axios.post(
         'api/v1/users/',
         { title, firstname, lastname, email, password, role },

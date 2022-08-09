@@ -13,6 +13,10 @@ const DoctorDashboardScreen = ({ history }) => {
   const checkPatientHistoryHandler = () => {
     history.push('/doctor-check-patient-history');
   };
+
+  const addDoctorDetails = () => {
+    history.push('/doctor-add-personal-details');
+  };
   return (
     <div className='doctor-dashboard-container'>
       <section className='banner-add-exercise banner'>
@@ -64,6 +68,20 @@ const DoctorDashboardScreen = ({ history }) => {
           >
             Patient History
           </button>
+        </div>
+      </section>
+      <section className='banner banner-add-details-banner'>
+        <div className='banner-info'>
+          <h2>Add My Details</h2>
+          <button
+            className='doctor-functionality-button'
+            onClick={addDoctorDetails}
+          >
+            Add your Personal Details
+          </button>
+        </div>
+        <div className='banner-img'>
+          <img src='./images/patient-add-detailts.jpg' alt='banner-1-img' />
         </div>
       </section>
     </div>

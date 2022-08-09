@@ -43,7 +43,7 @@
 .message-form > textarea {
   overflow: hidden;
   border-radius: 0.25rem;
-  border: 1px solid black;
+
   width: 95%;
   height: 60vh;
   font-size: 1rem;

@@ -43,6 +43,8 @@ export const bodyPartsRef = [
   'left_mid_body',
   'right_leg',
   'left_leg',
+  'left_hand_shoulder',
+  'right_hand_shoulder',
 ];
 
 function drawSkeleton(poses, ctx, color) {
@@ -249,6 +251,19 @@ export const getExerciseStats = (poses, exercise) => {
   });
   return statsArray;
 };
+export const setCurrentAngles = (poses, exercise) => {
+  let angleObject = {};
+
+  exercise.forEach((singleAngle) => {
+    let pointOne = poses[0].keypoints[singleAngle.pointOne];
+    let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
+    let pointThree = poses[0].keypoints[singleAngle.pointThree];
+    let angle = calculateAngle(pointOne, pointTwo, pointThree);
+    let name = singleAngle.bodyPartName;
+    angleObject[name] = angle;
+  });
+  return angleObject;
+};
 
 export const calculateStatistics = (statsArray) => {
   // console.log(statsArray);
@@ -265,7 +280,10 @@ export const calculateStatistics = (statsArray) => {
     });
     const averageAngle =
       angleArray.reduce((acc, curr) => acc + curr, 0) / angleArray.length;
-    sessionStats.push({ name: uniqueMeasurement, avgAngle: averageAngle });
+    sessionStats.push({
+      name: uniqueMeasurement,
+      avgAngle: Math.ceil(averageAngle),
+    });
   });
   return sessionStats;
 };
@@ -292,7 +310,10 @@ export const calculateAngle = (pointOne, pointTwo, pointThree) => {
   if (angleDeg < 0) {
     angleDeg = 360 + angleDeg;
   }
-  return angleDeg;
+  if (angleDeg > 180) {
+    angleDeg = 360 - angleDeg;
+  }
+  return Math.ceil(angleDeg);
 };
 
 /**
@@ -385,3 +406,168 @@ export const dataParamsForBarChart = (statsObj) => {
     ],
   };
 };
+
+export const generateStatistics = (completeExerciseDetails) => {
+  let finalStats = [];
+
+  completeExerciseDetails.forEach((singleExeInstance) => {
+    let genStats = [];
+    for (let singleExeDetail in singleExeInstance.desiredValue) {
+      //   console.log('singleExeInstance', singleExeInstance);
+      //   console.log(singleExeDetail);
+      //   console.log(singleExeInstance.desiredValue[singleExeDetail]);
+      const bodyPart = singleExeDetail;
+      const setAngleValue = singleExeInstance.desiredValue[singleExeDetail];
+
+      singleExeInstance['sessionStats'].forEach((singleStat) => {
+        if (singleStat.name === bodyPart) {
+          console.log(singleStat.name, bodyPart);
+          const tenPercentUp = singleStat.avgAngle * 1.1;
+          const tenPercentDown = singleStat.avgAngle * 0.9;
+          const twentyPercentDown = singleStat.avgAngle * 0.8;
+          const fiftyPercentDown = singleStat.avgAngle * 0.5;
+          const fortyPercentDown = singleStat.avgAngle * 0.6;
+          if (
+            setAngleValue <= tenPercentUp &&
+            setAngleValue >= tenPercentDown
+          ) {
+            // console.log(
+            //   'first if',
+            //   setAngleValue,
+            //   tenPercentUp,
+            //   tenPercentDown
+            // );
+            genStats.push(
+              `${bodyPart
+                .split('_')
+                .join(' ')
+                .toUpperCase()}'S angle is maintained correctly and within range`
+            );
+          } else if (setAngleValue <= twentyPercentDown) {
+            // console.log('second if', setAngleValue, twentyPercentDown);
+            genStats.push(
+              `${bodyPart
+                .split('_')
+                .join(' ')
+                .toUpperCase()}'S angle can be improved. Please increase the angle for ${bodyPart
+                .split('_')
+                .join(' ')
+                .toUpperCase()}`
+            );
+          } else if (setAngleValue <= fiftyPercentDown) {
+            // console.log('third if', setAngleValue, fiftyPercentDown);
+            genStats.push(
+              `${bodyPart
+                .split('_')
+                .join(' ')
+                .toUpperCase()}'S angle can be poor. Please revisit the instructions for this exercise before continuing with next session`
+            );
+          } else if (setAngleValue <= fortyPercentDown) {
+            // console.log('fourth if', setAngleValue, fortyPercentDown);
+            genStats.push(
+              `${bodyPart
+                .split('_')
+                .join(' ')
+                .toUpperCase()}'S form is very poor. Please consult your doctor`
+            );
+          } else {
+            genStats.push(
+              `You have exceeded angle set for ${bodyPart
+                .split('_')
+                .join(' ')
+                .toUpperCase()}. Please correct your form in next session`
+            );
+          }
+        }
+      });
+
+      //   finalStats.push(genStats);
+    }
+    finalStats.push(genStats);
+    // console.log(genStats);
+    // console.log('##################');
+  });
+  return finalStats;
+};
+// export const generateStatistics = (completeExerciseDetails) => {
+//   let finalStats = [];
+
+//   completeExerciseDetails.forEach((singleExeInstance) => {
+//     let genStats = [];
+//     for (let singleExeDetail in singleExeInstance.desiredValue) {
+//       //   console.log('singleExeInstance', singleExeInstance);
+//       //   console.log(singleExeDetail);
+//       //   console.log(singleExeInstance.desiredValue[singleExeDetail]);
+//       const bodyPart = singleExeDetail;
+//       const setAngleValue = singleExeInstance.desiredValue[singleExeDetail];
+
+//       singleExeInstance['sessionStats'].forEach((singleStat) => {
+//         if (singleStat.name === bodyPart) {
+//           console.log(singleStat.name, bodyPart);
+//           const tenPercentUp = singleStat.avgAngle * 1.1;
+//           const tenPercentDown = singleStat.avgAngle * 0.9;
+//           const twentyPercentDown = singleStat.avgAngle * 0.8;
+//           const fiftyPercentDown = singleStat.avgAngle * 0.5;
+//           const fortyPercentDown = singleStat.avgAngle * 0.6;
+//           if (
+//             setAngleValue <= tenPercentUp &&
+//             setAngleValue >= tenPercentDown
+//           ) {
+//             // console.log(
+//             //   'first if',
+//             //   setAngleValue,
+//             //   tenPercentUp,
+//             //   tenPercentDown
+//             // );
+//             genStats.push(
+//               `${bodyPart
+//                 .split('_')
+//                 .join(' ')
+//                 .toUpperCase()}'S angle is maintained correctly and within range`
+//             );
+//           } else if (setAngleValue <= twentyPercentDown) {
+//             // console.log('second if', setAngleValue, twentyPercentDown);
+//             genStats.push(
+//               `${bodyPart
+//                 .split('_')
+//                 .join(' ')
+//                 .toUpperCase()}'S angle can be improved. Please increase the angle for ${bodyPart
+//                 .split('_')
+//                 .join(' ')
+//                 .toUpperCase()}`
+//             );
+//           } else if (setAngleValue <= fiftyPercentDown) {
+//             // console.log('third if', setAngleValue, fiftyPercentDown);
+//             genStats.push(
+//               `${bodyPart
+//                 .split('_')
+//                 .join(' ')
+//                 .toUpperCase()}'S angle can be poor. Please revisit the instructions for this exercise before continuing with next session`
+//             );
+//           } else if (setAngleValue <= fortyPercentDown) {
+//             // console.log('fourth if', setAngleValue, fortyPercentDown);
+//             genStats.push(
+//               `${bodyPart
+//                 .split('_')
+//                 .join(' ')
+//                 .toUpperCase()}'S form is very poor. Please consult your doctor`
+//             );
+//           } else {
+//             genStats.push(
+//               `You have exceeded angle set for ${bodyPart
+//                 .split('_')
+//                 .join(' ')
+//                 .toUpperCase()}. Please correct your form in next session`
+//             );
+//           }
+//         }
+//       });
+
+//       //   finalStats.push(genStats);
+//     }
+//     finalStats.push(genStats);
+//     // console.log(genStats);
+//     // console.log('##################');
+//   });
+//   return finalStats;
+// };

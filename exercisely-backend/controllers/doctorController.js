@@ -21,6 +21,13 @@ export const registerDoctor = asyncHandler(async (req, res) => {
     qualification,
   } = req.body;
 
+  const doctorDetailsAlreadyExists = await Doctor.findOne({ bio });
+
+  // if (doctorDetailsAlreadyExists) {
+  //   res.status(401);
+  //   throw new Error('Details Already Exists');
+  // }
+
   const doctor = await Doctor.create({
     bio,
     clinicAddress,
@@ -45,7 +52,7 @@ export const registerDoctor = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid Email or Password');
+    throw new Error('Some Error in details supplied');
   }
 });
 /**

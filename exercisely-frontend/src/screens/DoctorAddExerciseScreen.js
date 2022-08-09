@@ -10,7 +10,8 @@ import {
 
 import { bodyPartsRef } from '../utlities/utilities';
 import './css/DoctorAddExerciseScreen.css';
-const DoctorAddExerciseScreen = () => {
+
+const DoctorAddExerciseScreen = ({ history }) => {
   const [getPatient, setGetPatient] = useState({
     firstname: '',
     lastname: '',
@@ -98,6 +99,7 @@ const DoctorAddExerciseScreen = () => {
     };
     // console.log(details);
     dispatch(setExercise(details));
+    history.push('/doctor-dashboard');
   };
   useEffect(() => {
     if (status) {
@@ -151,7 +153,12 @@ const DoctorAddExerciseScreen = () => {
             <h4>
               Record does not exists for this Patient.First Create A record
             </h4>
-            <button onClick={createRecord}>Create Record</button>
+            <button
+              onClick={createRecord}
+              className='create-medical-record-button'
+            >
+              Create Record
+            </button>
             {recordCreated && <h4>Record Created</h4>}
           </>
         )}
@@ -189,7 +196,7 @@ const DoctorAddExerciseScreen = () => {
                 value={reps}
                 onChange={(e) => setReps(e.target.value)}
               />
-              <label htmlFor='duration'>Duration</label>
+              <label htmlFor='duration'>Duration (in seconds)</label>
               <input
                 type='number'
                 name='duration'
@@ -214,7 +221,7 @@ const DoctorAddExerciseScreen = () => {
                 onChange={(e) => setInstructions(e.target.value)}
               />
               <form onSubmit={setExerciseParams} className='set-angle-form'>
-                <h4>Set Angles for Differetn Body Part Combinations</h4>
+                <h4>Set Angles for Different Body Part Combinations</h4>
                 <select
                   defaultValue={'DEFAULT'}
                   onChange={handleChange}
@@ -225,7 +232,8 @@ const DoctorAddExerciseScreen = () => {
                   </option>
                   {bodyPartsRef.map((option, idx) => (
                     <option key={idx} value={option}>
-                      {option}
+                      {console.log(option.split('_').join(' ').toUpperCase())}
+                      {option.split('_').join(' ').toUpperCase()}
                     </option>
                   ))}
                 </select>

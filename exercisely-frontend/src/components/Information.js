@@ -1,33 +1,27 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Information = ({ type, msg }) => {
-  const [componentStyle, setComponentStyle] = useState(null);
+import './Information.css';
+const Information = ({ children }) => {
+  const [displayComponent, setDisplayComponent] = useState(true);
   useEffect(() => {
-    const errorCss = {
-      backgroundColor: 'var(--danger-background)',
-      color: 'var(--danger-text)',
-      width: '90vw',
-      border: '1px solid red',
-    };
-    const infoCss = {
-      backgroundColor: 'var(--success-background)',
-      color: 'var(--success-text)',
-      width: '90vw',
-      border: '1px solid green',
-    };
-    if (type === 'error') {
-      setComponentStyle(errorCss);
-    } else {
-      setComponentStyle(infoCss);
-    }
-  }, [type]);
+    let timer = setTimeout(() => {
+      setDisplayComponent(false);
+    }, 3000);
 
-  return (
-    <div style={componentStyle}>
-      <h3>{msg}</h3>
-    </div>
-  );
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  if (displayComponent) {
+    return (
+      <>
+        {displayComponent && <div className='info-container'>{children}</div>}
+      </>
+    );
+  }
+
+  return null;
 };
 
 export default Information;

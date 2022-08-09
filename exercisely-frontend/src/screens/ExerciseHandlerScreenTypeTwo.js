@@ -2,10 +2,10 @@ import React from 'react';
 import ExerciseScreenTypeTwo from './ExerciseScreenTypeTwo';
 
 import './css/ExerciseHandlerScreenTypeTwo.css';
-const ExerciseHandlerScreenTypeTwo = () => {
+const ExerciseHandlerScreenTypeTwo = ({ history }) => {
   return (
     <>
-      <ExerciseScreenTypeTwo />
+      <ExerciseScreenTypeTwo history={history} />
     </>
   );
 };

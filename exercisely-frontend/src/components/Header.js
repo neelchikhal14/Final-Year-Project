@@ -18,23 +18,42 @@ const Header = () => {
       history.push('/');
     }
   };
+  const redirectDashboardHandler = () => {
+    if (userInfo && userInfo.role === 'patient') {
+      history.push('/patient-dashboard');
+    } else if (userInfo && userInfo.role === 'doctor') {
+      history.push('/doctor-dashboard');
+    }
+  };
   return (
     <nav>
       <div className='logo'>
         <Link to='/'>
-          <img src='/images/logo/Exercise.Ly.png' alt='Logo' />
+          <img src='./images/logo/Exercise.Ly.png' alt='Logo' />
         </Link>
       </div>
-      <div>
-        {!userInfo ? (
-          <button name='login' onClick={clickHandler} className='login'>
-            Login
-          </button>
-        ) : (
-          <button name='logout' onClick={clickHandler} className='logout'>
-            Logout
-          </button>
-        )}
+      <div className='button-container'>
+        <div className='buttons'>
+          {!userInfo ? (
+            <>
+              <button name='login' onClick={clickHandler} className='login'>
+                Login
+              </button>
+            </>
+          ) : (
+            <>
+              <button name='logout' onClick={clickHandler} className='logout'>
+                Logout
+              </button>
+              <button
+                className='dashboard-redirect'
+                onClick={redirectDashboardHandler}
+              >
+                Dashboard
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

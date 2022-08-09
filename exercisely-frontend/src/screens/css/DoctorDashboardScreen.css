@@ -61,9 +61,11 @@
   text-align: center;
   margin-top: 10px;
   font-size: 0.8rem;
+  line-height: 0.9;
 }
 
-.banner-read-patient-messages {
+.banner-read-patient-messages,
+.banner-add-details-banner {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

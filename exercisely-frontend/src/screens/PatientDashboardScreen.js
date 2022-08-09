@@ -3,6 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllExercises } from '../actions/patientActions';
 
 import { setSelectedExercise } from '../actions/patientActions';
+
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+import Information from '../components/Information';
+
 import './css/PatientDashboardScreen.css';
 
 const PatientDashboardScreen = ({ history }) => {
@@ -11,7 +16,16 @@ const PatientDashboardScreen = ({ history }) => {
   const patientAssignedExercises = useSelector(
     (state) => state.patientAssignedExercises
   );
-  const { loading, error, assignedExercises } = patientAssignedExercises;
+  const {
+    loading: loadingPatientAssignedExercises,
+    error: errorPatientAssignedExercises,
+    assignedExercises,
+  } = patientAssignedExercises;
+
+  const { messageDetails } = useSelector((state) => state.patientSendMessage);
+  const { basicDetails } = useSelector(
+    (state) => state.patientRegisterBasicDetail
+  );
 
   const seeStatsHandler = () => {
     history.push('/patient/view-staticstics');
@@ -42,10 +56,29 @@ const PatientDashboardScreen = ({ history }) => {
     dispatch(getAllExercises());
   }, [dispatch]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className='patient-dashboard-container'>
-      {error && <h3>{error}</h3>}
-      {loading && <h3>Loading</h3>}
+      {/* {errorPatientAssignedExercises && (
+        <Error>
+          <h3>No exercises assigned</h3>
+        </Error>
+      )} */}
+      {messageDetails && (
+        <Information>
+          <h3>Message sent to the doctor</h3>
+        </Information>
+      )}
+      {basicDetails && (
+        <Information>
+          <h3>Your Details are now registered</h3>
+        </Information>
+      )}
+
+      {loadingPatientAssignedExercises && <Loader />}
       <section className='banner-start-exercise banner'>
         <div className='banner-img'>
           <img
@@ -70,7 +103,7 @@ const PatientDashboardScreen = ({ history }) => {
               ))}
             </select>
           ) : (
-            <h2>No Pending Exercises</h2>
+            <h4>No Pending Exercises</h4>
           )}
           <button
             onClick={startExerciseHandler}

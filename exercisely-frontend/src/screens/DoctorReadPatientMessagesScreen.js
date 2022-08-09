@@ -28,13 +28,15 @@ const DoctorReadPatientMessagesScreen = () => {
 
   return (
     <div className='patient-messages-container'>
-      {patientMessages ? (
+      {patientMessages && patientMessages.length > 0 ? (
         <>
           <div className='patient-list-container'>
             {patientMessages.map((msgs) => (
               <div key={msgs.id} className='patient-list-item'>
                 <button onClick={(e) => handleClick(e)} className={msgs.id}>
-                  <div className={msgs.id + ' avatar'}></div>
+                  <div className={msgs.id + ' avatar'}>
+                    <img src='./images/female-avatar.png' alt='patient' />
+                  </div>
                   <div className={msgs.id + ' sender-details'}>
                     <span className={msgs.id}>
                       First Name: {msgs.sender.fName}
@@ -51,11 +53,16 @@ const DoctorReadPatientMessagesScreen = () => {
           <div className='patient-message'>
             {currrentMsgId !== '' && currentMessage[0] && (
               <>
-                <h3>Time : {currentMessage[0].sentAt}</h3>
-                <h3>Subject: </h3>
-                <h2>{currentMessage[0].subject}</h2>
-                <h3>Body: </h3>
-                <h2>{currentMessage[0].body}</h2>
+                <h3>
+                  Date :{' '}
+                  {new Date(currentMessage[0].sentAt)
+                    .toISOString()
+                    .substring(0, 10)}
+                </h3>
+                <h4>Subject: </h4>
+                <h5>{currentMessage[0].subject}</h5>
+                <h4>Body: </h4>
+                <h5>{currentMessage[0].body}</h5>
               </>
             )}
           </div>

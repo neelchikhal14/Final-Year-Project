@@ -13,11 +13,15 @@ const Error = ({ children }) => {
     };
   }, []);
 
-  return (
-    <>{displayComponent && <div className='error-container'>{children}</div>}</>
-  );
+  if (displayComponent) {
+    return (
+      <>
+        {displayComponent && <div className='error-container'>{children}</div>}
+      </>
+    );
+  }
 
-  return <>{alert && <div className='error-container'>{children}</div>}</>;
+  return null;
 };
 
 export default Error;

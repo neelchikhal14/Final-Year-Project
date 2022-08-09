@@ -85,3 +85,22 @@ export const getUserById = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+/**
+ * * @desc   get user by fName,lname
+ * * route   GET /api/v1/users/:fname/:lname
+ * !  @access PROTECTED
+ */
+export const getUserByfNamelName = asyncHandler(async (req, res) => {
+  const { fname, lname } = req.params;
+  console.log(fname, lname);
+  const user = await User.findOne({ firstname: fname, lastname: lname }).select(
+    '_id'
+  );
+  console.log(user);
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(401);
+    throw new Error('User not found');
+  }
+});

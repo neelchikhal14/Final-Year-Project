@@ -7,18 +7,16 @@ import {
   registerUser,
   getAllUsers,
   getUserById,
+  getUserByfNamelName,
 } from '../controllers/userController.js';
 
-import {
-  doctorProtected,
-  loginProtected,
-  adminProtected,
-} from '../middlewares/authMiddleware.js';
+import { loginProtected } from '../middlewares/authMiddleware.js';
 
 //BASE- /api/v1/users
-router.get('/', loginProtected, adminProtected, getAllUsers);
-router.get('/:_id', getUserById);
+router.get('/', loginProtected, getAllUsers);
+router.get('/:_id', loginProtected, getUserById);
 router.post('/', registerUser);
 router.post('/login', authenticateUser);
+router.get('/:fname/:lname', loginProtected, getUserByfNamelName);
 
 export default router;
