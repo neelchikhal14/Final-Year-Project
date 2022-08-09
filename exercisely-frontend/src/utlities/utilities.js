@@ -441,7 +441,7 @@ export const generateStatistics = (completeExerciseDetails) => {
               `${bodyPart
                 .split('_')
                 .join(' ')
-                .toUpperCase()}'S angle is maintained correctly and within range`
+                .toUpperCase()}'s angle is maintained correctly and within range`
             );
           } else if (setAngleValue <= twentyPercentDown) {
             // console.log('second if', setAngleValue, twentyPercentDown);
@@ -449,7 +449,7 @@ export const generateStatistics = (completeExerciseDetails) => {
               `${bodyPart
                 .split('_')
                 .join(' ')
-                .toUpperCase()}'S angle can be improved. Please increase the angle for ${bodyPart
+                .toUpperCase()}'s angle can be improved. Please increase the angle for ${bodyPart
                 .split('_')
                 .join(' ')
                 .toUpperCase()}`
@@ -460,7 +460,7 @@ export const generateStatistics = (completeExerciseDetails) => {
               `${bodyPart
                 .split('_')
                 .join(' ')
-                .toUpperCase()}'S angle can be poor. Please revisit the instructions for this exercise before continuing with next session`
+                .toUpperCase()}'s angle can be poor. Please revisit the instructions for this exercise before continuing with next session`
             );
           } else if (setAngleValue <= fortyPercentDown) {
             // console.log('fourth if', setAngleValue, fortyPercentDown);
@@ -468,7 +468,7 @@ export const generateStatistics = (completeExerciseDetails) => {
               `${bodyPart
                 .split('_')
                 .join(' ')
-                .toUpperCase()}'S form is very poor. Please consult your doctor`
+                .toUpperCase()}'s form is very poor. Please consult your doctor`
             );
           } else {
             genStats.push(
@@ -489,85 +489,149 @@ export const generateStatistics = (completeExerciseDetails) => {
   });
   return finalStats;
 };
-// export const generateStatistics = (completeExerciseDetails) => {
-//   let finalStats = [];
+export const generateStatisticsOptimized = (completeExerciseDetails) => {
+  let finalStats = [];
 
-//   completeExerciseDetails.forEach((singleExeInstance) => {
-//     let genStats = [];
-//     for (let singleExeDetail in singleExeInstance.desiredValue) {
-//       //   console.log('singleExeInstance', singleExeInstance);
-//       //   console.log(singleExeDetail);
-//       //   console.log(singleExeInstance.desiredValue[singleExeDetail]);
-//       const bodyPart = singleExeDetail;
-//       const setAngleValue = singleExeInstance.desiredValue[singleExeDetail];
+  completeExerciseDetails.forEach((singleExeInstance) => {
+    let genStats = [];
 
-//       singleExeInstance['sessionStats'].forEach((singleStat) => {
-//         if (singleStat.name === bodyPart) {
-//           console.log(singleStat.name, bodyPart);
-//           const tenPercentUp = singleStat.avgAngle * 1.1;
-//           const tenPercentDown = singleStat.avgAngle * 0.9;
-//           const twentyPercentDown = singleStat.avgAngle * 0.8;
-//           const fiftyPercentDown = singleStat.avgAngle * 0.5;
-//           const fortyPercentDown = singleStat.avgAngle * 0.6;
-//           if (
-//             setAngleValue <= tenPercentUp &&
-//             setAngleValue >= tenPercentDown
-//           ) {
-//             // console.log(
-//             //   'first if',
-//             //   setAngleValue,
-//             //   tenPercentUp,
-//             //   tenPercentDown
-//             // );
-//             genStats.push(
-//               `${bodyPart
-//                 .split('_')
-//                 .join(' ')
-//                 .toUpperCase()}'S angle is maintained correctly and within range`
-//             );
-//           } else if (setAngleValue <= twentyPercentDown) {
-//             // console.log('second if', setAngleValue, twentyPercentDown);
-//             genStats.push(
-//               `${bodyPart
-//                 .split('_')
-//                 .join(' ')
-//                 .toUpperCase()}'S angle can be improved. Please increase the angle for ${bodyPart
-//                 .split('_')
-//                 .join(' ')
-//                 .toUpperCase()}`
-//             );
-//           } else if (setAngleValue <= fiftyPercentDown) {
-//             // console.log('third if', setAngleValue, fiftyPercentDown);
-//             genStats.push(
-//               `${bodyPart
-//                 .split('_')
-//                 .join(' ')
-//                 .toUpperCase()}'S angle can be poor. Please revisit the instructions for this exercise before continuing with next session`
-//             );
-//           } else if (setAngleValue <= fortyPercentDown) {
-//             // console.log('fourth if', setAngleValue, fortyPercentDown);
-//             genStats.push(
-//               `${bodyPart
-//                 .split('_')
-//                 .join(' ')
-//                 .toUpperCase()}'S form is very poor. Please consult your doctor`
-//             );
-//           } else {
-//             genStats.push(
-//               `You have exceeded angle set for ${bodyPart
-//                 .split('_')
-//                 .join(' ')
-//                 .toUpperCase()}. Please correct your form in next session`
-//             );
-//           }
-//         }
-//       });
+    for (let keyOne in singleExeInstance.desiredValue) {
+      singleExeInstance.sessionStats.forEach((singleStat) => {
+        for (let sessionStatKey in singleStat) {
+          let minusThreeSD = 0;
+          let minusTwoSD = 0;
+          let minusOneSD = 0;
+          let plusThreeSD = 0;
+          let plusTwoSD = 0;
+          let plusOneSD = 0;
 
-//       //   finalStats.push(genStats);
-//     }
-//     finalStats.push(genStats);
-//     // console.log(genStats);
-//     // console.log('##################');
-//   });
-//   return finalStats;
-// };
+          if (keyOne === singleStat[sessionStatKey]) {
+            minusThreeSD =
+              singleExeInstance.desiredValue[keyOne] -
+              3 * singleExeInstance.std[keyOne];
+
+            minusTwoSD =
+              singleExeInstance.desiredValue[keyOne] -
+              2 * singleExeInstance.std[keyOne];
+
+            minusOneSD =
+              singleExeInstance.desiredValue[keyOne] -
+              1 * singleExeInstance.std[keyOne];
+            plusThreeSD =
+              singleExeInstance.desiredValue[keyOne] +
+              3 * singleExeInstance.std[keyOne];
+
+            plusTwoSD =
+              singleExeInstance.desiredValue[keyOne] +
+              2 * singleExeInstance.std[keyOne];
+
+            plusOneSD =
+              singleExeInstance.desiredValue[keyOne] +
+              1 * singleExeInstance.std[keyOne];
+            console.log('Dersired Value', singleExeInstance.desiredValue);
+            console.log('Mean', singleExeInstance.desiredValue[keyOne]);
+            console.log(' - SD', minusThreeSD, minusTwoSD, minusOneSD);
+            console.log(' + SD', plusThreeSD, plusTwoSD, plusOneSD);
+
+            console.log(singleStat.avgAngle);
+            if (singleStat.avgAngle <= minusThreeSD) {
+              genStats.push(
+                `${keyOne
+                  .split('_')
+                  .join(' ')
+                  .toUpperCase()}'s angle is maintained poorly. Please increase the angle till ${
+                  singleExeInstance.desiredValue[keyOne]
+                } degrees.`
+              );
+              console.log('less equal than -3 SD');
+            }
+            if (
+              singleStat.avgAngle > minusThreeSD &&
+              singleStat.avgAngle <= minusTwoSD
+            ) {
+              genStats.push(
+                `${keyOne
+                  .split('_')
+                  .join(' ')
+                  .toUpperCase()}'s angle can be made better. Please increase the angle till ${
+                  singleExeInstance.desiredValue[keyOne]
+                } degrees.`
+              );
+              console.log('gt -3SD lte -2SD');
+            }
+            if (
+              singleStat.avgAngle > minusTwoSD &&
+              singleStat.avgAngle <= minusOneSD
+            ) {
+              genStats.push(
+                `${keyOne
+                  .split('_')
+                  .join(' ')
+                  .toUpperCase()}'s angle is good. Please increase the angle till ${
+                  singleExeInstance.desiredValue[keyOne]
+                } degrees.`
+              );
+              console.log('gt -2SD lte -1SD');
+            }
+            if (
+              singleStat.avgAngle > minusOneSD &&
+              singleStat.avgAngle <= plusOneSD
+            ) {
+              genStats.push(
+                `${keyOne
+                  .split('_')
+                  .join(' ')
+                  .toUpperCase()}'s angle is perfect and within range.`
+              );
+              console.log('gt -1SD lte +1SD');
+            }
+            if (
+              singleStat.avgAngle > plusOneSD &&
+              singleStat.avgAngle <= plusTwoSD
+            ) {
+              genStats.push(
+                `${keyOne
+                  .split('_')
+                  .join(' ')
+                  .toUpperCase()}'s angle is good. Please reduce the angle till ${
+                  singleExeInstance.desiredValue[keyOne]
+                } degrees.`
+              );
+              console.log('gt +1SD lte +2SD');
+            }
+            if (
+              singleStat.avgAngle > plusTwoSD &&
+              singleStat.avgAngle <= plusThreeSD
+            ) {
+              genStats.push(
+                `${keyOne
+                  .split('_')
+                  .join(' ')
+                  .toUpperCase()}'s angle can be made better. Please reduce the angle till ${
+                  singleExeInstance.desiredValue[keyOne]
+                } degrees.`
+              );
+              console.log('gt +2SD lte +3SD');
+            }
+            if (singleStat.avgAngle > plusThreeSD) {
+              genStats.push(
+                `${keyOne
+                  .split('_')
+                  .join(' ')
+                  .toUpperCase()}'s angle is maintained poorly. Please reduce the angle till ${
+                  singleExeInstance.desiredValue[keyOne]
+                } degrees.`
+              );
+              console.log('gt + 3SD');
+            } // end of if
+          }
+        }
+      });
+    }
+
+    finalStats.push(genStats);
+    // console.log(genStats);
+    // console.log('##################');
+  });
+  return finalStats;
+};

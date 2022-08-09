@@ -11,7 +11,10 @@ import BarChart from '../components/charts/BarChart';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 
-import { generateStatistics } from '../utlities/utilities';
+import {
+  generateStatistics,
+  generateStatisticsOptimized,
+} from '../utlities/utilities';
 import './css/DoctorCheckPatientHistoryScreen.css';
 const DoctorCheckPatientHistoryScreen = () => {
   const dispatch = useDispatch();
@@ -62,7 +65,7 @@ const DoctorCheckPatientHistoryScreen = () => {
 
   useEffect(() => {
     if (completeExerciseDetails) {
-      const statsArray = generateStatistics(completeExerciseDetails);
+      const statsArray = generateStatisticsOptimized(completeExerciseDetails);
       setStats([...statsArray]);
     }
   }, [completeExerciseDetails]);

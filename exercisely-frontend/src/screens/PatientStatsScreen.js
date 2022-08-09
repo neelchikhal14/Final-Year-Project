@@ -7,7 +7,10 @@ import BarChart from '../components/charts/BarChart';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 
-import { generateStatistics } from '../utlities/utilities.js';
+import {
+  generateStatistics,
+  generateStatisticsOptimized,
+} from '../utlities/utilities.js';
 
 import './css/PatientStatsScreen.css';
 const PatientStatsScreen = () => {
@@ -30,7 +33,7 @@ const PatientStatsScreen = () => {
 
   useEffect(() => {
     if (completeExerciseDetails) {
-      const statsArray = generateStatistics(completeExerciseDetails);
+      const statsArray = generateStatisticsOptimized(completeExerciseDetails);
       setStats([...statsArray]);
     }
   }, [completeExerciseDetails]);
