@@ -5,6 +5,7 @@ import {
   getPatientHistory,
   getPatientExerciseStat,
   doctorGetPateientExerciseStats,
+  getMultiplePatients,
 } from '../actions/doctorActions';
 
 import BarChart from '../components/charts/BarChart';
@@ -30,9 +31,16 @@ const DoctorCheckPatientHistoryScreen = () => {
     error: errorPatientGetExerciseStat,
   } = useSelector((state) => state.patientGetExerciseStats);
 
+  const {
+    patientDetails,
+    loading: loadingGetMultiplePatients,
+    error: errorGetMultiplePatients,
+  } = useSelector((state) => state.doctorGetMultiplePatients);
+
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
   const [stats, setStats] = useState(null);
+  const [referenceNumber, setReferenceNumber] = useState('');
 
   const [patientData, setPatientData] = useState({
     firstname: '',
@@ -45,21 +53,21 @@ const DoctorCheckPatientHistoryScreen = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(getPatientHistory(patientData.firstname, patientData.lastname));
-    dispatch(
-      getPatientExerciseStat(patientData.firstname, patientData.lastname)
-    );
+    // dispatch(getPatientHistory(patientData.firstname, patientData.lastname));
+    // dispatch(
+    //   getPatientExerciseStat(patientData.firstname, patientData.lastname)
+    // );
+    dispatch(getMultiplePatients(patientData.firstname, patientData.lastname));
+  };
+
+  const finalizePatient = (e) => {
+    e.preventDefault();
+    dispatch(getPatientHistory(referenceNumber));
+    dispatch(getPatientExerciseStat(referenceNumber));
   };
 
   const dateSubmitHandler = (e) => {
-    dispatch(
-      doctorGetPateientExerciseStats(
-        fromDate,
-        toDate,
-        patientData.firstname,
-        patientData.lastname
-      )
-    );
+    dispatch(doctorGetPateientExerciseStats(fromDate, toDate, referenceNumber));
     e.preventDefault();
   };
 
@@ -77,6 +85,7 @@ const DoctorCheckPatientHistoryScreen = () => {
           <h3>{errorDoctorGetPatientHistory}</h3>
         </Error>
       )}
+      <h3>Search for patient based on firstname and Lastname</h3>
       <form onSubmit={submitHandler} className='get-patient-details-form'>
         <label htmlFor='firstname'>Enter Firstname</label>
         <input
@@ -93,9 +102,50 @@ const DoctorCheckPatientHistoryScreen = () => {
           onChange={dataChangeHandler}
         />
         <button type='submit' className='get-patient-details'>
-          Get Patient History
+          Search Patient
         </button>
       </form>
+      {patientDetails && patientDetails.length > 0 && (
+        <section className='patient-reference-section'>
+          <table>
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Email</th>
+                <th>Patient Reference Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              {patientDetails.map((singlePatient, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      {singlePatient.firstname.toUpperCase()}
+                      {} {singlePatient.lastname.toUpperCase()}
+                    </td>
+                    <td>{singlePatient.email}</td>
+                    <td>{singlePatient._id}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </section>
+      )}
+      <section className='finalize-patient-section'>
+        <form onSubmit={finalizePatient}>
+          <label htmlFor='finalizedpatient'>Enter Reference Number</label>
+          <input
+            type='text'
+            name='finalizedpatient'
+            className='get-ref-num-input'
+            onChange={(e) => setReferenceNumber(e.target.value)}
+          />
+          <button type='submit' className='setPatient'>
+            Get History
+          </button>
+        </form>
+      </section>
       {patientHistory && (
         <>
           <div className='patient-details-container'>

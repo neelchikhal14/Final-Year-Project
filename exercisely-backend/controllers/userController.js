@@ -71,13 +71,13 @@ export const getAllUsers = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   get user by id
- * * route   GET /api/v1/users/:_id
+ * * route   GET /api/v1/users/getUserById/:_id
  * !  @access PROTECTED
  */
 export const getUserById = asyncHandler(async (req, res) => {
   const { _id } = req.params;
   const user = await User.findById({ _id });
-
+  console.log(req.params);
   if (user) {
     res.json(user);
   } else {
@@ -87,12 +87,12 @@ export const getUserById = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   get user by fName,lname
- * * route   GET /api/v1/users/:fname/:lname
+ * * route   GET /api/v1/users/getUserByName/:fname/:lname
  * !  @access PROTECTED
  */
 export const getUserByfNamelName = asyncHandler(async (req, res) => {
   const { fname, lname } = req.params;
-  console.log(fname, lname);
+
   const user = await User.findOne({ firstname: fname, lastname: lname }).select(
     '_id'
   );
@@ -102,5 +102,24 @@ export const getUserByfNamelName = asyncHandler(async (req, res) => {
   } else {
     res.status(401);
     throw new Error('User not found');
+  }
+});
+/**
+ * * @desc   get multiple users by fName or lname
+ * * route   GET  /api/v1/users/getManyUsers/:fname/:lname
+ * !  @access PROTECTED
+ */
+export const getMultipleUsers = asyncHandler(async (req, res) => {
+  const { fname, lname } = req.params;
+
+  const users = await User.find({
+    $or: [{ firstname: fname }, { lastname: lname }],
+  }).select('_id firstname lastname email');
+  console.log(users);
+  if (users) {
+    res.json(users);
+  } else {
+    res.status(401);
+    throw new Error('No Users found');
   }
 });

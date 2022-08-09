@@ -26,6 +26,10 @@ import {
   DOCTOR_CHECK_DETAILS_EXISTS_REQUEST,
   DOCTOR_CHECK_DETAILS_EXISTS_FAIL,
   DOCTOR_CHECK_DETAILS_EXISTS_SUCCESS,
+  DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
+  DOCTOR_GET_MULTIPLE_PATIENTS_FAIL,
+  DOCTOR_GET_MULTIPLE_PATIENTS_REQUEST,
+  DOCTOR_GET_MULTIPLE_PATIENTS_SUCCESS,
 } from '../constants/doctorConstants';
 
 import axios from 'axios';
@@ -39,7 +43,7 @@ import {
   PATIENT_PENDING_EXERCISES_REQUEST,
 } from '../constants/patientConstants';
 
-export const fetchPatient = (patientDetails) => async (dispatch, getState) => {
+export const fetchPatient = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: DOCTOR_FETCH_PATIENT_REQUEST,
@@ -56,7 +60,7 @@ export const fetchPatient = (patientDetails) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `/api/v1/doctor/getPatient/${patientDetails.firstname}/${patientDetails.lastname}`,
+      `/api/v1/doctor/getPatientByID/${id}`,
       config
     );
 
@@ -282,7 +286,10 @@ export const getPatientMessages = () => async (dispatch, getState) => {
 
     async function getSendersDetails() {
       for (const sender of messages) {
-        const result = await axios.get(`/api/v1/users/${sender.from}`, config);
+        const result = await axios.get(
+          `/api/v1/users/getUserById/${sender.from}`,
+          config
+        );
         promises.push(result);
       }
       const results = await Promise.all(promises);
@@ -324,109 +331,104 @@ export const getPatientMessages = () => async (dispatch, getState) => {
     });
   }
 };
-export const getPatientHistory =
-  (fname, lname) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: DOCTOR_GET_HISTORY_REQUEST,
-      });
-      const {
-        userLogin: { userInfo },
-      } = getState();
+export const getPatientHistory = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DOCTOR_GET_HISTORY_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
 
-      const { data } = await axios.get(
-        `/api/v1/doctor/checkPatientHistory/${fname}/${lname}`,
-        config
-      );
-      dispatch({
-        type: DOCTOR_GET_HISTORY_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: DOCTOR_GET_HISTORY_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
+    const { data } = await axios.get(
+      `/api/v1/doctor/checkPatientHistory/${id}`,
+      config
+    );
+    dispatch({
+      type: DOCTOR_GET_HISTORY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DOCTOR_GET_HISTORY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
-export const getPatientExerciseStat =
-  (fname, lname) => async (dispatch, getState) => {
-    try {
-      let promises = [];
+export const getPatientExerciseStat = (id) => async (dispatch, getState) => {
+  try {
+    let promises = [];
 
-      dispatch({
-        type: PATIENT_EXERCISE_REQUEST,
-      });
-      const {
-        userLogin: { userInfo },
-      } = getState();
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
+    dispatch({
+      type: PATIENT_EXERCISE_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
 
-      const response = await axios.get(
-        `/api/v1/users/${fname}/${lname}`,
-        config
-      );
+    const response = await axios.get(`/api/v1/users/getUserById/${id}`, config);
 
-      const {
-        data: {
-          patientId: { _id },
-        },
-      } = await axios.get(`/api/v1/patient/getId/${response.data._id}`, config);
-      console.log(_id);
-      const { data } = await axios.get(
-        `/api/v1/patient/getPendingExercises/${_id}`,
-        config
-      );
+    const {
+      data: {
+        patientId: { _id },
+      },
+    } = await axios.get(`/api/v1/patient/getId/${response.data._id}`, config);
+    console.log(_id);
+    const { data } = await axios.get(
+      `/api/v1/patient/getPendingExercises/${_id}`,
+      config
+    );
 
-      dispatch({
-        type: PATIENT_PENDING_EXERCISES_REQUEST,
-        payload: data,
-      });
-      async function getNames() {
-        for (const ex of data.pendingExercises) {
-          const result = await axios.get(
-            `/api/v1/exercise/${ex.exerciseId}`,
-            config
-          );
-          promises.push(result);
-        }
-        const results = await Promise.all(promises);
-        const exercises = results.map((result) => result.data);
-        return exercises;
+    dispatch({
+      type: PATIENT_PENDING_EXERCISES_REQUEST,
+      payload: data,
+    });
+    async function getNames() {
+      for (const ex of data.pendingExercises) {
+        const result = await axios.get(
+          `/api/v1/exercise/${ex.exerciseId}`,
+          config
+        );
+        promises.push(result);
       }
-      const theExercises = await getNames();
-      dispatch({
-        type: PATIENT_EXERCISE_SUCCESS,
-        payload: theExercises,
-      });
-    } catch (error) {
-      dispatch({
-        type: PATIENT_EXERCISE_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
+      const results = await Promise.all(promises);
+      const exercises = results.map((result) => result.data);
+      return exercises;
     }
-  };
+    const theExercises = await getNames();
+    dispatch({
+      type: PATIENT_EXERCISE_SUCCESS,
+      payload: theExercises,
+    });
+  } catch (error) {
+    dispatch({
+      type: PATIENT_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 export const doctorGetPateientExerciseStats =
-  (from, to, fname, lname) => async (dispatch, getState) => {
+  (from, to, id) => async (dispatch, getState) => {
     try {
       let promises = [];
 
@@ -443,7 +445,7 @@ export const doctorGetPateientExerciseStats =
         },
       };
       const response = await axios.get(
-        `/api/v1/users/${fname}/${lname}`,
+        `/api/v1/users/getUserById/${id}`,
         config
       );
       const {
@@ -572,3 +574,39 @@ export const checkDetailsExists = () => async (dispatch, getState) => {
     });
   }
 };
+export const getMultiplePatients =
+  (firstname, lastname) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: DOCTOR_GET_MULTIPLE_PATIENTS_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `/api/v1/users/getManyUsers/${firstname}/${lastname}`,
+        config
+      );
+
+      dispatch({
+        type: DOCTOR_GET_MULTIPLE_PATIENTS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: DOCTOR_GET_MULTIPLE_PATIENTS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

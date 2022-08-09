@@ -8,41 +8,88 @@
 .get-patient-details-section,
 .check-patient-medical-record,
 .exercise-section,
-.assign-exercise-data-section {
+.assign-exercise-data-section,
+.patient-reference-section {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 90%;
   min-height: 50px;
+  justify-content: center;
+}
+.get-patient-details-section {
+  flex-direction: column;
+  text-align: center;
 }
 
-.get-patient-form {
+.get-patient-details-section > form {
+  margin: 2px;
+}
+
+.patient-reference-section > table {
+  border: 1px solid grey;
+  width: 100%;
+  text-align: center;
+  margin: 5px;
+}
+
+.get-patient-form,
+.patient-name-div,
+.patient-ref-number-div {
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
 }
 
+.patient-name-div,
+.patient-ref-number-div {
+  text-align: center;
+}
 .get-patient-form {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-.get-patient-form > label {
+.finalize-patient-section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  min-height: 50px;
+  justify-content: center;
+}
+
+.finalize-patient-section > form {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+}
+
+.get-patient-form > label,
+.finalize-patient-section > form > label {
   font-weight: 500;
   font-size: 0.85rem;
   margin: 10px;
 }
 
-.get-patient-form > input {
+.get-patient-form > input,
+.finalize-patient-section > form > input,
+.get-ref-num-input {
   width: 30%;
   height: 40px;
   border-radius: 0.5rem;
   border: 1px solid black;
 }
 
-.get-patient-form > input:focus {
+.finalize-patient-section > form > input {
+  width: 40%;
+}
+
+.get-patient-form > input:focus,
+.finalize-patient-section > form > input:focus {
   border: 3px solid var(--primary-green);
 }
 
@@ -50,7 +97,8 @@
 .check-medical-record-button,
 .create-medical-record-button,
 .set-angle-button,
-.set-exercise-button {
+.set-exercise-button,
+.setPatient {
   background-color: black;
   height: 36px;
   width: 126px;
@@ -62,6 +110,7 @@
   text-align: center;
   line-height: 1;
   margin-left: 10px;
+  margin-bottom: 3px;
 }
 
 .check-patient-medical-record {

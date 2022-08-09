@@ -146,14 +146,13 @@ export const readPatientMessages = asyncHandler(async (req, res) => {
 });
 /**
  * * @desc   See Patient History
- * * route   GET /api/v1/doctor/checkPatientHistory/:fname/:lname
+ * * route   GET /api/v1/doctor/checkPatientHistory/:id
  * ! @access PROTECTED
  */
 export const checkPatientHistory = asyncHandler(async (req, res) => {
-  const { fname, lname } = req.params;
+  const { id } = req.params;
   const user = await User.findOne({
-    firstname: fname,
-    lastname: lname,
+    _id: id,
   }).select('-password -role -createdAt -updatedAt');
 
   if (!user) {
@@ -215,4 +214,29 @@ export const checkMedicalRecord = asyncHandler(async (req, res) => {
   res.json({
     record,
   });
+});
+/**
+ * * @desc   get user id by email
+ * * route   GET /api/v1/doctor/getPatientByID/:id
+ * ! @access PROTECTED
+ */
+export const getPatientByID = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findOne({ _id: id });
+  console.log(user);
+  if (user) {
+    const patientDetails = await Patient.findOne({ bio: user._id });
+    if (patientDetails) {
+      res.status(200).json({
+        basicDetails: user,
+        bioData: patientDetails,
+      });
+    } else {
+      res.status(401);
+      throw new Error('Patient Registration is incomplete.');
+    }
+  } else {
+    res.status(401);
+    throw new Error('User Not Found');
+  }
 });

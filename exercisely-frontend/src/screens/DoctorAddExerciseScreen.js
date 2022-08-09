@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+
 import {
   fetchPatient,
   getExercises,
   setExercise,
   checkMedicalRecord,
   createMedicalRecord,
+  getMultiplePatients,
 } from '../actions/doctorActions';
 
 import { bodyPartsRef } from '../utlities/utilities';
@@ -65,6 +70,8 @@ const DoctorAddExerciseScreen = ({ history }) => {
   const [recordExists, setRecordExists] = useState('');
   const [recordCreated, setRecordCreated] = useState(false);
 
+  const [referenceNumber, setReferenceNumber] = useState('');
+
   const handleCheckMedicalRecord = () => {
     dispatch(checkMedicalRecord(patient.bioData._id));
   };
@@ -83,11 +90,23 @@ const DoctorAddExerciseScreen = ({ history }) => {
   const { recordStatus } = useSelector(
     (state) => state.doctorCreateMedicalRecord
   );
+  const {
+    patientDetails,
+    loading: loadingGetMultiplePatients,
+    error: errorGetMultiplePatients,
+  } = useSelector((state) => state.doctorGetMultiplePatients);
 
   const getPatientDetails = (e) => {
     e.preventDefault();
-    dispatch(fetchPatient(getPatient));
+    dispatch(getMultiplePatients(getPatient.firstname, getPatient.lastname));
+    // dispatch(fetchPatient(getPatient));
+    // dispatch(getExercises());
+  };
+
+  const finalizePatient = (e) => {
+    dispatch(fetchPatient(referenceNumber));
     dispatch(getExercises());
+    e.preventDefault();
   };
 
   const setPatientExercises = () => {
@@ -128,7 +147,14 @@ const DoctorAddExerciseScreen = ({ history }) => {
 
   return (
     <div className='add-exercises-container'>
+      {loadingGetMultiplePatients && <Loader />}
+      {errorGetMultiplePatients && (
+        <Error>
+          <h3>{errorGetMultiplePatients}</h3>
+        </Error>
+      )}
       <section className='get-patient-details-section'>
+        <h3>Search for patient based on firstname and Lastname</h3>
         <form onSubmit={getPatientDetails} className='get-patient-form'>
           <label htmlFor='firstname'>Enter Patient's Firstname</label>
           <input
@@ -145,7 +171,49 @@ const DoctorAddExerciseScreen = ({ history }) => {
             onChange={onChangeHandlerName}
           />
           <button type='submit' className='get-patient-button'>
-            Get Patient
+            Get Patient List
+          </button>
+        </form>
+      </section>
+      {patientDetails && patientDetails.length > 0 && (
+        <section className='patient-reference-section'>
+          <table>
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Email</th>
+                <th>Patient Reference Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              {patientDetails.map((singlePatient, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      {singlePatient.firstname.toUpperCase()}
+                      {} {singlePatient.lastname.toUpperCase()}
+                    </td>
+                    <td>{singlePatient.email}</td>
+                    <td>{singlePatient._id}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      <section className='finalize-patient-section'>
+        <form onSubmit={finalizePatient}>
+          <label htmlFor='finalizedpatient'>Enter Reference Number</label>
+          <input
+            type='text'
+            name='finalizedpatient'
+            className='get-ref-num-input'
+            onChange={(e) => setReferenceNumber(e.target.value)}
+          />
+          <button type='submit' className='setPatient'>
+            Set Patient
           </button>
         </form>
       </section>
