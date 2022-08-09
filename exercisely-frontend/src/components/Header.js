@@ -5,7 +5,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { clearState } from '../utlities/utilities';
 import { USER_LOGOUT } from '../constants/userConstants';
 import './Header.css';
-const Header = () => {
+const Header = ({ setLogoutTriggered }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,6 +18,7 @@ const Header = () => {
         type: USER_LOGOUT,
       });
       clearState('all', dispatch);
+      setLogoutTriggered(true);
       history.push('/');
     }
   };

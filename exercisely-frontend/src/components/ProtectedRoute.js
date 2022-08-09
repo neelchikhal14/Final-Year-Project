@@ -28,6 +28,7 @@ const ProtectedRoute = ({ role, component: Component, ...rest }) => {
             dispatch({
               type: USER_LOGOUT,
             });
+            sessionStorage.removeItem('expiresAt');
             return <Redirect to={{ path: '/' }} />;
           }
         }

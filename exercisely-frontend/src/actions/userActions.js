@@ -31,7 +31,9 @@ export const login = (email, password) => async (dispatch) => {
     });
     const localDate = new Date().getTime();
     // 1 min expiry
-    const expirestAt = localDate + 20 * 60 * 1000;
+    const expirestAt = localDate + 15 * 60 * 1000;
+    console.log(new Date(localDate));
+    console.log(new Date(expirestAt));
     console.log(localDate, expirestAt);
     if (sessionStorage.getItem('expiresAt')) {
       sessionStorage.removeItem('expiresAt');

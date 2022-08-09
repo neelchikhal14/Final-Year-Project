@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -21,14 +21,48 @@ import ExerciseHandlerScreenTypeTwo from './screens/ExerciseHandlerScreenTypeTwo
 
 import ProtectedRoute from './components/ProtectedRoute';
 
+import Information from './components/Information';
+
 import './App.css';
+let timer;
+
 const App = () => {
+  const [displayAlert, setDisplayAlert] = useState(false);
+  const [logoutTriggered, setLogoutTriggered] = useState(false);
+  useEffect(() => {
+    timer = setInterval(() => {
+      if (sessionStorage.getItem('expiresAt')) {
+        const expiry = Number(sessionStorage.getItem('expiresAt'));
+        const expiryMinusOneMin = expiry - 1 * 60 * 1000;
+        console.log('expiry', new Date(expiry));
+
+        console.log('expiry-1', new Date(expiryMinusOneMin));
+        if (Number(new Date().getTime()) >= expiryMinusOneMin) {
+          console.log('time matched', new Date());
+          setDisplayAlert(true);
+          clearInterval(timer);
+        }
+      }
+    }, 1000);
+  }, [displayAlert]);
+
+  useEffect(() => {
+    if (!logoutTriggered) {
+      clearInterval(timer);
+    }
+  }, [logoutTriggered]);
+
   return (
     <Router>
-      <Header />
+      <Header setLogoutTriggered={setLogoutTriggered} />
       <main className='py-3'>
         <Route path='/login' component={LoginScreen} />
         <Route path='/registration' component={RegistrationScreen} exact />
+        {displayAlert && (
+          <Information>
+            <h3>Timer will expire</h3>
+          </Information>
+        )}
         {/* <Route
           path='/patient-dashboard'
           component={PatientDashboardScreen}
