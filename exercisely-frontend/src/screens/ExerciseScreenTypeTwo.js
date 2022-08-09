@@ -187,6 +187,19 @@ const ExerciseScreenTypeTwo = ({ history }) => {
                     <li key={idx}>{ins}</li>
                   ))}
               </ul>
+              {detailedExercise !== null && (
+                <>
+                  <h4>Video Demonstration of the Exercise</h4>
+                  <a
+                    href={detailedExercise.videoLink}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='exercise-link'
+                  >
+                    Click here to See the Video
+                  </a>
+                </>
+              )}
               <div className='reps-data'>
                 <span className='rep-count'>Rep Count: {reps}</span>
                 {detailedExercise && (

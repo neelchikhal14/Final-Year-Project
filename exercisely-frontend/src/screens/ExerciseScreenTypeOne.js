@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+
 import '@tensorflow/tfjs-core';
 import Webcam from 'react-webcam';
 import '@tensorflow/tfjs-backend-webgl';
@@ -123,19 +123,20 @@ const ExerciseScreenTypeOne = ({ setReady, duration, history }) => {
   const genStats = () => {
     // normaliseExerciseStats(stats);
     // console.log('clicked');
-    console.log(stats);
+    // console.log(stats);
     const finalStats = calculateStatistics(stats);
-    console.log(finalStats);
-    console.log('****');
-    console.log(detailedExercise);
-    console.log(detailedExercise.exerciseId, finalStats);
+    // console.log(finalStats);
+    // console.log('****');
+    // console.log(detailedExercise);
+    // console.log(detailedExercise.exerciseId, finalStats);
     setDisplayMedialements(false);
     dispatch(updateExerciseStats(detailedExercise.exerciseId, finalStats));
     if (timer) {
-      console.log(timer);
+      // console.log(timer);
       clearInterval(timer);
     }
-    console.log(history);
+    // console.log(history);
+
     history.push(`/patient-dashboard`);
   };
   useEffect(() => {
@@ -149,7 +150,7 @@ const ExerciseScreenTypeOne = ({ setReady, duration, history }) => {
     const exercise = pendingExercises.filter(
       (ex) => ex.exerciseId === selectedExercise[0]._id
     );
-    console.log(exercise);
+    // console.log(exercise);
     setDetailedExercise(...exercise);
   }, [detailedExercise, pendingExercises, selectedExercise]);
 
@@ -174,15 +175,30 @@ const ExerciseScreenTypeOne = ({ setReady, duration, history }) => {
                     <li key={idx}>{ins}</li>
                   ))}
               </ul>
+              {detailedExercise !== null && (
+                <>
+                  <h4>Video Demonstration of the Exercise</h4>
+                  <a
+                    href={detailedExercise.videoLink}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='exercise-link'
+                  >
+                    Click here to See the Video
+                  </a>
+                </>
+              )}
+
               <span className='rep-count'>
                 <b>Duration :</b>
                 {duration}
               </span>
-              <div>
+              <div className='angle-info'>
                 {Object.keys(currentAngleInfo).length > 0 &&
                   Object.keys(currentAngleInfo).map((key) => (
                     <span>
-                      {key} = {currentAngleInfo[key]}
+                      {key.split('_').join(' ').toUpperCase()} ={' '}
+                      {currentAngleInfo[key]}
                     </span>
                   ))}
               </div>

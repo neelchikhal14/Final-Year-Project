@@ -1,4 +1,20 @@
 /* temp */
+
+.session-alert {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+.session-alert > div {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  width: 90vw;
+  height: 100px;
+}
 @media only screen and (min-width: 401px) {
   main {
     min-height: 90vh;

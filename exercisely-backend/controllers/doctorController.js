@@ -255,6 +255,7 @@ export const updatePatientExercise = asyncHandler(async (req, res) => {
       std: details.std,
       reps: details.reps,
       assignedDate: details.assignedDate,
+      videoLink: details.videoLink,
       duration: details.duration,
       assignedCompletion: details.assignedCompletion,
       status: details.status,
