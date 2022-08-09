@@ -55,6 +55,7 @@ const App = () => {
   return (
     <Router>
       <Header setLogoutTriggered={setLogoutTriggered} />
+
       <main className='py-3'>
         <Route path='/login' component={LoginScreen} />
         <Route path='/registration' component={RegistrationScreen} exact />
