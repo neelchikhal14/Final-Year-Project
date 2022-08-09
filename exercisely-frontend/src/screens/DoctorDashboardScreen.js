@@ -1,7 +1,9 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearState } from '../utlities/utilities';
 import './css/DoctorDashboardScreen.css';
 const DoctorDashboardScreen = ({ history }) => {
+  const dispatch = useDispatch();
   const addExerciseHandler = () => {
     history.push('/doctor-add-exercise');
   };
@@ -23,6 +25,13 @@ const DoctorDashboardScreen = ({ history }) => {
   const deleteExerciseHandler = () => {
     history.push('/doctor-delete-patient-exercise');
   };
+  useEffect(() => {
+    console.log(history.location);
+    if (history.location['state'] !== undefined) {
+      clearState(history.location.state.from, dispatch);
+    }
+  }, [dispatch, history]);
+
   return (
     <div className='doctor-dashboard-container'>
       <section className='banner-add-exercise banner'>

@@ -111,6 +111,13 @@ const App = () => {
           exact
         />
         <ProtectedRoute
+          path='/doctor-add-personal-details'
+          component={DoctorAddPersonalDetailsScreen}
+          role='doctor'
+          exact
+        />
+
+        <ProtectedRoute
           path='/doctor-update-patient-exercise'
           component={DoctorUpdatePatientExerciseScreen}
           role='doctor'

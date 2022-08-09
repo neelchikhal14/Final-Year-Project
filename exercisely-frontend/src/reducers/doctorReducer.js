@@ -40,6 +40,14 @@ import {
   DOCTOR_DELETE_EFFECT_SUCCESS,
   DOCTOR_DELETE_EXERCISE_CLEAR,
   DOCTOR_DELETE_EXERCISE_FAIL,
+  DOCTOR_FETCH_PATIENT_CLEAR,
+  DOCTOR_GET_EXERCISE_CLEAR,
+  DOCTOR_SET_EXERCISE_CLEAR,
+  DOCTOR_CHECK_MEDICAL_RECORD_CLEAR,
+  DOCTOR_CREATE_MEDICAL_RECORD_CLEAR,
+  DOCTOR_RETRIEVE_MESSAGES_CLEAR,
+  DOCTOR_GET_HISTORY_CLEAR,
+  DOCTOR_CHECK_DETAILS_EXISTS_CLEAR,
 } from '../constants/doctorConstants';
 
 export const doctorFetchPatientReducer = (state = { state: {} }, action) => {
@@ -58,6 +66,8 @@ export const doctorFetchPatientReducer = (state = { state: {} }, action) => {
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_FETCH_PATIENT_CLEAR:
+      return {};
 
     default:
       return state;
@@ -79,6 +89,8 @@ export const doctorGetExercisesReducer = (state = { state: {} }, action) => {
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_GET_EXERCISE_CLEAR:
+      return {};
 
     default:
       return state;
@@ -100,6 +112,8 @@ export const doctorSetExerciseReducer = (state = { state: {} }, action) => {
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_SET_EXERCISE_CLEAR:
+      return {};
 
     default:
       return state;
@@ -124,6 +138,8 @@ export const doctorCheckMedicalRecordReducer = (
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_CHECK_MEDICAL_RECORD_CLEAR:
+      return {};
 
     default:
       return state;
@@ -148,6 +164,8 @@ export const doctorCreateMedicalRecordReducer = (
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_CREATE_MEDICAL_RECORD_CLEAR:
+      return {};
 
     default:
       return state;
@@ -172,6 +190,8 @@ export const doctorRetrieveMessagesReducer = (
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_RETRIEVE_MESSAGES_CLEAR:
+      return {};
 
     default:
       return state;
@@ -196,6 +216,8 @@ export const doctorGetPatientHistoryReducer = (
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_GET_HISTORY_CLEAR:
+      return {};
 
     default:
       return state;
@@ -228,6 +250,8 @@ export const doctorRegisterPersonalDetailsReducer = (
         loading: false,
         error: action.payload,
       };
+    case DOCTOR_CHECK_DETAILS_EXISTS_CLEAR:
+      return {};
 
     default:
       return state;
@@ -248,7 +272,7 @@ export const doctorGetMultiplePatientsReducer = (
         loading: false,
       };
     case DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR:
-      return { state: {} };
+      return {};
 
     case DOCTOR_GET_MULTIPLE_PATIENTS_FAIL:
       return {
@@ -283,7 +307,7 @@ export const doctorUpdatePatientExerciseReducer = (
         loading: false,
       };
     case DOCTOR_UPDATE_EXERCISE_CLEAR:
-      return { state: {} };
+      return {};
 
     case DOCTOR_UPDATE_EXERCISE_FAIL:
       return {
@@ -318,7 +342,7 @@ export const doctorDeletePatientExerciseReducer = (
         loading: false,
       };
     case DOCTOR_DELETE_EXERCISE_CLEAR:
-      return { state: {} };
+      return {};
 
     case DOCTOR_DELETE_EXERCISE_FAIL:
       return {

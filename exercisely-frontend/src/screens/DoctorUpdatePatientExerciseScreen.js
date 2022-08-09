@@ -19,6 +19,7 @@ import { bodyPartsRef } from '../utlities/utilities';
 import './css/DoctorAddExerciseScreen.css';
 
 import './css/DoctorUpdatePatientExerciseScreen.css';
+
 const DoctorUpdatePatientExerciseScreen = ({ history }) => {
   const [getPatient, setGetPatient] = useState({
     firstname: '',
