@@ -12,6 +12,8 @@ import {
   checkMedicalRecord,
   getDoctorDetails,
   getPatientByID,
+  updatePatientExercise,
+  deletePatientExercise,
 } from '../controllers/doctorController.js';
 
 import {
@@ -40,6 +42,18 @@ router.put(
   loginProtected,
   doctorProtected,
   addPatientExercise
+);
+router.put(
+  '/updatePatientExercise',
+  loginProtected,
+  doctorProtected,
+  updatePatientExercise
+);
+router.put(
+  '/deletePatientExercise',
+  loginProtected,
+  doctorProtected,
+  deletePatientExercise
 );
 router.post(
   '/createMedicalRecord',

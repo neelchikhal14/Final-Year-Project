@@ -30,6 +30,15 @@ import {
   DOCTOR_GET_MULTIPLE_PATIENTS_FAIL,
   DOCTOR_GET_MULTIPLE_PATIENTS_REQUEST,
   DOCTOR_GET_MULTIPLE_PATIENTS_SUCCESS,
+  DOCTOR_UPDATE_EXERCISE_CLEAR,
+  DOCTOR_UPDATE_EXERCISE_FAIL,
+  DOCTOR_UPDATE_EXERCISE_REQUEST,
+  DOCTOR_UPDATE_EXERCISE_SUCCESS,
+  DOCTOR_UPDATE_EFFECT_SUCCESS,
+  DOCTOR_DELETE_EXERCISE_REQUEST,
+  DOCTOR_DELETE_EFFECT_SUCCESS,
+  DOCTOR_DELETE_EXERCISE_FAIL,
+  DOCTOR_DELETE_EXERCISE_SUCCESS,
 } from '../constants/doctorConstants';
 
 import axios from 'axios';
@@ -610,3 +619,189 @@ export const getMultiplePatients =
       });
     }
   };
+export const getPendingExercises = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DOCTOR_FETCH_PATIENT_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    // const { doctorFetchPatient } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const {
+      data: { doctor },
+    } = await axios.get(`/api/v1/doctor/${userInfo._id}`, config);
+
+    const { data } = await axios.get(
+      `/api/v1/doctor/getPatientByID/${id}`,
+      config
+    );
+    console.log(doctor._id);
+    dispatch({
+      type: DOCTOR_FETCH_PATIENT_SUCCESS,
+      payload: { ...data, docId: doctor._id },
+    });
+
+    console.log(data);
+
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_REQUEST,
+    });
+    // console.log(doctorFetchPatient);
+    const { data: pendingExercises } = await axios.get(
+      `/api/v1/patient/getPendingExercises/${data.bioData._id}`,
+      config
+    );
+    // console.log(pendingExercises);
+
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_SUCCESS,
+      payload: pendingExercises,
+    });
+  } catch (error) {
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const setUpdateExercise = (id) => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    // const { doctorFetchPatient } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/v1/doctor/getPatientByID/${id}`,
+      config
+    );
+
+    console.log(data);
+
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_REQUEST,
+    });
+    // console.log(doctorFetchPatient);
+    const { data: pendingExercises } = await axios.get(
+      `/api/v1/patient/getPendingExercises/${data.bioData._id}`,
+      config
+    );
+    // console.log(pendingExercises);
+
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_SUCCESS,
+      payload: pendingExercises,
+    });
+  } catch (error) {
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const updateTheExercise = (details) => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    // const { doctorFetchPatient } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_REQUEST,
+    });
+
+    console.log(details);
+
+    const { data } = await axios.put(
+      `/api/v1/doctor/updatePatientExercise`,
+      { details },
+      config
+    );
+
+    console.log(data);
+
+    dispatch({
+      type: DOCTOR_UPDATE_EFFECT_SUCCESS,
+      payload: { data },
+    });
+  } catch (error) {
+    dispatch({
+      type: DOCTOR_UPDATE_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const deleteTheExercise = (details) => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    // const { doctorFetchPatient } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_REQUEST,
+    });
+
+    console.log(details);
+
+    const { data } = await axios.put(
+      `/api/v1/doctor/deletePatientExercise`,
+      { details },
+      config
+    );
+
+    console.log(data);
+
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_SUCCESS,
+      payload: { data },
+    });
+  } catch (error) {
+    dispatch({
+      type: DOCTOR_DELETE_EXERCISE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
