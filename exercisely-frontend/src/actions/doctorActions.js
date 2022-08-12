@@ -26,17 +26,14 @@ import {
   DOCTOR_CHECK_DETAILS_EXISTS_REQUEST,
   DOCTOR_CHECK_DETAILS_EXISTS_FAIL,
   DOCTOR_CHECK_DETAILS_EXISTS_SUCCESS,
-  DOCTOR_GET_MULTIPLE_PATIENTS_CLEAR,
   DOCTOR_GET_MULTIPLE_PATIENTS_FAIL,
   DOCTOR_GET_MULTIPLE_PATIENTS_REQUEST,
   DOCTOR_GET_MULTIPLE_PATIENTS_SUCCESS,
-  DOCTOR_UPDATE_EXERCISE_CLEAR,
   DOCTOR_UPDATE_EXERCISE_FAIL,
   DOCTOR_UPDATE_EXERCISE_REQUEST,
   DOCTOR_UPDATE_EXERCISE_SUCCESS,
   DOCTOR_UPDATE_EFFECT_SUCCESS,
   DOCTOR_DELETE_EXERCISE_REQUEST,
-  DOCTOR_DELETE_EFFECT_SUCCESS,
   DOCTOR_DELETE_EXERCISE_FAIL,
   DOCTOR_DELETE_EXERCISE_SUCCESS,
 } from '../constants/doctorConstants';
@@ -134,7 +131,7 @@ export const checkMedicalRecord = (pid) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    console.log('triggered');
+    // console.log('triggered');
     const response = await axios.get(
       `/api/v1/doctor/${pid}/checkMedicalRecords`,
       config
@@ -179,9 +176,6 @@ export const setExercise = (details) => async (dispatch, getState) => {
       config
     );
 
-    if (medicalRecordsResponse.status === 401) {
-      console.log(medicalRecordsResponse);
-    }
     if (medicalRecordsResponse.data.record.assignedExercises) {
       const newExercises = [
         {
@@ -247,7 +241,7 @@ export const createMedicalRecord = () => async (dispatch, getState) => {
         patient: { bioData },
       },
     } = getState();
-    console.log(userInfo._id, _id, bioData._id);
+    // console.log(userInfo._id, _id, bioData._id);
     const { data } = await axios.post(
       `/api/v1/doctor/createMedicalRecord`,
       { pid: bioData._id, docId: _id },
@@ -400,7 +394,7 @@ export const getPatientExerciseStat = (id) => async (dispatch, getState) => {
         patientId: { _id },
       },
     } = await axios.get(`/api/v1/patient/getId/${response.data._id}`, config);
-    console.log(_id);
+    // console.log(_id);
     const { data } = await axios.get(
       `/api/v1/patient/getPendingExercises/${_id}`,
       config
@@ -464,7 +458,7 @@ export const doctorGetPateientExerciseStats =
         },
       } = await axios.get(`/api/v1/patient/getId/${response.data._id}`, config);
       // console.log(_id);
-      console.log(from, to);
+      // console.log(from, to);
       const { data } = await axios.get(
         `/api/v1/patient/${_id}/getExerciseStats/${from}/${to}`,
         config
@@ -491,7 +485,7 @@ export const doctorGetPateientExerciseStats =
         const exInfo = theExercises[idx];
         finalExerciseData.push({ ...ex.exerciseDetails, exInfo });
       });
-      console.log(finalExerciseData);
+      // console.log(finalExerciseData);
       dispatch({
         type: PATIENT_EXERCISE_STATS_SUCCESS,
         payload: finalExerciseData,
@@ -645,13 +639,13 @@ export const getPendingExercises = (id) => async (dispatch, getState) => {
       `/api/v1/doctor/getPatientByID/${id}`,
       config
     );
-    console.log(doctor._id);
+    // console.log(doctor._id);
     dispatch({
       type: DOCTOR_FETCH_PATIENT_SUCCESS,
       payload: { ...data, docId: doctor._id },
     });
 
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: DOCTOR_UPDATE_EXERCISE_REQUEST,
@@ -696,7 +690,7 @@ export const setUpdateExercise = (id) => async (dispatch, getState) => {
       config
     );
 
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: DOCTOR_UPDATE_EXERCISE_REQUEST,
@@ -740,7 +734,7 @@ export const updateTheExercise = (details) => async (dispatch, getState) => {
       type: DOCTOR_UPDATE_EXERCISE_REQUEST,
     });
 
-    console.log(details);
+    // console.log(details);
 
     const { data } = await axios.put(
       `/api/v1/doctor/updatePatientExercise`,
@@ -748,7 +742,7 @@ export const updateTheExercise = (details) => async (dispatch, getState) => {
       config
     );
 
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: DOCTOR_UPDATE_EFFECT_SUCCESS,
@@ -782,7 +776,7 @@ export const deleteTheExercise = (details) => async (dispatch, getState) => {
       type: DOCTOR_DELETE_EXERCISE_REQUEST,
     });
 
-    console.log(details);
+    // console.log(details);
 
     const { data } = await axios.put(
       `/api/v1/doctor/deletePatientExercise`,
@@ -790,7 +784,7 @@ export const deleteTheExercise = (details) => async (dispatch, getState) => {
       config
     );
 
-    console.log(data);
+    // console.log(data);
 
     dispatch({
       type: DOCTOR_DELETE_EXERCISE_SUCCESS,

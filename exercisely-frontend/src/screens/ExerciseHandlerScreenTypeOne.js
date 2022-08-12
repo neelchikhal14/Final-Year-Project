@@ -22,7 +22,7 @@ const ExerciseHandlerScreenTypeOne = ({ history }) => {
     const detailedExercise = pendingExercises.filter(
       (ex) => ex.exerciseId === selectedExercise[0]._id
     );
-    console.log(detailedExercise);
+    // console.log(detailedExercise);
     setDuration(detailedExercise[0].duration);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,8 +35,6 @@ const ExerciseHandlerScreenTypeOne = ({ history }) => {
           setDuration((prevProps) => prevProps - 1);
         }
       }, 1000);
-    } else {
-      console.log('ready from handler is false');
     }
 
     return () => {

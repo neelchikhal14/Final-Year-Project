@@ -77,7 +77,7 @@ export const getAllUsers = asyncHandler(async (req, res) => {
 export const getUserById = asyncHandler(async (req, res) => {
   const { _id } = req.params;
   const user = await User.findById({ _id });
-  console.log(req.params);
+  // console.log(req.params);
   if (user) {
     res.json(user);
   } else {
@@ -96,7 +96,7 @@ export const getUserByfNamelName = asyncHandler(async (req, res) => {
   const user = await User.findOne({ firstname: fname, lastname: lname }).select(
     '_id'
   );
-  console.log(user);
+  // console.log(user);
   if (user) {
     res.json(user);
   } else {
@@ -115,7 +115,7 @@ export const getMultipleUsers = asyncHandler(async (req, res) => {
   const users = await User.find({
     $or: [{ firstname: fname }, { lastname: lname }],
   }).select('_id firstname lastname email');
-  console.log(users);
+  // console.log(users);
   if (users) {
     res.json(users);
   } else {

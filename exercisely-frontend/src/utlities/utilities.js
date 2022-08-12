@@ -442,7 +442,7 @@ export const generateStatistics = (completeExerciseDetails) => {
 
       singleExeInstance['sessionStats'].forEach((singleStat) => {
         if (singleStat.name === bodyPart) {
-          console.log(singleStat.name, bodyPart);
+          // console.log(singleStat.name, bodyPart);
           const tenPercentUp = singleStat.avgAngle * 1.1;
           const tenPercentDown = singleStat.avgAngle * 0.9;
           const twentyPercentDown = singleStat.avgAngle * 0.8;
@@ -549,12 +549,12 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
             plusOneSD =
               singleExeInstance.desiredValue[keyOne] +
               1 * singleExeInstance.std[keyOne];
-            console.log('Dersired Value', singleExeInstance.desiredValue);
-            console.log('Mean', singleExeInstance.desiredValue[keyOne]);
-            console.log(' - SD', minusThreeSD, minusTwoSD, minusOneSD);
-            console.log(' + SD', plusThreeSD, plusTwoSD, plusOneSD);
+            // console.log('Dersired Value', singleExeInstance.desiredValue);
+            // console.log('Mean', singleExeInstance.desiredValue[keyOne]);
+            // console.log(' - SD', minusThreeSD, minusTwoSD, minusOneSD);
+            // console.log(' + SD', plusThreeSD, plusTwoSD, plusOneSD);
 
-            console.log(singleStat.avgAngle);
+            // console.log(singleStat.avgAngle);
             if (singleStat.avgAngle <= minusThreeSD) {
               genStats.push(
                 `${keyOne
@@ -564,7 +564,7 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
                   singleExeInstance.desiredValue[keyOne]
                 } degrees.`
               );
-              console.log('less equal than -3 SD');
+              // console.log('less equal than -3 SD');
             }
             if (
               singleStat.avgAngle > minusThreeSD &&
@@ -578,7 +578,7 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
                   singleExeInstance.desiredValue[keyOne]
                 } degrees.`
               );
-              console.log('gt -3SD lte -2SD');
+              // console.log('gt -3SD lte -2SD');
             }
             if (
               singleStat.avgAngle > minusTwoSD &&
@@ -592,7 +592,7 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
                   singleExeInstance.desiredValue[keyOne]
                 } degrees.`
               );
-              console.log('gt -2SD lte -1SD');
+              // console.log('gt -2SD lte -1SD');
             }
             if (
               singleStat.avgAngle > minusOneSD &&
@@ -604,7 +604,7 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
                   .join(' ')
                   .toUpperCase()}'s angle is perfect and within range.`
               );
-              console.log('gt -1SD lte +1SD');
+              // console.log('gt -1SD lte +1SD');
             }
             if (
               singleStat.avgAngle > plusOneSD &&
@@ -618,7 +618,7 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
                   singleExeInstance.desiredValue[keyOne]
                 } degrees.`
               );
-              console.log('gt +1SD lte +2SD');
+              // console.log('gt +1SD lte +2SD');
             }
             if (
               singleStat.avgAngle > plusTwoSD &&
@@ -632,7 +632,7 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
                   singleExeInstance.desiredValue[keyOne]
                 } degrees.`
               );
-              console.log('gt +2SD lte +3SD');
+              // console.log('gt +2SD lte +3SD');
             }
             if (singleStat.avgAngle > plusThreeSD) {
               genStats.push(
@@ -643,7 +643,7 @@ export const generateStatisticsOptimized = (completeExerciseDetails) => {
                   singleExeInstance.desiredValue[keyOne]
                 } degrees.`
               );
-              console.log('gt + 3SD');
+              // console.log('gt + 3SD');
             } // end of if
           }
         }

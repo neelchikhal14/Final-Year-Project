@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -23,21 +25,21 @@ const DoctorDeletePatientExerciseScreen = ({ history }) => {
     const value = e.target.value;
     setGetPatient({ ...getPatient, [name]: value });
   };
-  const [exerciseDetails, setExerciseDetails] = useState({
-    bodyPart: '',
-    angle: 0,
-    std: 0,
-  });
+  // const [exerciseDetails, setExerciseDetails] = useState({
+  //   bodyPart: '',
+  //   angle: 0,
+  //   std: 0,
+  // });
 
-  const [completeExerciseDetails, setCompleteExerciseDetails] = useState({});
-  const [standardDeviation, setStandardDeviation] = useState({});
+  // const [completeExerciseDetails, setCompleteExerciseDetails] = useState({});
+  // const [standardDeviation, setStandardDeviation] = useState({});
 
-  const [reps, setReps] = useState(0);
-  const [assignedCompletion, setAssignedCompletion] = useState(
-    new Date().toISOString().substring(0, 10)
-  );
-  const [instructions, setInstructions] = useState([]);
-  const [duration, setDuration] = useState(0);
+  // const [reps, setReps] = useState(0);
+  // const [assignedCompletion, setAssignedCompletion] = useState(
+  //   new Date().toISOString().substring(0, 10)
+  // );
+  // const [instructions, setInstructions] = useState([]);
+  // const [duration, setDuration] = useState(0);
 
   const [recordExists, setRecordExists] = useState('');
   const [recordCreated, setRecordCreated] = useState(false);
@@ -62,11 +64,9 @@ const DoctorDeletePatientExerciseScreen = ({ history }) => {
     loading: loadingGetMultiplePatients,
     error: errorGetMultiplePatients,
   } = useSelector((state) => state.doctorGetMultiplePatients);
-  const {
-    updateDetails,
-    loading: loadingDoctorUpdatePatientExercise,
-    error: errorDoctorUpdatePatientExercise,
-  } = useSelector((state) => state.doctorUpdatePatientExercise);
+  const { updateDetails } = useSelector(
+    (state) => state.doctorUpdatePatientExercise
+  );
 
   const getPatientDetails = (e) => {
     e.preventDefault();
@@ -221,7 +221,6 @@ const DoctorDeletePatientExerciseScreen = ({ history }) => {
                               .substring(0, 10)}
                           </td>
                           <td>{singlePendingExercise.assignedDate}</td>
-                          {console.log(ex.name)}
                         </tr>
                       );
                     }

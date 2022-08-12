@@ -5,10 +5,8 @@ import { getAllExercises } from '../actions/patientActions';
 import { setSelectedExercise } from '../actions/patientActions';
 
 import Loader from '../components/Loader';
-import Error from '../components/Error';
-import Information from '../components/Information';
 
-import { clearState } from '../utlities/utilities';
+import Information from '../components/Information';
 
 import './css/PatientDashboardScreen.css';
 
@@ -20,7 +18,7 @@ const PatientDashboardScreen = ({ history }) => {
   );
   const {
     loading: loadingPatientAssignedExercises,
-    error: errorPatientAssignedExercises,
+
     assignedExercises,
   } = patientAssignedExercises;
 
