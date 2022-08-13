@@ -14,7 +14,7 @@
 /exercisely-frontend/coverage
 
 # production
-/exercisely-frontend/build
+ 
 
 # misc
 .env
