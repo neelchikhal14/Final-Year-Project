@@ -1,0 +1,147 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.logo img {
+  width: 100px;
+  height: 100%;
+  object-fit: contain;
+}
+
+a {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* li {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
+/* .button-container {
+  display: flex;
+  flex-direction: row;
+  width: 20%;
+  background-color: pink;
+} */
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.login,
+.logout,
+.dashboard-redirect {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+/* Responsive Design */
+@media only screen and (max-width: 400px) {
+  nav {
+    width: 90vw;
+    height: 20vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+  }
+  .logo {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .logo > a > img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: auto;
+    justify-content: space-between;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .login,
+  .logout,
+  .dashboard-redirect {
+    background-color: black;
+    height: 36px;
+    width: 126px;
+    border-radius: 30px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    line-height: 0.8;
+  }
+}
+@media only screen and (min-width: 401px) and (max-width: 850px) {
+  nav {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}

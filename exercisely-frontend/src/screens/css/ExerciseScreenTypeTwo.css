@@ -1,0 +1,331 @@
+/* .exercise-section {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  width: 90vw;
+}
+.media {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+.exercise-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+#webcam {
+  transform: rotateY(180deg);
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0px;
+  width: 640px;
+  height: 480px;
+}
+
+#my-canvas {
+  transform: rotateY(180deg);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 640px;
+  height: 480px;
+}
+
+.exercise-complete-banner,
+.exercise-complete-info {
+  width: 50%;
+  height: 100%;
+}
+
+.exercise-complete-banner > img {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+.exercise-complete-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.exercise-info > h3 {
+  font-size: 1.5rem;
+}
+
+.reps-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 auto;
+}
+
+.start-exercise-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.genrate-stats-button {
+  background-color: black;
+  height: 36px;
+  width: 150px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+} */
+
+/* responsive design */
+/* @media only screen and (max-width: 400px) {
+  .exercise-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 97vw;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  .media {
+    position: relative;
+    width: 390px !important;
+    height: 380px !important;
+  }
+  #webcam {
+    transform: rotateY(180deg);
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0px;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #my-canvas {
+    transform: rotateY(180deg);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .exercise-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 97vw;
+  }
+  .exercise-complete-banner,
+  .exercise-complete-info {
+    width: 97vw;
+  }
+  .genrate-stats-button {
+    width: 35vw;
+    height: 10vw;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 0.8rem;
+
+    margin-bottom: 10px;
+  }
+} */
+.exercise-section {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  width: 90vw;
+}
+.media {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+.exercise-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+#webcam {
+  transform: rotateY(180deg);
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0px;
+  width: 640px;
+  height: 480px;
+}
+
+#my-canvas {
+  transform: rotateY(180deg);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 640px;
+  height: 480px;
+}
+
+.exercise-complete-banner,
+.exercise-complete-info {
+  width: 50%;
+  height: 100%;
+}
+
+.exercise-complete-banner > img {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+.exercise-complete-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.exercise-info > h3 {
+  font-size: 1.5rem;
+}
+
+.reps-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 auto;
+}
+
+.start-exercise-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.genrate-stats-button {
+  background-color: black;
+  height: 36px;
+  width: 150px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+.exercise-link {
+  color: black;
+  text-decoration: none;
+}
+.exercise-link:hover {
+  text-decoration: underline;
+}
+.angle-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.angle-info > span {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+/* responsive design */
+@media only screen and (max-width: 912px) {
+  .exercise-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 97vw;
+    overflow-x: hidden;
+    justify-content: center;
+  }
+  .media {
+    position: relative;
+    width: 390px !important;
+    height: 380px !important;
+  }
+  #webcam {
+    transform: rotateY(180deg);
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0px;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #my-canvas {
+    transform: rotateY(180deg);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .exercise-info {
+    display: flex;
+    flex-direction: column;
+    width: 97vw;
+  }
+  .exercise-complete-banner,
+  .exercise-complete-info {
+    width: 97vw;
+  }
+  .genrate-stats-button {
+    width: 35vw;
+    height: 10vw;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 0.8rem;
+
+    margin-bottom: 10px;
+  }
+}

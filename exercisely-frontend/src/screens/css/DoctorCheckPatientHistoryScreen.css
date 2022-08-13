@@ -1,0 +1,139 @@
+.patient-history-container {
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  align-items: center;
+  /* justify-content: space-evenly; */
+}
+
+#patient-history-page-title {
+  color: var(--primary-green);
+  margin-bottom: 10px;
+}
+
+.patient-history-container > .get-patient-details-form {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+}
+
+.get-patient-details-form > label {
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin: 10px;
+}
+
+.get-patient-details-form > input {
+  width: 30%;
+  height: 40px;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+}
+
+.get-patient-details-form > input:focus {
+  border: 3px solid var(--primary-green);
+}
+
+.get-patient-details-form > .get-patient-details,
+.get-patient-history {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 0.9;
+}
+
+.get-patient-history {
+  margin-top: 5px;
+}
+
+.patient-details-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+  min-height: 50px;
+}
+
+.patient-avatar {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.personal-details {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+#patient-progress {
+  color: var(--primary-green);
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.patient-history-container > h3 {
+  margin-bottom: 10px;
+}
+
+/* responsive design */
+@media only screen and (max-width: 400px) {
+  .patient-history-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  #patient-history-page-title,
+  #patient-history-page-title + h3 {
+    text-align: center;
+  }
+
+  .patient-history-container > .get-patient-details-form {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .get-patient-details-form > label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    margin: 10px;
+  }
+
+  .get-patient-details-form > input {
+    width: 100%;
+    height: 40px;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+  }
+
+  .get-patient-details-form > input:focus {
+    border: 3px solid var(--primary-green);
+  }
+
+  .get-patient-details-form > .get-patient-details {
+    background-color: black;
+    height: 36px;
+    width: 126px;
+    border-radius: 30px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+  }
+}

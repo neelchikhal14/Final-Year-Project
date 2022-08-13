@@ -1,13 +1,92 @@
-body {
+:root {
+  --base-white: rgb(255, 255, 255);
+  --primary-green: #00817d;
+  --primary-black: rgb(19, 19, 19);
+  --banner-grey: #e5e0ff;
+  --banner-blue: #dfefef;
+  --success-text: #0f5132;
+  --success-background: #d1e7dd;
+  --danger-text: #a25058;
+  --danger-background: #f8d7da;
+  --info-text: #055160;
+  --info-background: #d1e7dd;
+  --form-background: #dfefef;
+  font-size: 16px;
+}
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  /* overflow-y: hidden; */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  background-color: var(--base-white);
+  line-height: 1.6;
+  letter-spacing: 1px;
 }
+
+h1,
+h2,
+h3 {
+  line-height: 1;
+  font-weight: 900;
+}
+a {
+  color: var(--base-white);
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+/* reset button styles */
+button {
+  all: unset;
+  cursor: pointer;
+  padding: 0;
+}
+
+input,
+select {
+  outline: none;
+  border: none;
+  font-family: 'Ubuntu', sans-serif;
+}
+textarea {
+  border: none;
+  background-color: none;
+  resize: none;
+  outline: none;
+}
+/* common breakpoints */
+/* Extra small devices (phones, 600px and down) */
+/* @media only screen and (max-width: 600px) {...} */
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {...} */
+
+/* Medium devices (landscape tablets, 768px and up) */
+/* @media only screen and (min-width: 768px) {...} */
+
+/* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {...} */
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {...}  */

@@ -1,0 +1,144 @@
+.patient-stat-screen-container {
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  align-items: center;
+}
+.patient-stat-screen-container > h1 {
+  color: var(--primary-green);
+  font-size: 3rem;
+  text-align: center;
+}
+.date-range-form {
+  width: 70vw;
+}
+.date-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.date-form > label {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.date-form > input {
+  width: 30%;
+  height: 40px;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+}
+
+.date-form > input:focus {
+  border: 3px solid var(--primary-green);
+}
+
+.get-stats-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.graph-and-details-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.exercise-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.graph-section {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.exercise-stats-info {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  justify-content: center;
+}
+.exercise-stats-info > * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.exercise-stats-info > h3 {
+  font-size: 1rem;
+}
+
+/* responsive design */
+@media only screen and (max-width: 912px) {
+  .patient-stat-screen-container {
+    width: 95vw;
+  }
+  .patient-stat-screen-container > h1 {
+    color: var(--primary-green);
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .date-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .date-form > label {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  .date-form > input {
+    width: 100%;
+    height: 40px;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+  }
+
+  .date-form > input:focus {
+    border: 3px solid var(--primary-green);
+  }
+
+  .get-stats-button {
+    background-color: black;
+    height: 36px;
+    width: 126px;
+    border-radius: 30px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .exercise-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .graph-section {
+    width: 90vw;
+  }
+  .exercise-stats-info {
+    margin-top: 3px;
+    margin-left: 3px;
+    width: 98%;
+  }
+}

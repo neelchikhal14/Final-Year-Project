@@ -1,0 +1,12 @@
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 7%;
+  background-color: var(--info-background);
+  color: var(--info-text);
+  border-left: 3px solid #044b04;
+  margin: 10px;
+}

@@ -1,0 +1,78 @@
+.send-message-container {
+  border: 2px solid var(--banner-grey);
+  border-radius: 10px;
+  width: 60%;
+  background-color: var(--form-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.send-message-container > h1 {
+  color: var(--primary-green);
+  font-size: 3rem;
+  text-align: center;
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  width: 90%;
+}
+
+.message-form > * {
+  margin: 5px;
+}
+
+.message-form > label {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.message-form > input {
+  width: 95%;
+  height: 40px;
+  border-radius: 0.25rem;
+}
+.message-form > input:focus {
+  border: 3px solid var(--primary-green);
+}
+.message-form > textarea {
+  overflow: hidden;
+  border-radius: 0.25rem;
+
+  width: 95%;
+  height: 60vh;
+  font-size: 1rem;
+  background-color: white;
+}
+.message-form > textarea:focus {
+  border: 3px solid var(--primary-green);
+}
+
+.send-message-button {
+  background-color: black;
+  height: 36px;
+  width: 126px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  text-align: center;
+  align-self: center;
+}
+
+/* responsive design */
+@media only screen and (max-width: 912px) {
+  .send-message-container {
+    width: 90%;
+    margin: auto;
+  }
+  .send-message-container > h1 {
+    font-size: 2rem;
+  }
+}
