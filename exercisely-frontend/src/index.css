@@ -23,6 +23,8 @@ html {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  /* overflow-y: hidden; */
 }
 
 body {
@@ -31,7 +33,6 @@ body {
   background-color: var(--base-white);
   line-height: 1.6;
   letter-spacing: 1px;
-  overflow-x: hidden;
 }
 
 h1,

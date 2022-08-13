@@ -138,3 +138,10 @@ a:hover {
     line-height: 0.8;
   }
 }
+@media only screen and (min-width: 401px) and (max-width: 850px) {
+  nav {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}

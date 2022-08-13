@@ -49,6 +49,11 @@
   font-size: 2rem;
 }
 
+.banner-add-exercise > .banner-info > h2 {
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+
 .doctor-functionality-button {
   background-color: black;
   height: 36px;
@@ -75,24 +80,59 @@
 }
 
 /* Responsive Design */
-@media only screen and (max-width: 400px) {
+@media only screen and (min-width: 401px) and (max-width: 837px) {
+  .banner-img {
+    justify-content: center;
+  }
+  .banner-add-exercise > .banner-info > h2 {
+    font-size: 1.2rem;
+    margin-top: 5px;
+  }
   .banner-info h3 {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     line-height: 0.2;
   }
   .banner-info h2 {
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 1;
     text-align: center;
   }
 
-  .patient-functionality-button {
-    width: 20vw;
+  .doctor-functionality-button {
+    width: 17vw;
     height: 7vw;
     border-radius: 100px;
     background-color: black;
     color: white;
     text-align: center;
     font-size: 0.7rem;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .banner-img {
+    justify-content: center;
+  }
+  .banner-add-exercise > .banner-info > h2 {
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+  .banner-info h3 {
+    font-size: 0.5rem;
+    line-height: 0.2;
+  }
+  .banner-info h2 {
+    font-size: 1rem;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .doctor-functionality-button {
+    width: 20vw;
+    height: 7vw;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 0.6rem;
   }
 }
