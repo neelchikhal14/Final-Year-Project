@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
@@ -40,7 +40,7 @@ const Header = ({ setLogoutTriggered }) => {
     // console.log('location', location.pathname);
     // console.log('header', history);
     if (history.location['state'] !== undefined) {
-      console.log('i executed');
+      // console.log('i executed');
       clearState(history.location.state.from, dispatch);
     }
   };

@@ -24,7 +24,7 @@ const ProtectedRoute = ({ role, component: Component, ...rest }) => {
           ) {
             return <Component {...props} />;
           } else {
-            console.log('inner else');
+            // console.log('inner else');
             dispatch({
               type: USER_LOGOUT,
             });

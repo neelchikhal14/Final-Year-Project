@@ -12,10 +12,7 @@ import BarChart from '../components/charts/BarChart';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 
-import {
-  generateStatistics,
-  generateStatisticsOptimized,
-} from '../utlities/utilities';
+import { generateStatisticsOptimized } from '../utlities/utilities';
 import './css/DoctorCheckPatientHistoryScreen.css';
 const DoctorCheckPatientHistoryScreen = () => {
   const dispatch = useDispatch();
@@ -31,11 +28,9 @@ const DoctorCheckPatientHistoryScreen = () => {
     error: errorPatientGetExerciseStat,
   } = useSelector((state) => state.patientGetExerciseStats);
 
-  const {
-    patientDetails,
-    loading: loadingGetMultiplePatients,
-    error: errorGetMultiplePatients,
-  } = useSelector((state) => state.doctorGetMultiplePatients);
+  const { patientDetails } = useSelector(
+    (state) => state.doctorGetMultiplePatients
+  );
 
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());

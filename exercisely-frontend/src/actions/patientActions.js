@@ -86,7 +86,7 @@ export const setSelectedExercise = (exercise) => async (dispatch) => {
 };
 
 export const updateExerciseStats =
-  (exid, stats) => async (dispatch, getState) => {
+  (assignedDate, stats) => async (dispatch, getState) => {
     try {
       dispatch({
         type: PATIENT_UPDATE_EXERCISE_STATS_REQUEST,
@@ -108,7 +108,7 @@ export const updateExerciseStats =
       // console.log(_id);
       const { data } = await axios.put(
         `/api/v1/patient/${_id}/updateExerciseStats`,
-        { exid, stats },
+        { assignedDate, stats },
         config
       );
       dispatch({

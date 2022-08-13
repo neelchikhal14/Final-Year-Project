@@ -64,7 +64,7 @@ const ExerciseScreenTypeOne = ({ setReady, duration, history }) => {
 
   async function start() {
     // await initCamera();
-    console.log('2. start');
+    // console.log('2. start');
     det = await initPoseDetection();
     // setReady(true);
     timer = setInterval(() => {
@@ -115,7 +115,7 @@ const ExerciseScreenTypeOne = ({ setReady, duration, history }) => {
   }
 
   const begin = () => {
-    console.log('1. begin');
+    // console.log('1. begin');
     setReady(true);
     start();
   };
@@ -130,7 +130,7 @@ const ExerciseScreenTypeOne = ({ setReady, duration, history }) => {
     // console.log(detailedExercise);
     // console.log(detailedExercise.exerciseId, finalStats);
     setDisplayMedialements(false);
-    dispatch(updateExerciseStats(detailedExercise.exerciseId, finalStats));
+    dispatch(updateExerciseStats(detailedExercise.assignedDate, finalStats));
     if (timer) {
       // console.log(timer);
       clearInterval(timer);

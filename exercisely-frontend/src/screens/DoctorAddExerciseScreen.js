@@ -45,9 +45,9 @@ const DoctorAddExerciseScreen = ({ history }) => {
 
   const setExerciseParams = (e) => {
     e.preventDefault();
-    console.log('exercise details', exerciseDetails);
+    // console.log('exercise details', exerciseDetails);
     const entries = Object.entries(exerciseDetails);
-    console.log('entries', entries);
+    // console.log('entries', entries);
     const key = entries[0][1];
     const value = entries[1][1];
     setCompleteExerciseDetails({
@@ -59,7 +59,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
       ...standardDeviation,
       [key]: Number(stdValue),
     });
-    console.log('std Deviation', standardDeviation);
+    // console.log('std Deviation', standardDeviation);
   };
 
   const [reps, setReps] = useState(0);
@@ -128,7 +128,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
       instructions: instructions.split(';'),
       sessionStats: [],
     };
-    console.log(details);
+    // console.log(details);
     dispatch(setExercise(details));
     history.push('/doctor-dashboard');
   };

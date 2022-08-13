@@ -41,7 +41,7 @@ const ExerciseScreenTypeTwo = ({ history }) => {
 
   const [detailedExercise, setDetailedExercise] = useState(null);
 
-  const [angle, setAngle] = useState(0);
+  // const [angle, setAngle] = useState(0);
 
   useEffect(() => {
     const exercise = pendingExercises.filter(
@@ -52,7 +52,7 @@ const ExerciseScreenTypeTwo = ({ history }) => {
   }, [detailedExercise, pendingExercises, selectedExercise]);
 
   useEffect(() => {
-    if (reps === requiredReps) {
+    if (reps > requiredReps) {
       setDisplayMedialements(false);
       clearInterval(timer);
     }
@@ -72,7 +72,7 @@ const ExerciseScreenTypeTwo = ({ history }) => {
   }
   async function start() {
     // await initCamera();
-    console.log('2. start');
+    // console.log('2. start');
     det = await initPoseDetection();
     // setReady(true);
     timer = setInterval(() => {
@@ -119,9 +119,22 @@ const ExerciseScreenTypeTwo = ({ history }) => {
           let pointOne = poses[0].keypoints[singleAngle.pointOne];
           let pointTwo = poses[0].keypoints[singleAngle.pointTwo];
           let pointThree = poses[0].keypoints[singleAngle.pointThree];
-          let angle = calculateAngle(pointOne, pointTwo, pointThree);
-          console.log(singleAngle.bodyPartName);
-          setAngle(angle);
+          if (singleAngle.bodyPartName === 'left_hand_shoulder') {
+            // console.log(singleAngle.bodyPartName);
+            let angle = calculateAngle(pointOne, pointTwo, pointThree);
+            // console.log(angle);
+            //left hand stretch
+            if (angle > 168 && angle <= 180) {
+              stage = 'stretch';
+            }
+            if (stage === 'stretch' && angle <= 168) {
+              stage = 'bend';
+              setReps((prevProps) => prevProps + 1);
+            }
+          }
+
+          // console.log(singleAngle.bodyPartName);
+          // setAngle(angle);
           // 159 to 163
           // 156 - 160 bend
           // 161 - 165 str
@@ -133,32 +146,32 @@ const ExerciseScreenTypeTwo = ({ history }) => {
           //   setReps((prevProps) => prevProps + 1);
           // }
           // squats
-          if (angle > 180 && angle <= 200) {
-            stage = 'stretch';
-          }
-          if (stage === 'stretch' && angle <= 310 && angle > 271) {
-            stage = 'bend';
-            setReps((prevProps) => prevProps + 1);
-          }
+          // if (angle > 180 && angle <= 200) {
+          //   stage = 'stretch';
+          // }
+          // if (stage === 'stretch' && angle <= 310 && angle > 271) {
+          //   stage = 'bend';
+          //   setReps((prevProps) => prevProps + 1);
+          // }
+
           let temp = getExerciseStats(poses, selectedExercise[0].bodyParams);
           stats = [...stats, ...temp];
         });
       }
     } else {
-      // ! NEED TO REMOVE FROM FINAL CODE
-      console.log('3. render else');
       return;
     }
   }
   const begin = () => {
-    console.log('1. begin');
+    // console.log('1. begin');
     start();
   };
   const genStats = () => {
     // normaliseExerciseStats(stats);
     const finalStats = calculateStatistics(stats);
+    console.log(finalStats);
     setDisplayMedialements(false);
-    dispatch(updateExerciseStats(detailedExercise._id, finalStats));
+    dispatch(updateExerciseStats(detailedExercise.assignedDate, finalStats));
     history.push('/patient-dashboard');
   };
   //useEffect to clear timer that calls model evry 100 ms

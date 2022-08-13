@@ -26,7 +26,7 @@ const DoctorDashboardScreen = ({ history }) => {
     history.push('/doctor-delete-patient-exercise');
   };
   useEffect(() => {
-    console.log(history.location);
+    // console.log(history.location);
     if (history.location['state'] !== undefined) {
       clearState(history.location.state.from, dispatch);
     }

@@ -100,7 +100,7 @@ export const getDocId = asyncHandler(async (req, res) => {
  */
 export const updateExerciseStats = asyncHandler(async (req, res) => {
   // exid in the params corresponds to particular assigned id in assignedExercises
-  const { exid, stats } = req.body;
+  const { assignedDate, stats } = req.body;
   const currentDate = new Date();
   const currentISODate = currentDate.toISOString();
   const recordExists = await MedicalRecords.findOne({ patient: req.params.id });
@@ -109,12 +109,12 @@ export const updateExerciseStats = asyncHandler(async (req, res) => {
   // console.log(typeof recordExists);
 
   if (recordExists) {
-    console.log('-------');
-    console.log('recordExists', recordExists);
-    console.log('***');
-    console.log('coming from body');
-    console.log(exid);
-    console.log(stats);
+    // console.log('-------');
+    // console.log('recordExists', recordExists);
+    // console.log('***');
+    // console.log('coming from body');
+    // console.log(exid);
+    // console.log(stats);
 
     const { assignedExercises } = recordExists;
     assignedExercises.forEach((ex) => {
@@ -122,21 +122,19 @@ export const updateExerciseStats = asyncHandler(async (req, res) => {
         ex['sessionStats'] = [];
       }
 
-      console.log('()()()');
-      console.log(ex);
-      console.log(`999--${ex.exerciseId}--999`);
-      console.log(`999--${exid}--999`);
-      if (ex.exerciseId.toString() === exid.toString()) {
-        console.log('****I EXECUTED*****');
+      // console.log('()()()');
+      // console.log(ex);
+      // console.log(`999--${ex.exerciseId}--999`);
+      // console.log(`999--${exid}--999`);
+      if (ex.assignedDate.toString() === assignedDate.toString()) {
+        // console.log('****I EXECUTED*****');
         ex['status'] = 'completed';
         ex['sessionStats'] = [...stats];
         ex['actualCompletionDate'] = currentISODate;
-        console.log('EX', ex);
-      } else {
-        console.log('WRONG EXECUTED');
+        // console.log('EX', ex);
       }
     });
-    console.log('assignedExercises', assignedExercises);
+    // console.log('assignedExercises', assignedExercises);
 
     const updatedRecords = await MedicalRecords.findOneAndUpdate(
       { patient: req.params.id },

@@ -34,11 +34,11 @@ const App = () => {
       if (sessionStorage.getItem('expiresAt')) {
         const expiry = Number(sessionStorage.getItem('expiresAt'));
         const expiryMinusOneMin = expiry - 1 * 60 * 1000;
-        console.log('expiry', new Date(expiry));
+        // console.log('expiry', new Date(expiry));
 
-        console.log('expiry-1', new Date(expiryMinusOneMin));
+        // console.log('expiry-1', new Date(expiryMinusOneMin));
         if (Number(new Date().getTime()) >= expiryMinusOneMin) {
-          console.log('time matched', new Date());
+          // console.log('time matched', new Date());
           setDisplayAlert(true);
           clearInterval(timer);
         }

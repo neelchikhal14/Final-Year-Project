@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -5,11 +6,7 @@ import Loader from '../components/Loader';
 import Error from '../components/Error';
 
 import {
-  fetchPatient,
   getExercises,
-  setExercise,
-  checkMedicalRecord,
-  createMedicalRecord,
   getMultiplePatients,
   getPendingExercises,
   updateTheExercise,
@@ -42,6 +39,7 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
     setExerciseDetails({ ...exerciseDetails, [name]: value });
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [selectedExerciseId, setSelectedExerciseId] = useState('');
 
   const [completeExerciseDetails, setCompleteExerciseDetails] = useState({});
@@ -49,9 +47,9 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
   const [videoLink, setVideoLink] = useState('');
   const setExerciseParams = (e) => {
     e.preventDefault();
-    console.log('exercise details', exerciseDetails);
+    // console.log('exercise details', exerciseDetails);
     const entries = Object.entries(exerciseDetails);
-    console.log('entries', entries);
+    // console.log('entries', entries);
     const key = entries[0][1];
     const value = entries[1][1];
     setCompleteExerciseDetails({
@@ -63,7 +61,7 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
       ...standardDeviation,
       [key]: Number(stdValue),
     });
-    console.log('std Deviation', standardDeviation);
+    // console.log('std Deviation', standardDeviation);
   };
 
   const [reps, setReps] = useState(0);
@@ -96,11 +94,9 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
     loading: loadingGetMultiplePatients,
     error: errorGetMultiplePatients,
   } = useSelector((state) => state.doctorGetMultiplePatients);
-  const {
-    updateDetails,
-    loading: loadingDoctorUpdatePatientExercise,
-    error: errorDoctorUpdatePatientExercise,
-  } = useSelector((state) => state.doctorUpdatePatientExercise);
+  const { updateDetails } = useSelector(
+    (state) => state.doctorUpdatePatientExercise
+  );
 
   const getPatientDetails = (e) => {
     e.preventDefault();
@@ -152,7 +148,7 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
       instructions: instructions.split(';'),
       sessionStats: [],
     };
-    console.log(details);
+    // console.log(details);
     dispatch(updateTheExercise(details));
     history.push('/doctor-dashboard');
   };
@@ -259,6 +255,7 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
             <tbody>
               {exercises &&
                 updateDetails.pendingExercises.map((singlePendingExercise) => {
+                  // eslint-disable-next-line array-callback-return
                   return exercises.map((ex, idx) => {
                     if (singlePendingExercise.exerciseId === ex._id) {
                       return (
@@ -270,7 +267,6 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
                               .substring(0, 10)}
                           </td>
                           <td>{singlePendingExercise.assignedDate}</td>
-                          {console.log(ex.name)}
                         </tr>
                       );
                     }
@@ -369,7 +365,6 @@ const DoctorUpdatePatientExerciseScreen = ({ history }) => {
                   </option>
                   {bodyPartsRef.map((option, idx) => (
                     <option key={idx} value={option}>
-                      {/* {console.log(option.split('_').join(' ').toUpperCase())} */}
                       {option.split('_').join(' ').toUpperCase()}
                     </option>
                   ))}

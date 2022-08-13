@@ -7,10 +7,7 @@ import BarChart from '../components/charts/BarChart';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 
-import {
-  generateStatistics,
-  generateStatisticsOptimized,
-} from '../utlities/utilities.js';
+import { generateStatisticsOptimized } from '../utlities/utilities.js';
 
 import './css/PatientStatsScreen.css';
 const PatientStatsScreen = () => {

@@ -6,7 +6,7 @@ import Loader from '../components/Loader';
 import Error from '../components/Error';
 
 import './css/PatientSendMessageScreen.css';
-import Information from '../components/Information';
+
 const PatientSendMessageScreen = ({ history }) => {
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');

@@ -223,7 +223,7 @@ export const checkMedicalRecord = asyncHandler(async (req, res) => {
 export const getPatientByID = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const user = await User.findOne({ _id: id });
-  console.log(user);
+  // console.log(user);
   if (user) {
     const patientDetails = await Patient.findOne({ bio: user._id });
     if (patientDetails) {
@@ -267,14 +267,14 @@ export const updatePatientExercise = asyncHandler(async (req, res) => {
     const filteredExercises = recordExists.assignedExercises.filter(
       (ex) => ex.assignedDate !== details.exerciseReference
     );
-    console.log('filtered ones', filteredExercises);
-    console.log('length', filteredExercises.length);
-    console.log('new', newExercises[0]);
+    // console.log('filtered ones', filteredExercises);
+    // console.log('length', filteredExercises.length);
+    // console.log('new', newExercises[0]);
     filteredExercises.push(newExercises[0]);
-    console.log('filtered ones', filteredExercises);
+    // console.log('filtered ones', filteredExercises);
 
     recordExists.assignedExercises = [...filteredExercises];
-    console.log('final', recordExists.assignedExercises);
+    // console.log('final', recordExists.assignedExercises);
     const updatedExercises = await recordExists.save();
     res.json({ updatedExercises });
   } else {
@@ -307,14 +307,14 @@ export const deletePatientExercise = asyncHandler(async (req, res) => {
     const filteredExercises = recordExists.assignedExercises.filter(
       (ex) => ex.assignedDate !== details.exerciseReference
     );
-    console.log('filtered ones', filteredExercises);
-    console.log('length', filteredExercises.length);
+    // console.log('filtered ones', filteredExercises);
+    // console.log('length', filteredExercises.length);
     // console.log('new', newExercises[0]);
     // filteredExercises.push(newExercises[0]);
-    console.log('filtered ones', filteredExercises);
+    // console.log('filtered ones', filteredExercises);
 
     recordExists.assignedExercises = [...filteredExercises];
-    console.log('final', recordExists.assignedExercises);
+    // console.log('final', recordExists.assignedExercises);
     const updatedExercises = await recordExists.save();
     res.json({ updatedExercises });
   } else {
