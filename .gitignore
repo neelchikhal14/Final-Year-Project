@@ -6,24 +6,24 @@
 
 
 # dependencies
-exercisely-frontend/node_modules
-exercisely-frontend/.pnp
-exercisely-frontend/.pnp.js
+/exercisely-frontend/node_modules
+/exercisely-frontend/.pnp
+/exercisely-frontend/.pnp.js
 
 # testing
-exercisely-frontend/coverage
+/exercisely-frontend/coverage
 
 # production
-exercisely-frontend/build
+/exercisely-frontend/build
 
 # misc
 .env
-exercisely-frontend/.DS_Store
+/exercisely-frontend/.DS_Store
 exercisely-frontend/.env.local
-exercisely-frontend/.env.development.local
-exercisely-frontend/.env.test.local
-exercisely-frontend/.env.production.local
+/exercisely-frontend/.env.development.local
+/exercisely-frontend/.env.test.local
+/exercisely-frontend/.env.production.local
 
-exercisely-frontend/npm-debug.log*
-exercisely-frontend/yarn-debug.log*
-exercisely-frontend/yarn-error.log*
+/exercisely-frontend/npm-debug.log*
+/exercisely-frontend/yarn-debug.log*
+/exercisely-frontend/yarn-error.log*
