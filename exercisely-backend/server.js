@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 
@@ -28,15 +29,25 @@ app.use('/api/v1/exercise', exerciseRoutes);
 app.use('/api/v1/doctor', doctorRoutes);
 app.use('/api/v1/patient', patientRoutes);
 
+const __dirname = path.resolve();
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/exercisely-frontend/build')));
+  app.get('*', (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, 'exercisely-frontend', 'build', 'index.html')
+    )
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running');
+  });
+}
+
 //fallback for 404 errors - not found
 app.use(notFound);
 
 //error middleware
 app.use(errorHandler);
-
-app.get('/', (req, res) => {
-  res.send('API is running');
-});
 
 app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
