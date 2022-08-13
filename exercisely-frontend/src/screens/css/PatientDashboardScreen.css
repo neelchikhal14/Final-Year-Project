@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 95vw;
 }
 .banner {
   width: 90vw;
@@ -110,6 +111,34 @@
     text-align: center;
     font-size: 0.5rem;
     line-height: 1;
+  }
+  .banner-info > select {
+    width: 80%;
+    background-color: white;
+    height: 20px;
+    border-radius: 0.25rem;
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (min-width: 401px) and (max-width: 850px) {
+  .banner-info h4 {
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+  .banner-info h3 {
+    font-size: 0.8rem;
+    line-height: 0.2;
+  }
+  .banner-info h2 {
+    font-size: 1rem;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .patient-functionality-button {
+    width: 20vw;
+    height: 5vw;
+    font-size: 0.5rem;
   }
   .banner-info > select {
     width: 80%;

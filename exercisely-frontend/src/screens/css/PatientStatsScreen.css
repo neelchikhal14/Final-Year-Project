@@ -85,7 +85,7 @@
 }
 
 /* responsive design */
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 912px) {
   .patient-stat-screen-container {
     width: 95vw;
   }

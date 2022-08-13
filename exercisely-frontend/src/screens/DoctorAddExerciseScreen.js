@@ -148,6 +148,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
 
   return (
     <div className='add-exercises-container'>
+      <h2>Add Exercises For the Patient</h2>
       {loadingGetMultiplePatients && <Loader />}
       {errorGetMultiplePatients && (
         <Error>
@@ -213,7 +214,7 @@ const DoctorAddExerciseScreen = ({ history }) => {
             className='get-ref-num-input'
             onChange={(e) => setReferenceNumber(e.target.value)}
           />
-          <button type='submit' className='setPatient'>
+          <button type='submit' className='set-patient-button'>
             Set Patient
           </button>
         </form>

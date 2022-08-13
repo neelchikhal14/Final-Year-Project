@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.add-exercises-container > h2 {
+  color: var(--primary-green);
+  margin-bottom: 10px;
+}
+
 .get-patient-details-section,
 .check-patient-medical-record,
 .exercise-section,
@@ -99,7 +104,7 @@
 .create-medical-record-button,
 .set-angle-button,
 .set-exercise-button,
-.setPatient {
+.set-patient-button {
   background-color: black;
   height: 36px;
   width: 126px;
@@ -246,7 +251,22 @@
 }
 
 /* responsive design */
-@media only screen and (max-width: 400px) {
+
+@media only screen and (max-width: 699px) {
+  .add-exercises-container > h2 {
+    text-align: center;
+  }
+  .finalize-patient-section {
+    width: 90%;
+  }
+  .finalize-patient-section > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .finalize-patient-section > form > input {
+    width: 100%;
+  }
   .get-patient-form {
     display: flex;
     flex-direction: column;
@@ -255,7 +275,8 @@
   .check-medical-record-button,
   .set-angle-button,
   .set-exercise-button,
-  .create-medical-record-button {
+  .create-medical-record-button,
+  .set-patient-button {
     background-color: black;
     height: 10vw;
     width: 28vw;
@@ -311,5 +332,65 @@
     width: 95%;
     height: 20vh;
     font-size: 0.8rem;
+  }
+  .patient-reference-section > table {
+    width: 90vw;
+  }
+
+  .patient-reference-section > table {
+    font-size: 0.64rem;
+  }
+  .patient-reference-section > table > tbody > tr > td {
+    font-size: 0.64rem;
+  }
+}
+
+@media only screen and (min-width: 460px) and (max-width: 699px) {
+  .get-patient-form .get-patient-button,
+  .check-medical-record-button,
+  .set-angle-button,
+  .set-exercise-button,
+  .create-medical-record-button,
+  .set-patient-button {
+    height: 6vw;
+    width: 20vw;
+  }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 835px) {
+  .get-patient-form .get-patient-button,
+  .check-medical-record-button,
+  .set-angle-button,
+  .set-exercise-button,
+  .create-medical-record-button,
+  .set-patient-button {
+    background-color: black;
+    height: 4.5vw;
+    width: 17vw;
+    font-size: 0.7rem;
+    margin: 5px;
+  }
+  .patient-reference-section > table {
+    font-size: 0.64rem;
+  }
+  .patient-reference-section > table > tbody > tr > td {
+    font-size: 0.64rem;
+  }
+  .finalize-exercise-section {
+    width: 90%;
+  }
+  .finalize-exercise-section > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .finalize-exercise-section > form > input {
+    width: 70%;
+  }
+  .finalize-exercise-section > form > label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    margin: 10px;
   }
 }

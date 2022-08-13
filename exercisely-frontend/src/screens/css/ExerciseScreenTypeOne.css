@@ -117,17 +117,16 @@
   font-weight: 700;
 }
 /* responsive design */
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 912px) {
   .exercise-section {
     display: flex;
-    flex-direction: column;
+
     align-items: center;
     width: 97vw;
     overflow-x: hidden;
     justify-content: center;
   }
   .media {
-    position: relative;
     width: 390px !important;
     height: 380px !important;
   }
@@ -153,7 +152,6 @@
   .exercise-info {
     display: flex;
     flex-direction: column;
-
     width: 97vw;
   }
   .exercise-complete-banner,

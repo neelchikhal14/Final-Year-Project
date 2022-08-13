@@ -88,3 +88,11 @@ textarea[name='qualification'] {
     width: 40%;
   }
 }
+@media only screen and (min-width: 401px) and (max-width: 655px) {
+  .gender {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}

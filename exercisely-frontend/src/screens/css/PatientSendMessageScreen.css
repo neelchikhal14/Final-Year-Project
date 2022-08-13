@@ -67,7 +67,7 @@
 }
 
 /* responsive design */
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 912px) {
   .send-message-container {
     width: 90%;
     margin: auto;

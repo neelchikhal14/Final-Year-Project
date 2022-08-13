@@ -86,7 +86,14 @@
 }
 
 /* responsive design */
+
 @media only screen and (max-width: 400px) {
+  .home-main-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
   .home-title-tag > h1 {
     font-size: 25px;
   }

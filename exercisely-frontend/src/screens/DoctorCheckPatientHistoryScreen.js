@@ -74,6 +74,9 @@ const DoctorCheckPatientHistoryScreen = () => {
   }, [completeExerciseDetails]);
   return (
     <div className='patient-history-container'>
+      <h2 id='patient-history-page-title'>
+        Check Patient History and Progress
+      </h2>
       {loadingDoctorGetPatientHistory && <Loader />}
       {errorDoctorGetPatientHistory && (
         <Error>
@@ -136,7 +139,7 @@ const DoctorCheckPatientHistoryScreen = () => {
             className='get-ref-num-input'
             onChange={(e) => setReferenceNumber(e.target.value)}
           />
-          <button type='submit' className='setPatient'>
+          <button type='submit' className='get-patient-history'>
             Get History
           </button>
         </form>
@@ -197,7 +200,7 @@ const DoctorCheckPatientHistoryScreen = () => {
                 <h3>{errorPatientGetExerciseStat}</h3>
               </Error>
             )}
-            <h1>Statistics Screen</h1>
+            <h2 id='patient-progress'>Check Patient Progress</h2>
             <section className='date-range-form'>
               <form onSubmit={dateSubmitHandler} className='date-form'>
                 <label htmlFor='fromDate'>From Date:</label>
