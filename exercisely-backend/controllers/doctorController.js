@@ -23,10 +23,10 @@ export const registerDoctor = asyncHandler(async (req, res) => {
 
   const doctorDetailsAlreadyExists = await Doctor.findOne({ bio });
 
-  // if (doctorDetailsAlreadyExists) {
-  //   res.status(401);
-  //   throw new Error('Details Already Exists');
-  // }
+  if (doctorDetailsAlreadyExists) {
+    res.status(401);
+    throw new Error('Details Already Exists');
+  }
 
   const doctor = await Doctor.create({
     bio,

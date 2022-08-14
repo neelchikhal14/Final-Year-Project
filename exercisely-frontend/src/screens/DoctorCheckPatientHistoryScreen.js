@@ -149,7 +149,7 @@ const DoctorCheckPatientHistoryScreen = () => {
           <div className='patient-details-container'>
             <div className='patient-avatar'>
               <img
-                src='./images/female-profile.png'
+                src='./images/male-profile.png'
                 alt='patient'
                 height='300px'
                 width='300px'
